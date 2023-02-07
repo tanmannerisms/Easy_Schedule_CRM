@@ -5,6 +5,6 @@ module com.easyschedule.wgu_c195 {
     requires mysql.connector.j;
 
 
-    opens com.easyschedule.wgu_c195 to javafx.fxml;
-    exports com.easyschedule.wgu_c195;
+    opens com.easyschedule to javafx.fxml;
+    exports com.easyschedule;
 }

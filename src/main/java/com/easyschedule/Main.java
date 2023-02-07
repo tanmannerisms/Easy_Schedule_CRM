@@ -1,6 +1,6 @@
-package com.easyschedule.wgu_c195;
+package com.easyschedule;
 
-import com.utilities.wgu_c195.JDBC;
+import com.utilities.JDBC;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
