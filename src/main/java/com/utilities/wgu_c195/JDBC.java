@@ -1,4 +1,4 @@
-package com.connection.wgu_c195;
+package com.utilities.wgu_c195;
 
 import java.sql.DriverManager;
 import java.sql.Connection;
