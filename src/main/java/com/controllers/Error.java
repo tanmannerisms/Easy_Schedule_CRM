@@ -6,11 +6,11 @@ import javafx.scene.text.Text;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ErrorController extends Controller implements Initializable {
+public class Error extends Controller implements Initializable {
     @FXML
     private Text errorTextField;
     private String errorMessage = "Error! Please try again.";
-    public ErrorController(){
+    public Error(){
         super();
     }
 

@@ -1,6 +1,6 @@
 package com.window;
 
-import com.controllers.ErrorController;
+import com.controllers.Error;
 
 public class ErrorWindow extends Window{
 
@@ -14,7 +14,7 @@ public class ErrorWindow extends Window{
      */
     public ErrorWindow(Exception e) {
         super(file, title);
-        ErrorController controller = fxmlLoader.getController();
+        Error controller = fxmlLoader.getController();
         controller.setErrorTextField(e.getMessage());
         e.printStackTrace();
     }
@@ -27,7 +27,7 @@ public class ErrorWindow extends Window{
      */
     public ErrorWindow(String errorMessage) {
         super(file, title);
-        ErrorController controller = fxmlLoader.getController();
+        Error controller = fxmlLoader.getController();
         controller.setErrorTextField(errorMessage);
     }
 }
