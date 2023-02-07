@@ -6,4 +6,8 @@ module com.easyschedule.wgu_c195 {
 
     opens com.easyschedule to javafx.fxml;
     exports com.easyschedule;
+    exports com.window;
+    opens com.window to javafx.fxml;
+    exports com.controllers;
+    opens com.controllers to javafx.fxml;
 }

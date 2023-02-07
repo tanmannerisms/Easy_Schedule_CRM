@@ -1,4 +1,4 @@
-package com.easyschedule;
+package com.window;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -56,7 +56,7 @@ public class Window {
     /**
      * Useful method to call for opening the new window while keeping the stage private.
      */
-    protected void showWindowAndWait() {
+    public void showWindowAndWait() {
         stage.showAndWait();
     }
 }
