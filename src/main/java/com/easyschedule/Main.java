@@ -1,6 +1,6 @@
 package com.easyschedule;
 
-import com.utilities.JDBC;
+import com.utils.JDBC;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
