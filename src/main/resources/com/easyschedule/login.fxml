@@ -1,53 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.controllers.Login"
-            prefHeight="400.0" prefWidth="200.0">
-    <GridPane AnchorPane.topAnchor="50" prefHeight="300" >
+<AnchorPane prefHeight="300.0"
+            prefWidth="225.0"
+            xmlns="http://javafx.com/javafx/17.0.2-ea"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.controllers.Login">
+    <GridPane AnchorPane.topAnchor="0" prefWidth="225.0" >
         <columnConstraints>
-            <ColumnConstraints hgrow="sometimes" />
             <ColumnConstraints hgrow="sometimes" />
         </columnConstraints>
         <rowConstraints>
-            <RowConstraints vgrow="SOMETIMES" prefHeight="100" />
-            <RowConstraints vgrow="SOMETIMES" prefHeight="100" />
-            <RowConstraints vgrow="SOMETIMES" prefHeight="100" />
+            <RowConstraints prefHeight="50" vgrow="SOMETIMES" />
+            <RowConstraints prefHeight="50" vgrow="SOMETIMES" />
+            <RowConstraints prefHeight="50" vgrow="SOMETIMES" />
+            <RowConstraints prefHeight="50" vgrow="SOMETIMES" />
+            <RowConstraints prefHeight="50" vgrow="SOMETIMES" />
+            <RowConstraints prefHeight="50" vgrow="SOMETIMES" />
         </rowConstraints>
-        <Label text="Login"
-               GridPane.columnIndex="0"
-               GridPane.rowIndex="0" >
-            <font>
-                <Font name="System Bold" size="16.0" />
-            </font>
-        </Label>
-        <Label text="Username:"
-               GridPane.columnIndex="0"
-               GridPane.rowIndex="1" >
-            <font>
-                <Font name="System Regular" size="14" />
-            </font>
-        </Label>
-        <TextField promptText="Username"
-                   fx:id="userNameField"
-                   GridPane.columnIndex="1"
-                   GridPane.rowIndex = "1" />
-        <Label text="Password"
-               GridPane.columnIndex="0"
-               GridPane.rowIndex="2" >
-            <font>
-                <Font name="System Regular" size="14" />
-            </font>
-        </Label>
-        <TextField promptText="Password"
-                   fx:id="passwordField"
-                   GridPane.columnIndex="1"
-                   GridPane.rowIndex="2"
-        />
+        <AnchorPane GridPane.columnIndex="0" GridPane.rowIndex="0">
+            <Label text="Login" >
+                <font>
+                    <Font name="System Bold" size="24.0" />
+                </font>
+            </Label>
+        </AnchorPane>
+        <AnchorPane GridPane.columnIndex="0" GridPane.rowIndex="1">
+            <Label text="Username" >
+                <font>
+                    <Font name="System Regular" size="14" />
+                </font>
+            </Label>
+        </AnchorPane>
+        <AnchorPane GridPane.columnIndex="0" GridPane.rowIndex="2">
+            <TextField fx:id="userNameField" promptText="Username" />
+        </AnchorPane>
+        <AnchorPane GridPane.columnIndex="0" GridPane.rowIndex="3">
+            <Label text="Password" GridPane.columnIndex="0" GridPane.rowIndex="3">
+                <font>
+                    <Font name="System Regular" size="14" />
+                </font>
+            </Label>
+        </AnchorPane>
+        <AnchorPane GridPane.columnIndex="0" GridPane.rowIndex="4">
+            <TextField fx:id="passwordField" promptText="Password" />
+        </AnchorPane>
+      <AnchorPane GridPane.rowIndex="5" >
+          <ButtonBar prefWidth="225.0" AnchorPane.topAnchor="0" >
+              <buttons>
+                  <Button text="Login" prefWidth="50" ButtonBar.buttonData="RIGHT" />
+                  <Button text="Cancel" prefWidth="50" ButtonBar.buttonData="LEFT" />
+              </buttons>
+          </ButtonBar>
+      </AnchorPane>
     </GridPane>
 </AnchorPane>
