@@ -4,6 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
+<?import javafx.geometry.Insets?>
 <AnchorPane prefHeight="300.0"
             prefWidth="225.0"
             xmlns="http://javafx.com/javafx/17.0.2-ea"
@@ -21,6 +22,9 @@
             <RowConstraints prefHeight="50" vgrow="SOMETIMES" />
             <RowConstraints prefHeight="50" vgrow="SOMETIMES" />
         </rowConstraints>
+        <padding>
+            <Insets left="15" top="15" right="15" bottom="15" />
+        </padding>
         <AnchorPane GridPane.columnIndex="0" GridPane.rowIndex="0">
             <Label text="Login" >
                 <font>
@@ -29,7 +33,7 @@
             </Label>
         </AnchorPane>
         <AnchorPane GridPane.columnIndex="0" GridPane.rowIndex="1">
-            <Label text="Username" >
+            <Label text="Username" AnchorPane.bottomAnchor="7" >
                 <font>
                     <Font name="System Regular" size="14" />
                 </font>
@@ -39,7 +43,7 @@
             <TextField fx:id="userNameField" promptText="Username" />
         </AnchorPane>
         <AnchorPane GridPane.columnIndex="0" GridPane.rowIndex="3">
-            <Label text="Password" GridPane.columnIndex="0" GridPane.rowIndex="3">
+            <Label text="Password" AnchorPane.bottomAnchor="7" >
                 <font>
                     <Font name="System Regular" size="14" />
                 </font>

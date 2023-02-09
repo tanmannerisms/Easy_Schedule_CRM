@@ -4,6 +4,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import java.io.IOException;
+import com.easyschedule.Main;
 
 public class Window {
     private final String fxmlFile;
@@ -17,10 +18,10 @@ public class Window {
      * @param file is the file name that you want to open.
      * @param title is the title of the window.
      */
-    Window(String file, String title) {
+    public Window(String file, String title) {
         fxmlFile = file;
         windowTitle = title;
-        fxmlLoader = new FXMLLoader(getClass().getResource(fxmlFile));
+        fxmlLoader = new FXMLLoader(Main.class.getResource(fxmlFile));
         setScene();
         setStage();
     }
@@ -49,7 +50,7 @@ public class Window {
     /**
      * Useful method to call for opening the new window while keeping the stage private.
      */
-    protected void showWindow() {
+    public void showWindow() {
         stage.show();
     }
 
