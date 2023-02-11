@@ -1,14 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.easyschedule.Login"
-            prefHeight="400.0" prefWidth="600.0">
-
+<?import javafx.geometry.Insets?>
+<AnchorPane prefHeight="300.0"
+            prefWidth="225.0"
+            xmlns="http://javafx.com/javafx/17.0.2-ea"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.controllers.Login">
+    <GridPane AnchorPane.topAnchor="0" prefWidth="225.0" >
+        <columnConstraints>
+            <ColumnConstraints hgrow="sometimes" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints prefHeight="50" vgrow="SOMETIMES" />
+            <RowConstraints prefHeight="50" vgrow="SOMETIMES" />
+            <RowConstraints prefHeight="50" vgrow="SOMETIMES" />
+            <RowConstraints prefHeight="50" vgrow="SOMETIMES" />
+            <RowConstraints prefHeight="50" vgrow="SOMETIMES" />
+            <RowConstraints prefHeight="50" vgrow="SOMETIMES" />
+        </rowConstraints>
+        <padding>
+            <Insets left="15" top="15" right="15" bottom="15" />
+        </padding>
+        <AnchorPane GridPane.columnIndex="0" GridPane.rowIndex="0">
+            <Label text="Login" >
+                <font>
+                    <Font name="System Bold" size="24.0" />
+                </font>
+            </Label>
+        </AnchorPane>
+        <AnchorPane GridPane.columnIndex="0" GridPane.rowIndex="1">
+            <Label text="Username" AnchorPane.bottomAnchor="7" >
+                <font>
+                    <Font name="System Regular" size="14" />
+                </font>
+            </Label>
+        </AnchorPane>
+        <AnchorPane GridPane.columnIndex="0" GridPane.rowIndex="2">
+            <TextField fx:id="userNameField" promptText="Username" />
+        </AnchorPane>
+        <AnchorPane GridPane.columnIndex="0" GridPane.rowIndex="3">
+            <Label text="Password" AnchorPane.bottomAnchor="7" >
+                <font>
+                    <Font name="System Regular" size="14" />
+                </font>
+            </Label>
+        </AnchorPane>
+        <AnchorPane GridPane.columnIndex="0" GridPane.rowIndex="4">
+            <TextField fx:id="passwordField" promptText="Password" />
+        </AnchorPane>
+      <AnchorPane GridPane.rowIndex="5" >
+          <ButtonBar prefWidth="225.0" AnchorPane.topAnchor="0" >
+              <buttons>
+                  <Button text="Login" prefWidth="50" ButtonBar.buttonData="RIGHT" />
+                  <Button text="Cancel" prefWidth="50" ButtonBar.buttonData="LEFT" />
+              </buttons>
+          </ButtonBar>
+      </AnchorPane>
+    </GridPane>
 </AnchorPane>
