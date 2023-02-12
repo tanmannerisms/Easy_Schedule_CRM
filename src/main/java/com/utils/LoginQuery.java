@@ -8,12 +8,14 @@ public abstract class LoginQuery extends Query{
 
     public static String select(String userName) {
         ResultSet resultSet;
-        String sql = "SELECT Password FROM users WHERE User_Name = '?'";
+        String sql = "SELECT Password FROM users WHERE User_Name = ?";
         try {
             PreparedStatement statement = JDBC.connection.prepareStatement(sql);
             statement.setString(1, userName);
             resultSet = statement.executeQuery();
-            return resultSet.getString("Password");
+            if (resultSet.next()) {
+                return resultSet.getString("Password");
+            }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
