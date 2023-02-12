@@ -50,7 +50,7 @@
             </Label>
         </AnchorPane>
         <AnchorPane GridPane.columnIndex="0" GridPane.rowIndex="4">
-            <TextField fx:id="passwordField" promptText="Password" />
+            <PasswordField fx:id="passwordField" promptText="Password" />
         </AnchorPane>
       <AnchorPane GridPane.rowIndex="5" >
           <ButtonBar prefWidth="225.0" AnchorPane.topAnchor="0" >

@@ -2,6 +2,7 @@ package com.controllers;
 
 import com.utils.LoginQuery;
 import javafx.fxml.FXML;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 import java.sql.SQLException;
@@ -9,7 +10,9 @@ import java.sql.SQLException;
 public class Login extends Controller{
     private String validUsername, validPassword, inputUsername, inputPassword;
     @FXML
-    private TextField userNameField, passwordField;
+    private TextField userNameField;
+    @FXML
+    private PasswordField passwordField;
     @FXML
     private void validateCredentials() {
         inputUsername = userNameField.getText();
