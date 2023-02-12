@@ -5,7 +5,7 @@ import com.controllers.Error;
 public class ErrorWindow extends Window{
 
     private static final String title = "Error!";
-    private static final String file = "input-error.fxml";
+    private static final String file = "notify.fxml";
 
     /**
      * The constructor used for instantiating a window to display an error message to the user.
