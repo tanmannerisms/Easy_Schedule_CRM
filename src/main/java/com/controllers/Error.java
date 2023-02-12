@@ -29,8 +29,8 @@ public class Error extends Controller implements Initializable {
      * Sets the error message of the window after initialization.
      *
      * @param text the error message to set.
-     * @see ErrorWindow#ErrorWindow(String)  ErrorWindow
-     * @see ErrorWindow#ErrorWindow(Exception)  ErrorWindow
+     * @see com.window.ErrorWindow#ErrorWindow(String)  ErrorWindow
+     * @see com.window.ErrorWindow#ErrorWindow(Exception)  ErrorWindow
      */
     public void setErrorTextField(String text) {
         errorMessage = text;

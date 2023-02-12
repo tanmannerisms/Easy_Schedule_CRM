@@ -11,13 +11,12 @@ public class Main extends Application {
     public void start(Stage stage) throws Exception {
         JDBC.openConnection();
 
-        System.out.println(LoginQuery.select("test"));
-
-/*
         Window login = new Window("login.fxml", "Login Page");
         login.showWindow();
-*/
 
+    }
+    @Override
+    public void stop() {
         JDBC.closeConnection();
     }
 }
