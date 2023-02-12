@@ -11,7 +11,7 @@ public class Login extends Controller{
     @FXML
     private TextField userNameField, passwordField;
     @FXML
-    private void validateCreds() {
+    private void validateCredentials() {
         inputUsername = userNameField.getText();
         inputPassword = passwordField.getText();
         if (validateUsername() && validatePassword()) {
