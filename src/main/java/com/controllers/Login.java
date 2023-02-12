@@ -12,7 +12,7 @@ public class Login extends Controller{
     private boolean validateCreds() {
         username = userNameField.getText();
         password = passwordField.getText();
-        if (password.equals(LoginQuery.select(username))) {
+        if (password.equals(LoginQuery.getPassword(username))) {
             openNotifyWindow("Password is correct");
             return true;
         }

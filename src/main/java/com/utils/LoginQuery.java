@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public abstract class LoginQuery extends Query{
 
-    public static String select(String userName) {
+    public static String getPassword(String userName) {
         ResultSet resultSet;
         String sql = "SELECT Password FROM users WHERE User_Name = ?";
         try {
@@ -20,6 +20,9 @@ public abstract class LoginQuery extends Query{
             System.out.println(e.getMessage());
         }
         return null;
+    }
+    public static String getUsername(String userName) {
+
     }
     public int insert() {
         return 0;
