@@ -14,14 +14,22 @@ public class Login extends Controller{
     private TextField userNameField;
     @FXML
     private PasswordField passwordField;
+
     @FXML
-    private void validateCredentials(ActionEvent actionEvent) {
-        inputUsername = userNameField.getText();
-        inputPassword = passwordField.getText();
-        if (validateUsername() && validatePassword()) {
+    private void login(ActionEvent actionEvent) {
+        if (validateCredentials(actionEvent)) {
             openNotifyWindow("Creds are correct", actionEvent);
         }
         else openNotifyWindow("Username or password incorrect", actionEvent);
+    }
+    @FXML
+    private boolean validateCredentials(ActionEvent actionEvent) {
+        inputUsername = userNameField.getText();
+        inputPassword = passwordField.getText();
+        if (validateUsername() && validatePassword()) {
+            return true;
+        }
+        else return false;
     }
     private boolean validateUsername() {
         try {
