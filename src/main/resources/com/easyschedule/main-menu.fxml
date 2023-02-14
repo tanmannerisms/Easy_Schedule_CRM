@@ -6,14 +6,14 @@
 <?import javafx.scene.text.*?>
 
 <VBox minHeight="500"
-      minWidth="900"
+      minWidth="450"
       prefHeight="500"
-      prefWidth="900"
+      prefWidth="450"
       xmlns="http://javafx.com/javafx/11.0.14-internal"
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="com.controllers.MainMenu" >
-    <AnchorPane minHeight="-Infinity" prefHeight="75.0" prefWidth="900.0">
-        <Label layoutX="14.0" layoutY="24.0" text="Inventory Management">
+    <AnchorPane minHeight="-Infinity" prefHeight="75.0" prefWidth="450.0">
+        <Label layoutX="14.0" layoutY="24.0" text="Scheduling Management">
             <font>
                 <Font name="System Bold" size="20.0" />
             </font>
@@ -22,7 +22,7 @@
             <Insets bottom="28.0" top="28.0" />
         </padding>
     </AnchorPane>
-    <AnchorPane minHeight="425.0" minWidth="900.0">
+    <AnchorPane minHeight="425.0" minWidth="450.0">
         <VBox AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <AnchorPane minHeight="375" minWidth="450" prefHeight="375.0" prefWidth="450.0">
                 <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="0.0">
@@ -35,7 +35,7 @@
                         <RowConstraints minHeight="-Infinity" prefHeight="285.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="-Infinity" prefHeight="45.0" vgrow="SOMETIMES" />
                     </rowConstraints>
-                    <Label text="Appointments" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                    <Label text="Customers" GridPane.columnIndex="0" GridPane.rowIndex="0">
                         <font>
                             <Font name="System Bold" size="16.0" />
                         </font>
