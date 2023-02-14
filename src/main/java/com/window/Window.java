@@ -9,10 +9,10 @@ import java.io.IOException;
 import com.easyschedule.Main;
 
 public class Window {
-    private final String fxmlFile;
-    private final String windowTitle;
+    private String fxmlFile;
+    private String windowTitle;
     protected Stage stage;
-    protected final FXMLLoader fxmlLoader;
+    protected FXMLLoader fxmlLoader;
     private Scene scene;
 
     /**
@@ -26,6 +26,21 @@ public class Window {
         fxmlLoader = new FXMLLoader(Main.class.getResource(fxmlFile));
         setScene();
         setStage();
+    }
+
+    /**
+     * Used for keeping the current window and changing the scene
+     *
+     * @param file the file to set the new scene to
+     * @param title the title to set the new scene to.
+     */
+    public void changeScene(String file, String title) {
+        fxmlFile = file;
+        windowTitle = title;
+        fxmlLoader = new FXMLLoader(Main.class.getResource(fxmlFile));
+        setScene();
+        stage.setTitle(windowTitle);
+        stage.setScene(scene);
     }
 
     /**
@@ -63,7 +78,7 @@ public class Window {
     public void showWindowAndWait() {
         stage.showAndWait();
     }
-    protected Stage getParentWindow(ActionEvent actionEvent) {
+    protected static Stage getParentWindow(ActionEvent actionEvent) {
         Button button = (Button) actionEvent.getSource();
         return (Stage) button.getScene().getWindow();
     }
