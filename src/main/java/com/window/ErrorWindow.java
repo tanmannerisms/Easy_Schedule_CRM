@@ -23,11 +23,11 @@ public class ErrorWindow extends Window{
      * Alternate constructor for generating notification messages. Can be useful for when an error needs to be thrown,
      * but with no legitimate exception
      *
-     * @param errorMessage the string that will be used when displaying the error window. .
+     * @param message the string that will be used when displaying the error window. .
      */
-    public ErrorWindow(String errorMessage) {
+    public ErrorWindow(String message) {
         super(file, title);
         Error controller = fxmlLoader.getController();
-        controller.setErrorTextField(errorMessage);
+        controller.setErrorTextField(message);
     }
 }

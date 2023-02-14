@@ -55,7 +55,8 @@ public class Window {
     }
 
     /**
-     * Useful method to call for opening the new window while keeping the stage private.
+     * Useful method to call for opening the new window while keeping the stage private. Stops current thread of parent
+     * Window from running.
      */
     public void showWindowAndWait() {
         stage.showAndWait();
