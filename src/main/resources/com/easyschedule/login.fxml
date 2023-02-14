@@ -55,7 +55,7 @@
       <AnchorPane GridPane.rowIndex="5" >
           <ButtonBar prefWidth="225.0" AnchorPane.topAnchor="0" >
               <buttons>
-                  <Button text="Login" onAction="#validateCredentials" prefWidth="50" ButtonBar.buttonData="RIGHT" />
+                  <Button text="Login" onAction="#login" prefWidth="50" ButtonBar.buttonData="RIGHT" />
                   <Button text="Cancel" onAction="#closeWindow" prefWidth="50" ButtonBar.buttonData="LEFT" />
               </buttons>
           </ButtonBar>
