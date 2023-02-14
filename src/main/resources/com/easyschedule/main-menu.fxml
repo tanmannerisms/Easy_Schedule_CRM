@@ -32,8 +32,8 @@
             </Button>
         </AnchorPane>
         <AnchorPane prefHeight="90" prefWidth="225.0">
-            <Button text="Appointments"
-                    onAction="#openAppointments"
+            <Button text="Calendar"
+                    onAction="#openCalendar"
                     prefWidth="150"
                     prefHeight="50"
                     AnchorPane.topAnchor="15"
