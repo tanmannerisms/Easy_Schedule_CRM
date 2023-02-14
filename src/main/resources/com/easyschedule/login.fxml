@@ -56,7 +56,7 @@
           <ButtonBar prefWidth="225.0" AnchorPane.topAnchor="0" >
               <buttons>
                   <Button text="Login" onAction="#validateCredentials" prefWidth="50" ButtonBar.buttonData="RIGHT" />
-                  <Button text="Cancel" prefWidth="50" ButtonBar.buttonData="LEFT" />
+                  <Button text="Cancel" onAction="#closeWindow" prefWidth="50" ButtonBar.buttonData="LEFT" />
               </buttons>
           </ButtonBar>
       </AnchorPane>
