@@ -5,6 +5,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+import com.window.Window;
 
 import java.sql.SQLException;
 
@@ -18,7 +20,8 @@ public class Login extends Controller{
     @FXML
     private void login(ActionEvent actionEvent) {
         if (validateCredentials(actionEvent)) {
-            openNotifyWindow("Creds are correct", actionEvent);
+            Stage stage = Window.getParentWindow(actionEvent);
+            Window.changeScene(stage, "main-menu.fxml", "Main Menu");
         }
         else openNotifyWindow("Username or password incorrect", actionEvent);
     }

@@ -29,21 +29,6 @@ public class Window {
     }
 
     /**
-     * Used for keeping the current window and changing the scene
-     *
-     * @param file the file to set the new scene to
-     * @param title the title to set the new scene to.
-     */
-    public void changeScene(String file, String title) {
-        fxmlFile = file;
-        windowTitle = title;
-        fxmlLoader = new FXMLLoader(Main.class.getResource(fxmlFile));
-        setScene();
-        stage.setTitle(windowTitle);
-        stage.setScene(scene);
-    }
-
-    /**
      * Useful for reusing the code to set the scene without consistently typing the try... catch.. statement.
      */
     private void setScene() {
@@ -78,8 +63,27 @@ public class Window {
     public void showWindowAndWait() {
         stage.showAndWait();
     }
-    protected static Stage getParentWindow(ActionEvent actionEvent) {
+    public static Stage getParentWindow(ActionEvent actionEvent) {
         Button button = (Button) actionEvent.getSource();
         return (Stage) button.getScene().getWindow();
+    }
+
+    /**
+     * Used for keeping the current window and changing the scene
+     *
+     * @param file the file to set the new scene to
+     * @param title the title to set the new scene to.
+     */
+    public static void changeScene(Stage currStage, String file, String title) {
+        FXMLLoader fxml = new FXMLLoader(Main.class.getResource(file));
+        Scene nextScene;
+        try {
+            nextScene = new Scene(fxml.load());
+            currStage.setTitle(title);
+            currStage.setScene(nextScene);
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("XML file " + fxml + " could not be loaded");
+        }
     }
 }
