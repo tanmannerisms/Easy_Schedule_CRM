@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import java.io.IOException;
 import com.easyschedule.Main;
@@ -60,7 +61,9 @@ public class Window {
      * Useful method to call for opening the new window while keeping the stage private. Stops current thread of parent
      * Window from running.
      */
-    public void showWindowAndWait() {
+    public void showWindowAndWait(ActionEvent actionEvent) {
+        stage.initOwner(getParentWindow(actionEvent));
+        stage.initModality(Modality.WINDOW_MODAL);
         stage.showAndWait();
     }
     public static Stage getParentWindow(ActionEvent actionEvent) {

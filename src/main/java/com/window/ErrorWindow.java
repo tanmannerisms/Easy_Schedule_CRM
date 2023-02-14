@@ -13,13 +13,11 @@ public class ErrorWindow extends Window{
      *
      * @param e the exception that will be used to generate the error message that will be displayed.
      */
-    public ErrorWindow(Exception e, ActionEvent actionEvent) {
+    public ErrorWindow(Exception e) {
         super(file, "Error!");
         Error controller = fxmlLoader.getController();
         controller.setErrorTextField(e.getMessage());
         e.printStackTrace();
-        stage.initOwner(getParentWindow(actionEvent));
-        stage.initModality(Modality.WINDOW_MODAL);
     }
 
     /**
@@ -28,11 +26,9 @@ public class ErrorWindow extends Window{
      *
      * @param message the string that will be used when displaying the error window. .
      */
-    public ErrorWindow(String message, ActionEvent actionEvent) {
+    public ErrorWindow(String message) {
         super(file, "Attention!");
         Error controller = fxmlLoader.getController();
         controller.setErrorTextField(message);
-        stage.initOwner(getParentWindow(actionEvent));
-        stage.initModality(Modality.WINDOW_MODAL);
     }
 }
