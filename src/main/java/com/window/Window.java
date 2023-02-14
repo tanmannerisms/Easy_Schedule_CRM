@@ -1,7 +1,9 @@
 package com.window;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import java.io.IOException;
 import com.easyschedule.Main;
@@ -9,7 +11,7 @@ import com.easyschedule.Main;
 public class Window {
     private final String fxmlFile;
     private final String windowTitle;
-    private Stage stage;
+    protected Stage stage;
     protected final FXMLLoader fxmlLoader;
     private Scene scene;
 
@@ -60,5 +62,9 @@ public class Window {
      */
     public void showWindowAndWait() {
         stage.showAndWait();
+    }
+    protected Stage getParentWindow(ActionEvent actionEvent) {
+        Button button = (Button) actionEvent.getSource();
+        return (Stage) button.getScene().getWindow();
     }
 }

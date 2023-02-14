@@ -14,8 +14,8 @@ public abstract class Controller {
      *
      * @param e the exception that is passed in from a catch statement.
      */
-    protected void openErrorWindow(Exception e) {
-        ErrorWindow errorWindow = new ErrorWindow(e);
+    protected void openErrorWindow(Exception e, ActionEvent actionEvent) {
+        ErrorWindow errorWindow = new ErrorWindow(e, actionEvent);
         errorWindow.showWindowAndWait();
     }
 
@@ -23,8 +23,8 @@ public abstract class Controller {
     /**
      * ADD A openNotifyWindow HERE.
      */
-    protected void openNotifyWindow(String notifyMessage) {
-        ErrorWindow notifyWindow = new ErrorWindow(notifyMessage);
+    protected void openNotifyWindow(String notifyMessage, ActionEvent actionEvent) {
+        ErrorWindow notifyWindow = new ErrorWindow(notifyMessage, actionEvent);
         notifyWindow.showWindowAndWait();
     }
 
