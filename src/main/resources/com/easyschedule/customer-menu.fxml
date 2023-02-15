@@ -48,7 +48,7 @@
                                onAction="#onSearchAction"
                                GridPane.columnIndex="1"
                                GridPane.rowIndex="0" />
-                    <TableView fx:id="partsTable" prefHeight="200"
+                    <TableView fx:id="customerTable" prefHeight="200"
                                prefWidth="200"
                                GridPane.columnSpan="2"
                                GridPane.rowIndex="1">
@@ -73,10 +73,10 @@
                     </TableView>
                     <ButtonBar GridPane.columnSpan="2" GridPane.rowIndex="2">
                         <buttons>
-                            <Button onAction="#addPartSceneChange" text="Add" />
-                            <Button onAction="#changePartSceneChange" text="Modify" />
-                            <Button text="Delete"
-                                    onAction="#deletePart"/>
+                            <Button onAction="" text="View" />
+                            <Button onAction="#" text="Add" />
+                            <Button onAction="#" text="Modify" />
+                            <Button onAction="#" text="Delete" />
                         </buttons>
                     </ButtonBar>
                 </GridPane>
