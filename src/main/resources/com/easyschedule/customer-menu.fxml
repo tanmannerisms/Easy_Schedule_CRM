@@ -24,11 +24,11 @@
     </AnchorPane>
     <AnchorPane minHeight="425.0" minWidth="450.0">
         <VBox AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-            <AnchorPane minHeight="375" minWidth="450" prefHeight="375.0" prefWidth="450.0">
+            <AnchorPane minHeight="375" minWidth="450" prefHeight="375.0" prefWidth="490.0">
                 <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="0.0">
                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="100.0" prefWidth="225.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="100.0" prefWidth="225.0" />
                     </columnConstraints>
                     <rowConstraints>
                         <RowConstraints minHeight="-Infinity" prefHeight="45.0" vgrow="SOMETIMES" />
@@ -43,42 +43,30 @@
                             <Insets left="20" />
                         </padding>
                     </Label>
-                    <TextField promptText="Search by Name or ID"
-                               fx:id="customerSearchField"
-                               onAction="#onSearchAction"
-                               GridPane.columnIndex="1"
-                               GridPane.rowIndex="0" />
-                    <TableView fx:id="customerTable" prefHeight="200"
-                               prefWidth="200"
-                               GridPane.columnSpan="2"
-                               GridPane.rowIndex="1">
+                    <HBox alignment="CENTER_RIGHT" prefHeight="45" spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="0">
+
+                        <TextField fx:id="partSearchField" prefWidth="130" promptText="Search by Name or ID" />
+                        <Button prefWidth="60" text="Search" />
+                    </HBox>
+                    <TableView fx:id="customerTable" prefHeight="200" prefWidth="450" GridPane.columnSpan="2" GridPane.rowIndex="1">
                         <columns>
-                            <TableColumn text="ID"
-                                         fx:id="idColumn"
-                                         minWidth="50"
-                                         prefWidth="102.5"  />
-                            <TableColumn text="Name"
-                                         fx:id="nameColumn"
-                                         minWidth="50"
-                                         prefWidth="102.5"  />
-                            <TableColumn text="Address"
-                                         fx:id="addressColumn"
-                                         minWidth="50"
-                                         prefWidth="102.5"  />
-                            <TableColumn text=""
-                                         fx:id="divisionColumn"
-                                         minWidth="50"
-                                         prefWidth="102.5"  />
+                            <TableColumn fx:id="idColumn" maxWidth="100" minWidth="20" prefWidth="50" text="ID" />
+                            <TableColumn fx:id="nameColumn" minWidth="50" prefWidth="100" text="Name" />
+                            <TableColumn fx:id="addressColumn" minWidth="50" prefWidth="100" text="Address" />
+                            <TableColumn fx:id="partPriceColumn" minWidth="50" prefWidth="100" text="Division" />
+                            <TableColumn fx:id="phoneNumberColumn" minWidth="50" prefWidth="100" text="Phone Number" />
                         </columns>
                     </TableView>
-                    <ButtonBar GridPane.columnSpan="2" GridPane.rowIndex="2">
-                        <buttons>
-                            <Button onAction="" text="View" />
-                            <Button onAction="#" text="Add" />
-                            <Button onAction="#" text="Modify" />
-                            <Button onAction="#" text="Delete" />
-                        </buttons>
-                    </ButtonBar>
+                    <AnchorPane GridPane.columnSpan="2" GridPane.rowIndex="2">
+                        <ButtonBar minWidth="450" AnchorPane.topAnchor="10">
+                            <buttons>
+                                <Button onAction="" text="View Calendar" ButtonBar.buttonData="LEFT" />
+                                <Button onAction="#" text="Add" />
+                                <Button onAction="#" text="Modify" />
+                                <Button onAction="#" text="Delete" />
+                            </buttons>
+                        </ButtonBar>
+                    </AnchorPane>
                 </GridPane>
             </AnchorPane>
             <AnchorPane prefHeight="50.0" prefWidth="450">
@@ -87,7 +75,7 @@
                         prefHeight="25.0"
                         prefWidth="75.0"
                         AnchorPane.bottomAnchor="14.0"
-                        AnchorPane.rightAnchor="50.0"
+                        AnchorPane.rightAnchor="40.0"
                         AnchorPane.topAnchor="6.0">
                     <font>
                         <Font name="System Bold" size="14.0" />
@@ -97,4 +85,3 @@
         </VBox>
     </AnchorPane>
 </VBox>
-
