@@ -6,9 +6,9 @@
 <?import javafx.scene.text.*?>
 
 <VBox minHeight="500"
-      minWidth="450"
+      minWidth="490"
       prefHeight="500"
-      prefWidth="450"
+      prefWidth="490"
       xmlns="http://javafx.com/javafx/11.0.14-internal"
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="com.controllers.CustomerMenu" >
