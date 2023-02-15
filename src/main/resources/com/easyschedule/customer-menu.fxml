@@ -45,8 +45,8 @@
                     </Label>
                     <HBox alignment="CENTER_RIGHT" prefHeight="45" spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="0">
 
-                        <TextField fx:id="partSearchField" prefWidth="130" promptText="Search by Name or ID" />
-                        <Button prefWidth="60" text="Search" />
+                        <TextField fx:id="customerSearchField" prefWidth="130" promptText="Search by Name or ID" />
+                        <Button text="Search" prefWidth="60" />
                     </HBox>
                     <TableView fx:id="customerTable"
                                prefHeight="200"
@@ -67,11 +67,11 @@
                                          minWidth="50"
                                          prefWidth="100"
                                          text="Address" />
-                            <TableColumn fx:id="partPriceColumn"
+                            <TableColumn fx:id="divisionColumn"
                                          minWidth="50"
                                          prefWidth="100"
                                          text="Division" />
-                            <TableColumn fx:id="phoneNumberColumn"
+                            <TableColumn fx:id="phoneColumn"
                                          minWidth="50"
                                          prefWidth="100"
                                          text="Phone Number" />

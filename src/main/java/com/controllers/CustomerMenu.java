@@ -15,7 +15,7 @@ public class CustomerMenu extends Controller implements Initializable {
     @FXML
     private TableView customerTable;
     @FXML
-    private TableColumn idColumn, nameColumn, addressColumn, divisionColumn, phoneNumberColumn;
+    private TableColumn idColumn, nameColumn, addressColumn, divisionColumn, phoneColumn;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
