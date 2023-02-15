@@ -11,7 +11,7 @@
       prefWidth="450"
       xmlns="http://javafx.com/javafx/11.0.14-internal"
       xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.controllers.Customers" >
+      fx:controller="com.controllers.CustomerMenu" >
     <AnchorPane minHeight="-Infinity" prefHeight="75.0" prefWidth="450.0">
         <Label layoutX="14.0" layoutY="24.0" text="Scheduling Management">
             <font>
@@ -44,7 +44,7 @@
                         </padding>
                     </Label>
                     <TextField promptText="Search by Name or ID"
-                               fx:id="partSearchField"
+                               fx:id="customerSearchField"
                                onAction="#onSearchAction"
                                GridPane.columnIndex="1"
                                GridPane.rowIndex="0" />
@@ -66,7 +66,7 @@
                                          minWidth="50"
                                          prefWidth="102.5"  />
                             <TableColumn text=""
-                                         fx:id="partPriceColumn"
+                                         fx:id="divisionColumn"
                                          minWidth="50"
                                          prefWidth="102.5"  />
                         </columns>
