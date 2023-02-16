@@ -1,5 +1,6 @@
 package com.controllers;
 
+import com.window.Window;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -28,11 +29,13 @@ public class CustomerMenu extends Controller implements Initializable {
     }
     @FXML
     private void onAddClick(ActionEvent actionEvent) {
-
+        Window addCustomer = new Window("add-customer.fxml", "Add Customer");
+        addCustomer.showWindowAndWait(actionEvent);
     }
     @FXML
     private void onModifyClick(ActionEvent actionEvent) {
-
+        Window modifyCustomer = new Window("modify-customer.fxml", "Edit Customer");
+        modifyCustomer.showWindowAndWait(actionEvent);
     }
     @FXML
     private void onDeleteClick(ActionEvent actionEvent) {
