@@ -1,5 +1,6 @@
 package com.controllers;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
@@ -20,5 +21,21 @@ public class CustomerMenu extends Controller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 //        populateTable();
+    }
+    @FXML
+    private void onViewClick(ActionEvent actionEvent) {
+
+    }
+    @FXML
+    private void onAddClick(ActionEvent actionEvent) {
+
+    }
+    @FXML
+    private void onModifyClick(ActionEvent actionEvent) {
+
+    }
+    @FXML
+    private void onDeleteClick(ActionEvent actionEvent) {
+
     }
 }

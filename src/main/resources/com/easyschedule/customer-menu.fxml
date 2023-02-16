@@ -80,10 +80,10 @@
                     <AnchorPane GridPane.columnSpan="2" GridPane.rowIndex="2">
                         <ButtonBar minWidth="450" AnchorPane.topAnchor="10">
                             <buttons>
-                                <Button onAction="" text="View Calendar" ButtonBar.buttonData="LEFT" />
-                                <Button onAction="#" text="Add" />
-                                <Button onAction="#" text="Modify" />
-                                <Button onAction="#" text="Delete" />
+                                <Button onAction="#onViewClick" text="View Calendar" ButtonBar.buttonData="LEFT" />
+                                <Button onAction="#onAddClick" text="Add" />
+                                <Button onAction="#onModifyClick" text="Modify" />
+                                <Button onAction="#onDeleteClick" text="Delete" />
                             </buttons>
                         </ButtonBar>
                     </AnchorPane>
