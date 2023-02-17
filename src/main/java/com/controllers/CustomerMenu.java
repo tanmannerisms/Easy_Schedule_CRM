@@ -1,6 +1,11 @@
 package com.controllers;
 
+import com.people.Customer;
 import com.window.Window;
+import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableArray;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -12,6 +17,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class CustomerMenu extends Controller implements Initializable {
+    private ObservableList<Customer> customers;
     @FXML
     private TextField customerSearchField;
     @FXML
@@ -21,7 +27,8 @@ public class CustomerMenu extends Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-//        populateTable();
+        customers = FXCollections.observableArrayList();
+        customers.addListener((ListChangeListener<? super Customer>) change -> customerTable.setItems(customers));
     }
     @FXML
     private void onViewClick(ActionEvent actionEvent) {
