@@ -1,16 +1,16 @@
 package com.people;
 
 public class Customer {
-    private int id, divisionId;
-    private String name, address, postalCode, phoneNumber;
+    private int id, postalCode;
+    private String name, address, phoneNumber, division;
 
-    Customer(int id, String name, String address, String postalCode, String phoneNumber, int divisionId) {
+    public Customer(int id, String name, String address, int postalCode, String phoneNumber, String division) {
         this.id = id;
         this.name = name;
         this.address = address;
         this.postalCode = postalCode;
         this.phoneNumber = phoneNumber;
-        this.divisionId = divisionId;
+        this.division = division;
     }
 
 
@@ -22,12 +22,12 @@ public class Customer {
         this.id = id;
     }
 
-    public int getDivisionId() {
-        return divisionId;
+    public String getDivision() {
+        return division;
     }
 
-    public void setDivisionId(int divisionId) {
-        this.divisionId = divisionId;
+    public void setDivision(String division) {
+        this.division = division;
     }
 
     public String getName() {
@@ -46,11 +46,11 @@ public class Customer {
         this.address = address;
     }
 
-    public String getPostalCode() {
+    public int getPostalCode() {
         return postalCode;
     }
 
-    public void setPostalCode(String postalCode) {
+    public void setPostalCode(int postalCode) {
         this.postalCode = postalCode;
     }
 
