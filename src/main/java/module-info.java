@@ -10,4 +10,6 @@ module com.easyschedule.wgu_c195 {
     opens com.window to javafx.fxml;
     exports com.controllers;
     opens com.controllers to javafx.fxml;
+    exports com.people;
+    opens com.people to javafx.fxml;
 }
