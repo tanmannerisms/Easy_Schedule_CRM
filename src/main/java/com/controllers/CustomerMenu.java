@@ -48,6 +48,11 @@ public class CustomerMenu extends Controller implements Initializable {
 
     }
     @FXML
+    private void onSearchClick(ActionEvent actionEvent) {
+        customers = searchParts(customerSearchField);
+        customerTable.setItems(customers);
+    }
+    @FXML
     private void onViewClick(ActionEvent actionEvent) {
 
     }
@@ -71,5 +76,15 @@ public class CustomerMenu extends Controller implements Initializable {
         addressColumn.setCellValueFactory(new PropertyValueFactory<>("Address"));
         divisionColumn.setCellValueFactory(new PropertyValueFactory<>("Division"));
         phoneColumn.setCellValueFactory(new PropertyValueFactory<>("PhoneNumber"));
+    }
+    private ObservableList<Customer> searchParts(TextField searchParam) {
+        ObservableList<Customer> searchResults;
+        try {
+            int customerId = Integer.parseInt(searchParam.getText());
+            searchResults = Schedule.lookupCustomer(customerId);
+        } catch (NumberFormatException e) {
+            searchResults = Schedule.lookupCustomer(searchParam.getText());
+        }
+        return searchResults;
     }
 }
