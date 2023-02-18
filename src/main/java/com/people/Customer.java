@@ -1,10 +1,10 @@
 package com.people;
 
 public class Customer {
-    private int id, postalCode;
-    private String name, address, phoneNumber, division;
+    private int id;
+    private String name, address, phoneNumber, division, postalCode;
 
-    public Customer(int id, String name, String address, int postalCode, String phoneNumber, String division) {
+    public Customer(int id, String name, String address, String postalCode, String phoneNumber, String division) {
         this.id = id;
         this.name = name;
         this.address = address;
@@ -46,11 +46,11 @@ public class Customer {
         this.address = address;
     }
 
-    public int getPostalCode() {
+    public String getPostalCode() {
         return postalCode;
     }
 
-    public void setPostalCode(int postalCode) {
+    public void setPostalCode(String postalCode) {
         this.postalCode = postalCode;
     }
 
@@ -60,5 +60,8 @@ public class Customer {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+    public void printCustomer() {
+        System.out.println(getName() + ":\n" + getAddress() + " " + getDivision() + ", " + getPostalCode() + "\n\n");
     }
 }
