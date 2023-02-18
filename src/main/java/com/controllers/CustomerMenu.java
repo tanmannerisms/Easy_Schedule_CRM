@@ -13,6 +13,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -25,18 +26,27 @@ public class CustomerMenu extends Controller implements Initializable {
     @FXML
     private TableView customerTable;
     @FXML
-    private TableColumn idColumn, nameColumn, addressColumn, divisionColumn, phoneColumn;
+    private TableColumn<Customer, Integer> idColumn;
+    @FXML
+    private TableColumn<Customer, String> nameColumn, addressColumn, divisionColumn, phoneColumn;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        setTableColumns();
         customers = FXCollections.observableArrayList();
         try {
             customers = CustomerQuery.queryAllCustomers();
-            System.out.println(customers);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        // Does a customer need to change for the event listener to fire or does adding a customer fire the listener?
         customers.addListener((ListChangeListener<? super Customer>) change -> customerTable.setItems(customers));
+        customerTable.setItems(customers);
+
+
+        // To remove
+        System.out.println(customers);
+
     }
     @FXML
     private void onViewClick(ActionEvent actionEvent) {
@@ -55,5 +65,12 @@ public class CustomerMenu extends Controller implements Initializable {
     @FXML
     private void onDeleteClick(ActionEvent actionEvent) {
 
+    }
+    private void setTableColumns() {
+        idColumn.setCellValueFactory(new PropertyValueFactory<>("Id"));
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
+        addressColumn.setCellValueFactory(new PropertyValueFactory<>("Address"));
+        divisionColumn.setCellValueFactory(new PropertyValueFactory<>("Division"));
+        phoneColumn.setCellValueFactory(new PropertyValueFactory<>("PhoneNumber"));
     }
 }

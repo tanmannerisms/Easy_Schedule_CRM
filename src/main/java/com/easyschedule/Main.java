@@ -1,7 +1,6 @@
 package com.easyschedule;
 
 import com.utils.JDBC;
-import com.utils.LoginQuery;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import com.window.*;
