@@ -35,10 +35,6 @@ public class CustomerMenu extends Controller implements Initializable {
         // Does a customer need to change for the event listener to fire or does adding a customer fire the listener?
         Instance.allCustomers.addListener((ListChangeListener<? super Customer>) change -> customerTable.setItems(Instance.allCustomers));
         customerTable.setItems(Instance.allCustomers);
-
-        // To remove
-        System.out.println(Instance.allCustomers);
-
     }
     @FXML
     private void onSearchClick(ActionEvent actionEvent) {
