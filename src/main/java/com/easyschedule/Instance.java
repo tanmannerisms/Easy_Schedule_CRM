@@ -12,8 +12,8 @@ public abstract class Instance {
     public static ObservableList<Appointment> allAppointments;
 
     public static void updateData() {
-        allCustomers = FXCollections.observableArrayList(Query.getAllCustomers());
-        allContacts = FXCollections.observableArrayList(Query.getAllContacts());
+        allCustomers = Query.getAllCustomers();
+        allContacts = Query.getAllContacts();
 //        allAppointments = FXCollections.observableArrayList(Query.getAllAppointments());
     }
     public static Customer lookupCustomer(int customerId) {
