@@ -7,6 +7,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public abstract class Instance {
+    private static User activeUser;
     public static ObservableList<Customer> allCustomers;
     public static ObservableList<Contact> allContacts;
     public static ObservableList<Appointment> allAppointments;
@@ -35,5 +36,13 @@ public abstract class Instance {
             }
         }
         return returnList;
+    }
+
+    public static int getUserId() {
+        return userId;
+    }
+
+    public static void setUserId(int userId) {
+        Instance.userId = userId;
     }
 }

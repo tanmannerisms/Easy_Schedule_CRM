@@ -1,5 +1,6 @@
 package com.controllers;
 
+import com.easyschedule.Instance;
 import com.utils.Query;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
