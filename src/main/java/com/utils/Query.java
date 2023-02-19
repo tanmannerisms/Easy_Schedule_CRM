@@ -94,7 +94,12 @@ public abstract class Query {
             statement = JDBC.connection.prepareStatement(sql);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-
+                Contact contact = new Contact(
+                        resultSet.getInt("Contact_ID"),
+                        resultSet.getString("Contact_Name"),
+                        resultSet.getString("Email")
+                );
+                contacts.add(contact);
             }
         }
         catch (SQLException e) {

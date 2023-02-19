@@ -13,10 +13,8 @@ public abstract class Instance {
 
     public static void updateData() {
         allCustomers = FXCollections.observableArrayList(Query.getAllCustomers());
-/*
-        allContacts = FXCollections.observableArrayList(Query.getAllContacts);
-        allAppointments = FXCollections.observableArrayList(Query.getAllAppointments);
-*/
+        allContacts = FXCollections.observableArrayList(Query.getAllContacts());
+//        allAppointments = FXCollections.observableArrayList(Query.getAllAppointments());
     }
     public static Customer lookupCustomer(int customerId) {
         for (Customer returnCustomer : allCustomers) {
