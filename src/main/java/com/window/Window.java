@@ -12,7 +12,7 @@ import com.easyschedule.Main;
 public class Window {
     private String fxmlFile;
     private String windowTitle;
-    protected Stage stage;
+    private Stage stage;
     protected FXMLLoader fxmlLoader;
     private Scene scene;
 
@@ -92,5 +92,8 @@ public class Window {
             System.out.println("XML file " + fxml + " could not be loaded");
         }
         actionEvent.consume();
+    }
+    public Stage getStage() {
+        return this.stage;
     }
 }
