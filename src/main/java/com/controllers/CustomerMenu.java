@@ -2,7 +2,6 @@ package com.controllers;
 
 import com.easyschedule.Instance;
 import com.people.Customer;
-import com.utils.Query;
 import com.window.Window;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
@@ -14,7 +13,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -39,11 +37,19 @@ public class CustomerMenu extends Controller implements Initializable {
     @FXML
     private void onSearchClick(ActionEvent actionEvent) {
         ObservableList<Customer> searchResults;
-        searchResults = searchCustomer();
+        searchResults = searchCustomers();
         if (searchResults != null) {
             customerTable.setItems(searchResults);
         }
         else openNotifyWindow("No customers found.", actionEvent);
+    }
+    private ObservableList<Customer> searchCustomers() {
+        try {
+            int customerId = Integer.parseInt(customerSearchField.getText());
+            return FXCollections.observableArrayList(Instance.lookupCustomer(customerId));
+        } catch (NumberFormatException e) {
+            return Instance.lookupCustomer(customerSearchField.getText());
+        }
     }
     @FXML
     private void onViewClick(ActionEvent actionEvent) {
@@ -74,14 +80,6 @@ public class CustomerMenu extends Controller implements Initializable {
         addressColumn.setCellValueFactory(new PropertyValueFactory<>("Address"));
         divisionColumn.setCellValueFactory(new PropertyValueFactory<>("Division"));
         phoneColumn.setCellValueFactory(new PropertyValueFactory<>("PhoneNumber"));
-    }
-    private ObservableList<Customer> searchCustomer() {
-        try {
-            int customerId = Integer.parseInt(customerSearchField.getText());
-            return FXCollections.observableArrayList(Instance.lookupCustomer(customerId));
-        } catch (NumberFormatException e) {
-            return Instance.lookupCustomer(customerSearchField.getText());
-        }
     }
     private Customer getSelectedCustomer(ActionEvent actionEvent) {
         Customer selectedCustomer = (Customer) customerTable.getSelectionModel().getSelectedItem();
