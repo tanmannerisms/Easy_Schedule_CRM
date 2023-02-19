@@ -43,11 +43,19 @@ public abstract class Instance {
     }
     public static ObservableList<Appointment> getCustomerAppointments(Customer customer) {
         ObservableList<Appointment> returnList = FXCollections.observableArrayList();
-        for (Appointment appointment: allAppointments) {
+        for (Appointment appointment : allAppointments) {
             if (appointment.getCustomerId() ==  customer.getId()) {
                 returnList.add(appointment);
             }
         }
         return allAppointments;
+    }
+    public static Contact lookupContact(int contactId) {
+        for (Contact contact : allContacts) {
+            if (contact.getId() == contactId) {
+                return contact;
+            }
+        }
+        return null;
     }
 }
