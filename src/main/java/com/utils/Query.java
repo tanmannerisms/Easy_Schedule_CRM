@@ -1,6 +1,7 @@
 package com.utils;
 
 import com.people.Customer;
+import com.people.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -12,35 +13,23 @@ public abstract class Query {
     private static PreparedStatement statement;
     private static String sql;
 
-    public static String getPassword(String userName) {
-        sql = "SELECT Password FROM users WHERE User_Name = ?";
+    public static User getUser(String username) {
+        User newUser = new User();
+        sql = "SELECT User_Id, User_Name, Password FROM users WHERE User_Name = ?";
         try {
             statement = JDBC.connection.prepareStatement(sql);
-            statement.setString(1, userName);
+            statement.setString(1, username);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                return resultSet.getString("Password");
+                newUser = new User(resultSet.getInt("User_Id"),
+                                   resultSet.getString("User_Name"),
+                                   resultSet.getString("Password"));
             }
         }
         catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        return null;
-    }
-    public static String getUsername(String userName) {
-        try {
-            sql = "SELECT User_Name FROM users WHERE User_Name = ?";
-            statement = JDBC.connection.prepareStatement(sql);
-            statement.setString(1, userName);
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                return resultSet.getString("User_Name");
-            }
-        }
-        catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-        return null;
+        return newUser;
     }
     public static ObservableList<Customer> getAllCustomers() {
         ObservableList<Customer> customers = FXCollections.observableArrayList();

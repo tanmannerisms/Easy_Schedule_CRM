@@ -1,7 +1,6 @@
 package com.easyschedule;
 
-import com.people.Contact;
-import com.people.Customer;
+import com.people.*;
 import com.utils.Query;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -37,12 +36,11 @@ public abstract class Instance {
         }
         return returnList;
     }
-
-    public static int getUserId() {
-        return userId;
+    public static User getActiveUser() {
+        return activeUser;
     }
 
-    public static void setUserId(int userId) {
-        Instance.userId = userId;
+    public static void setActiveUser(User user) {
+        activeUser = user;
     }
 }
