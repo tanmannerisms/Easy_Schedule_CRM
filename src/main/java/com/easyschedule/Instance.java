@@ -1,12 +1,12 @@
 package com.easyschedule;
 
-import com.people.Contact;
-import com.people.Customer;
+import com.people.*;
 import com.utils.Query;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public abstract class Instance {
+    private static User activeUser;
     public static ObservableList<Customer> allCustomers;
     public static ObservableList<Contact> allContacts;
     public static ObservableList<Appointment> allAppointments;
@@ -35,5 +35,21 @@ public abstract class Instance {
             }
         }
         return returnList;
+    }
+    public static User getActiveUser() {
+        return activeUser;
+    }
+
+    public static void setActiveUser(User user) {
+        activeUser = user;
+    }
+    public static ObservableList<Appointment> getAppointments(Customer customer) {
+        ObservableList<Appointment> returnList = FXCollections.observableArrayList();
+        for (Appointment appointment: allAppointments) {
+            if (appointment.getCustomerId() ==  customer.getId()) {
+                returnList.add(appointment);
+            }
+        }
+        return allAppointments;
     }
 }

@@ -1,5 +1,7 @@
 package com.controllers;
 
+import com.easyschedule.Instance;
+import com.people.User;
 import com.utils.Query;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,6 +13,7 @@ import com.window.Window;
 import java.sql.SQLException;
 
 public class Login extends Controller{
+    private User user;
     private String validUsername, validPassword, inputUsername, inputPassword;
     @FXML
     private TextField userNameField;
@@ -20,6 +23,7 @@ public class Login extends Controller{
     @FXML
     private void login(ActionEvent actionEvent) {
         if (validateCredentials(actionEvent)) {
+            Instance.setActiveUser(user);
             Stage stage = Window.getParentWindow(actionEvent);
             Window.changeScene(stage, "main-menu.fxml", "Scheduling Management");
         }
@@ -29,6 +33,7 @@ public class Login extends Controller{
     private boolean validateCredentials(ActionEvent actionEvent) {
         inputUsername = userNameField.getText();
         inputPassword = passwordField.getText();
+        user = Query.getUser(inputUsername);
         if (validateUsername() && validatePassword()) {
             actionEvent.consume();
             return true;
@@ -37,15 +42,13 @@ public class Login extends Controller{
         return false;
     }
     private boolean validateUsername() {
-        validUsername = Query.getUsername(inputUsername);
-        if (validUsername != null) {
-            if (validUsername.equals(inputUsername)) return true;
+        if (user.getUsername() != null) {
+            if (user.getUsername().equals(inputUsername)) return true;
         }
         return false;
     }
     private boolean validatePassword() {
-        validPassword = Query.getPassword(inputUsername);
-        if (validPassword.equals(inputPassword)) return true;
+        if (user.getPassword().equals(inputPassword)) return true;
         else return false;
     }
 }
