@@ -43,4 +43,13 @@ public abstract class Instance {
     public static void setActiveUser(User user) {
         activeUser = user;
     }
+    public static ObservableList<Appointment> getAppointments(Customer customer) {
+        ObservableList<Appointment> returnList = FXCollections.observableArrayList();
+        for (Appointment appointment: allAppointments) {
+            if (appointment.getCustomerId() ==  customer.getId()) {
+                returnList.add(appointment);
+            }
+        }
+        return allAppointments;
+    }
 }
