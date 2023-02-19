@@ -1,5 +1,7 @@
 package com.utils;
 
+import com.easyschedule.Appointment;
+import com.people.Contact;
 import com.people.Customer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -78,5 +80,37 @@ public abstract class Query {
             System.out.println(e.getMessage());
         }
         return null;
+    }
+    public static ObservableList<Appointment> getAllAppointments() {
+        ObservableList<Appointment> appointments = FXCollections.observableArrayList();
+        sql = "SELECT * FROM appointments";
+        try {
+            statement = JDBC.connection.prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+
+//              Add constructor call here
+
+            }
+        }
+        catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return appointments;
+    }
+    public static ObservableList<Contact> getAllContacts() {
+        ObservableList<Contact> contacts = FXCollections.observableArrayList();
+        sql = "SELECT * FROM contacts;";
+        try {
+            statement = JDBC.connection.prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+
+            }
+        }
+        catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return contacts;
     }
 }
