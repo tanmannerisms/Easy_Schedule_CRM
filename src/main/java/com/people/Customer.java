@@ -1,41 +1,38 @@
 package com.people;
 
-public class Customer {
-    private int id;
-    private String name, address, phoneNumber, division, postalCode;
+import com.easyschedule.Appointment;
+import com.utils.Query;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
-    public Customer(int id, String name, String address, String postalCode, String phoneNumber, String division) {
+public class Customer extends Person{
+    private int divisionId;
+    private String address, phoneNumber, postalCode, division;
+    private ObservableList<Appointment> associatedAppointments;
+
+    public Customer(int id, String name, String address, String postalCode, String phoneNumber, int divisionId) {
         this.id = id;
         this.name = name;
         this.address = address;
         this.postalCode = postalCode;
         this.phoneNumber = phoneNumber;
-        this.division = division;
+        this.divisionId = divisionId;
+        setDivision();
+        this.associatedAppointments = FXCollections.emptyObservableList();
     }
 
-
-    public int getId() {
-        return id;
+    public int getDivisionId() {
+        return divisionId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setDivisionId(int divisionId) {
+        this.divisionId = divisionId;
     }
-
     public String getDivision() {
         return division;
     }
-
-    public void setDivision(String division) {
-        this.division = division;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public void setDivision() {
+        division = Query.getDivision(divisionId);
     }
 
     public String getAddress() {
@@ -62,6 +59,6 @@ public class Customer {
         this.phoneNumber = phoneNumber;
     }
     public void printCustomer() {
-        System.out.println(getName() + ":\n" + getAddress() + " " + getDivision() + ", " + getPostalCode() + "\n\n");
+        System.out.println(getName() + ":\n" + getAddress() + " " + getDivisionId() + ", " + getPostalCode() + "\n\n");
     }
 }

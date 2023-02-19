@@ -1,9 +1,9 @@
 package com.controllers;
 
+import com.easyschedule.Instance;
 import com.people.Customer;
-import com.utils.CustomerQuery;
+import com.utils.Query;
 import com.window.Window;
-import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -15,11 +15,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class CustomerMenu extends Controller implements Initializable {
-    private ObservableList<Customer> customers;
     @FXML
     private TextField customerSearchField;
     @FXML
@@ -32,25 +30,22 @@ public class CustomerMenu extends Controller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setTableColumns();
-        customers = FXCollections.observableArrayList();
-        try {
-            customers = CustomerQuery.queryAllCustomers();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
         // Does a customer need to change for the event listener to fire or does adding a customer fire the listener?
-        customers.addListener((ListChangeListener<? super Customer>) change -> customerTable.setItems(customers));
-        customerTable.setItems(customers);
-
+        Instance.allCustomers.addListener((ListChangeListener<? super Customer>) change -> customerTable.setItems(Instance.allCustomers));
+        customerTable.setItems(Instance.allCustomers);
 
         // To remove
-        System.out.println(customers);
+        System.out.println(Instance.allCustomers);
 
     }
     @FXML
     private void onSearchClick(ActionEvent actionEvent) {
-        customers = searchParts(customerSearchField);
-        customerTable.setItems(customers);
+        ObservableList<Customer> customerSearch;
+        customerSearch = null;
+        if (customerSearch != null) {
+            customerTable.setItems(customerSearch);
+        }
+        else openNotifyWindow("No customers found.", actionEvent);
     }
     @FXML
     private void onViewClick(ActionEvent actionEvent) {
@@ -76,15 +71,5 @@ public class CustomerMenu extends Controller implements Initializable {
         addressColumn.setCellValueFactory(new PropertyValueFactory<>("Address"));
         divisionColumn.setCellValueFactory(new PropertyValueFactory<>("Division"));
         phoneColumn.setCellValueFactory(new PropertyValueFactory<>("PhoneNumber"));
-    }
-    private ObservableList<Customer> searchParts(TextField searchParam) {
-        ObservableList<Customer> searchResults;
-        try {
-            int customerId = Integer.parseInt(searchParam.getText());
-            searchResults = Schedule.lookupCustomer(customerId);
-        } catch (NumberFormatException e) {
-            searchResults = Schedule.lookupCustomer(searchParam.getText());
-        }
-        return searchResults;
     }
 }
