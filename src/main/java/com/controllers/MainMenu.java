@@ -9,13 +9,11 @@ public class MainMenu extends Controller {
     @FXML
     private void onScheduleClick(ActionEvent actionEvent) {
         Stage stage = Window.getParentWindow(actionEvent);
-        Window.changeScene(stage, "customer-menu.fxml", "Scheduling Management");
-        actionEvent.consume();
+        Window.changeScene(actionEvent, "customer-menu.fxml", "Scheduling Management");
     }
     @FXML
     private void onReportsClick(ActionEvent actionEvent) {
         Stage stage = Window.getParentWindow(actionEvent);
-        Window.changeScene(stage, "report-menu.fxml", "Scheduling Management");
-        actionEvent.consume();
+        Window.changeScene(actionEvent, "report-menu.fxml", "Scheduling Management");
     }
 }

@@ -75,19 +75,22 @@ public class Window {
     /**
      * Used for keeping the current window and changing the scene
      *
-     * @param file the file to set the new scene to
-     * @param title the title to set the new scene to.
+     * @param actionEvent
+     * @param file        the file to set the new scene to
+     * @param title       the title to set the new scene to.
      */
-    public static void changeScene(Stage currStage, String file, String title) {
+    public static void changeScene(ActionEvent actionEvent, String file, String title) {
+        Stage stage = Window.getParentWindow(actionEvent);
         FXMLLoader fxml = new FXMLLoader(Main.class.getResource(file));
         Scene nextScene;
         try {
             nextScene = new Scene(fxml.load());
-            currStage.setTitle(title);
-            currStage.setScene(nextScene);
+            stage.setTitle(title);
+            stage.setScene(nextScene);
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("XML file " + fxml + " could not be loaded");
         }
+        actionEvent.consume();
     }
 }

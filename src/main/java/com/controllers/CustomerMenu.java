@@ -14,6 +14,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -65,6 +66,10 @@ public class CustomerMenu extends Controller implements Initializable {
     @FXML
     private void onDeleteClick(ActionEvent actionEvent) {
 
+    }
+    @FXML
+    private void onBackClick(ActionEvent actionEvent) {
+        Window.changeScene(actionEvent, "main-menu.fxml", "Main Menu");
     }
     private void setTableColumns() {
         idColumn.setCellValueFactory(new PropertyValueFactory<>("Id"));

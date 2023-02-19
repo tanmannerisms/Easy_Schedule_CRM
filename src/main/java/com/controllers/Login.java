@@ -24,8 +24,7 @@ public class Login extends Controller{
     private void login(ActionEvent actionEvent) {
         if (validateCredentials(actionEvent)) {
             Instance.setActiveUser(user);
-            Stage stage = Window.getParentWindow(actionEvent);
-            Window.changeScene(stage, "main-menu.fxml", "Scheduling Management");
+            Window.changeScene(actionEvent, "main-menu.fxml", "Main Menu");
         }
         else openNotifyWindow("Username or password incorrect", actionEvent);
     }

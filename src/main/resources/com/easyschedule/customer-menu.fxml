@@ -95,17 +95,30 @@
                 </GridPane>
             </AnchorPane>
             <AnchorPane prefHeight="50.0" prefWidth="450">
-                <Button text="EXIT"
-                        onAction="#closeWindow"
-                        prefHeight="25.0"
-                        prefWidth="75.0"
-                        AnchorPane.bottomAnchor="14.0"
-                        AnchorPane.rightAnchor="40.0"
-                        AnchorPane.topAnchor="6.0">
-                    <font>
-                        <Font name="System Bold" size="14.0" />
-                    </font>
-                </Button>
+                <ButtonBar AnchorPane.bottomAnchor="14.0"
+                           AnchorPane.rightAnchor="40.0"
+                           AnchorPane.leftAnchor="40"
+                           AnchorPane.topAnchor="6.0">
+                    <buttons>
+                        <Button text="BACK"
+                                onAction="#onBackClick"
+                                prefHeight="25.0"
+                                prefWidth="75.0"
+                        ButtonBar.buttonData="LEFT">
+                            <font>
+                                <Font name="System Bold" size="14.0"/>
+                            </font>
+                        </Button>
+                        <Button text="EXIT"
+                                onAction="#closeWindow"
+                                prefHeight="25.0"
+                                prefWidth="75.0" >
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font>
+                        </Button>
+                    </buttons>
+                </ButtonBar>
             </AnchorPane>
         </VBox>
     </AnchorPane>
