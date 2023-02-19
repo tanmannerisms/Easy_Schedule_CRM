@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.text.Font?>
+<?import javafx.geometry.Insets?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.controllers.MainMenu"
+            prefHeight="300.0" prefWidth="225.0">
+    <GridPane AnchorPane.topAnchor="0" prefWidth="225.0" >
+        <columnConstraints>
+            <ColumnConstraints hgrow="sometimes" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints prefHeight="100" vgrow="SOMETIMES" />
+            <RowConstraints prefHeight="100" vgrow="SOMETIMES" />
+            <RowConstraints prefHeight="100" vgrow="SOMETIMES" />
+        </rowConstraints>
+        <padding>
+            <Insets left="15" top="15" right="15" bottom="15" />
+        </padding>
+        <AnchorPane GridPane.rowIndex="0">
+            <Label text="Welcome" >
+                <font>
+                    <Font name="System Bold" size="20.0" />
+                </font>
+            </Label>
+        </AnchorPane>
+        <AnchorPane GridPane.rowIndex="1" >
+            <Button text="Customer Scheduling"
+                    onAction="#onScheduleClick"
+                    wrapText="true"
+                    textAlignment="CENTER"
+                    prefHeight="60"
+                    prefWidth="120"
+                    AnchorPane.leftAnchor="32.5">
+                <font>
+                    <Font name="System Bold" size="14.0" />
+                </font>
+            </Button>
+        </AnchorPane>
+        <AnchorPane GridPane.rowIndex="2">
+            <Button text="Reports"
+                    onAction="#onReportsClick"
+                    prefHeight="60"
+                    prefWidth="120"
+                    AnchorPane.leftAnchor="32.5">
+                <font>
+                    <Font name="System Bold" size="14.0" />
+                </font>
+            </Button>
+        </AnchorPane>
+    </GridPane>
+</AnchorPane>
