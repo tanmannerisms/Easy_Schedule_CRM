@@ -28,6 +28,9 @@ public class Window {
         setScene();
         setStage();
     }
+    public Stage getStage() {
+        return this.stage;
+    }
 
     /**
      * Useful for reusing the code to set the scene without consistently typing the try... catch.. statement.
@@ -92,8 +95,5 @@ public class Window {
             System.out.println("XML file " + fxml + " could not be loaded");
         }
         actionEvent.consume();
-    }
-    public Stage getStage() {
-        return this.stage;
     }
 }
