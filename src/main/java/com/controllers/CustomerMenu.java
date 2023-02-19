@@ -4,6 +4,7 @@ import com.easyschedule.Instance;
 import com.people.Customer;
 import com.utils.Query;
 import com.window.Window;
+import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -40,10 +41,10 @@ public class CustomerMenu extends Controller implements Initializable {
     }
     @FXML
     private void onSearchClick(ActionEvent actionEvent) {
-        ObservableList<Customer> customerSearch;
-        customerSearch = null;
-        if (customerSearch != null) {
-            customerTable.setItems(customerSearch);
+        ObservableList<Customer> searchResults;
+        searchResults = searchCustomer();
+        if (searchResults != null) {
+            customerTable.setItems(searchResults);
         }
         else openNotifyWindow("No customers found.", actionEvent);
     }
@@ -71,5 +72,13 @@ public class CustomerMenu extends Controller implements Initializable {
         addressColumn.setCellValueFactory(new PropertyValueFactory<>("Address"));
         divisionColumn.setCellValueFactory(new PropertyValueFactory<>("Division"));
         phoneColumn.setCellValueFactory(new PropertyValueFactory<>("PhoneNumber"));
+    }
+    private ObservableList<Customer> searchCustomer() {
+        try {
+            int customerId = Integer.parseInt(customerSearchField.getText());
+            return FXCollections.observableArrayList(Instance.lookupCustomer(customerId));
+        } catch (NumberFormatException e) {
+            return Instance.lookupCustomer(customerSearchField.getText());
+        }
     }
 }
