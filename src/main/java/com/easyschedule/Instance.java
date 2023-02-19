@@ -7,13 +7,17 @@ import javafx.collections.ObservableList;
 
 public abstract class Instance {
     private static User activeUser;
-    public static ObservableList<Customer> allCustomers;
-    public static ObservableList<Contact> allContacts;
-    public static ObservableList<Appointment> allAppointments;
+    public static ObservableList<Customer> allCustomers = Query.getAllCustomers();
+    public static ObservableList<Contact> allContacts = Query.getAllContacts();
+    public static ObservableList<Appointment> allAppointments = Query.getAllAppointments();
 
-    public static void updateData() {
+    public static void updateCustomers() {
         allCustomers = Query.getAllCustomers();
+    }
+    public static void updateContacts() {
         allContacts = Query.getAllContacts();
+    }
+    public static void updateAppointments() {
         allAppointments = Query.getAllAppointments();
     }
     public static Customer lookupCustomer(int customerId) {
