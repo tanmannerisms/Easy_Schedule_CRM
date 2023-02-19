@@ -65,6 +65,7 @@ public class Window {
         stage.initOwner(getParentWindow(actionEvent));
         stage.initModality(Modality.WINDOW_MODAL);
         stage.showAndWait();
+        actionEvent.consume();
     }
     public static Stage getParentWindow(ActionEvent actionEvent) {
         Button button = (Button) actionEvent.getSource();

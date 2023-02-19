@@ -1,6 +1,6 @@
 package com.controllers;
 
-import com.utils.LoginQuery;
+import com.utils.Query;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
@@ -30,32 +30,22 @@ public class Login extends Controller{
         inputUsername = userNameField.getText();
         inputPassword = passwordField.getText();
         if (validateUsername() && validatePassword()) {
+            actionEvent.consume();
             return true;
         }
-        else return false;
+        actionEvent.consume();
+        return false;
     }
     private boolean validateUsername() {
-        try {
-            validUsername = LoginQuery.getUsername(inputUsername);
-            if (validUsername != null) {
-                if (validUsername.equals(inputUsername)) return true;
-            }
-            return false;
+        validUsername = Query.getUsername(inputUsername);
+        if (validUsername != null) {
+            if (validUsername.equals(inputUsername)) return true;
         }
-        catch (SQLException e) {
-            System.out.println(e.getMessage());
-            return false;
-        }
+        return false;
     }
     private boolean validatePassword() {
-        try {
-            validPassword = LoginQuery.getPassword(inputUsername);
-            if (validPassword.equals(inputPassword)) return true;
-            else return false;
-        }
-        catch (SQLException e) {
-            System.out.println(e.getMessage());
-            return false;
-        }
+        validPassword = Query.getPassword(inputUsername);
+        if (validPassword.equals(inputPassword)) return true;
+        else return false;
     }
 }
