@@ -6,6 +6,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public abstract class Instance {
+    private static final String CUSTOMER_TABLE = "client_schedule.customers";
     private static User activeUser;
     public static ObservableList<Customer> allCustomers = Query.getAllCustomers();
     public static ObservableList<Contact> allContacts = Query.getAllContacts();
@@ -28,7 +29,6 @@ public abstract class Instance {
         }
         return null;
     }
-
     public static ObservableList<Customer> lookupCustomer(String name) {
         ObservableList<Customer> returnList = FXCollections.observableArrayList();
         for (Customer customer : allCustomers) {
@@ -37,6 +37,14 @@ public abstract class Instance {
             }
         }
         return returnList;
+    }
+    public static boolean deleteCustomer(Customer customer) {
+        String condition = "Customer_ID = " + customer.getId();
+        if (!Query.delete(CUSTOMER_TABLE, condition)){
+            return false;
+        }
+        allCustomers.remove(customer);
+        return true;
     }
     public static User getActiveUser() {
         return activeUser;

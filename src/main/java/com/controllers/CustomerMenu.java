@@ -30,6 +30,7 @@ public class CustomerMenu extends Controller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setTableColumns();
+        // Listener works for deleting Customers from allCustomers!!!
         // Does a customer need to change for the event listener to fire or does adding a customer fire the listener?
         Instance.allCustomers.addListener((ListChangeListener<? super Customer>) change -> customerTable.setItems(Instance.allCustomers));
         customerTable.setItems(Instance.allCustomers);
@@ -68,7 +69,12 @@ public class CustomerMenu extends Controller implements Initializable {
     }
     @FXML
     private void onDeleteClick(ActionEvent actionEvent) {
-
+        Customer customer = getSelectedCustomer(actionEvent);
+        if (customer != null){
+            if(!Instance.deleteCustomer(customer)) {
+                openNotifyWindow("Deletion of customer with ID " + customer.getId() + "failed!", actionEvent);
+            }
+        }
     }
     @FXML
     private void onBackClick(ActionEvent actionEvent) {
@@ -85,7 +91,6 @@ public class CustomerMenu extends Controller implements Initializable {
         Customer selectedCustomer = (Customer) customerTable.getSelectionModel().getSelectedItem();
         if (selectedCustomer == null) {
             openNotifyWindow("Please select a customer first.", actionEvent);
-            return null;
         }
         actionEvent.consume();
         return selectedCustomer;

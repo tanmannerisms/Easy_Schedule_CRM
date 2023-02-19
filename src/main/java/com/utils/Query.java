@@ -16,6 +16,19 @@ public abstract class Query {
     private static PreparedStatement statement;
     private static String sql;
 
+    public static boolean delete(String table, String condition) {
+        sql = "DELETE FROM " + table + " WHERE " + condition;
+        try {
+            statement = JDBC.connection.prepareStatement(sql);
+            statement.execute();
+            return true;
+        }
+        catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+
+    }
     public static User getUser(String username) {
         User newUser = new User();
         sql = "SELECT User_Id, User_Name, Password FROM users WHERE User_Name = ?";
