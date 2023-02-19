@@ -47,7 +47,8 @@ public class CustomerMenu extends Controller implements Initializable {
     }
     @FXML
     private void onViewClick(ActionEvent actionEvent) {
-
+        Window viewCustomer = new Window("view-customer.fxml", "Customer Info");
+        viewCustomer.showWindowAndWait(actionEvent);
     }
     @FXML
     private void onAddClick(ActionEvent actionEvent) {
@@ -81,5 +82,14 @@ public class CustomerMenu extends Controller implements Initializable {
         } catch (NumberFormatException e) {
             return Instance.lookupCustomer(customerSearchField.getText());
         }
+    }
+    private Customer getSelectedCustomer(ActionEvent actionEvent) {
+        Customer selectedCustomer = (Customer) customerTable.getSelectionModel().getSelectedItem();
+        if (selectedCustomer == null) {
+            openNotifyWindow("Please select a customer first.", actionEvent);
+            return null;
+        }
+        actionEvent.consume();
+        return selectedCustomer;
     }
 }
