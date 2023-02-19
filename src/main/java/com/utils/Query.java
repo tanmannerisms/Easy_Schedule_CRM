@@ -1,6 +1,7 @@
 package com.utils;
 
 import com.easyschedule.Appointment;
+import com.easyschedule.Instance;
 import com.people.Contact;
 import com.people.Customer;
 import com.people.User;
@@ -72,14 +73,24 @@ public abstract class Query {
     }
     public static ObservableList<Appointment> getAllAppointments() {
         ObservableList<Appointment> appointments = FXCollections.observableArrayList();
-        sql = "SELECT * FROM appointments";
+        sql = "SELECT Appointment_Id AS ID, Title, Description, Location, Type, Start, End, Customer_ID, User_ID, Contact_ID FROM appointments";
         try {
             statement = JDBC.connection.prepareStatement(sql);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-
-//              Add constructor call here
-
+                Appointment appointment = new Appointment(
+                        resultSet.getInt("ID"),
+                        resultSet.getInt("User_ID"),
+                        resultSet.getInt("Customer_ID"),
+                        resultSet.getInt("Contact_ID"),
+                        resultSet.getString("Title"),
+                        resultSet.getString("Description"),
+                        resultSet.getString("Location"),
+                        resultSet.getString("Type"),
+                        resultSet.getDate("Start"),
+                        resultSet.getDate("End")
+                );
+                appointments.add(appointment);
             }
         }
         catch (SQLException e) {

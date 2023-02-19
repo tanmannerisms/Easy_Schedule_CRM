@@ -14,7 +14,7 @@ public abstract class Instance {
     public static void updateData() {
         allCustomers = Query.getAllCustomers();
         allContacts = Query.getAllContacts();
-//        allAppointments = FXCollections.observableArrayList(Query.getAllAppointments());
+        allAppointments = Query.getAllAppointments();
     }
     public static Customer lookupCustomer(int customerId) {
         for (Customer returnCustomer : allCustomers) {

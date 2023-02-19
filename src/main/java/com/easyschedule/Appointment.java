@@ -5,14 +5,13 @@ import com.people.Contact;
 import java.sql.Date;
 
 public class Appointment {
-    private int appointmentId, userId, customerId;
+    private int appointmentId, userId, customerId, contactId;
     private String title, description, location, type;
-    private Contact contact;
     private Date startDate, endDate;
 
-    Appointment(int appointmentId, int userId, int customerId,
-                String title, String description, String location,
-                String type, Contact contact, Date startDate, Date endDate) {
+    public Appointment(int appointmentId, int userId, int customerId, int contactId,
+                       String title, String description, String location,
+                       String type, Date startDate, Date endDate) {
         setAppointmentId(appointmentId);
         setUserId(userId);
         setCustomerId(customerId);
@@ -20,7 +19,7 @@ public class Appointment {
         setDescription(description);
         setLocation(location);
         setType(type);
-        setContact(contact);
+        setContactId(contactId);
         setStartDate(startDate);
         setEndDate(endDate);
     }
@@ -81,12 +80,12 @@ public class Appointment {
         this.type = type;
     }
 
-    public Contact getContact() {
-        return contact;
+    public int getContactId() {
+        return contactId;
     }
 
-    public void setContact(Contact contact) {
-        this.contact = contact;
+    public void setContactId(int id) {
+        this.contactId = id;
     }
 
     public Date getStartDate() {
