@@ -10,6 +10,8 @@ public class Main extends Application {
     public void start(Stage stage) throws Exception {
         JDBC.openConnection();
 
+        Instance.updateAllLists();
+
         Window login = new Window("login.fxml", "Login Page");
         login.showWindow();
 

@@ -18,6 +18,13 @@ public abstract class Instance {
     public static ObservableList<Appointment> allAppointments;
     public static ObservableList<Division> allDivisions;
     public static ObservableList<Country> allCountries;
+    public static void updateAllLists() {
+       updateCustomers();
+       updateContacts();
+       updateAppointments();
+       updateDivisions();
+       updateCountries();
+    }
 
     public static void updateCustomers() {
         allCustomers.clear();
@@ -28,12 +35,12 @@ public abstract class Instance {
         try {
             while (results.next()) {
                 Customer newCustomer = new Customer(
-                        results.getInt(1);
-                        results.getString(2);
-                        results.getString(3);
-                        results.getString(4);
-                        results.getString(5);
-                        results.getInt(6);
+                        results.getInt(1),
+                        results.getString(2),
+                        results.getString(3),
+                        results.getString(4),
+                        results.getString(5),
+                        results.getInt(6)
                 );
                 allCustomers.add(newCustomer);
             }
@@ -53,7 +60,7 @@ public abstract class Instance {
                 Contact newContact = new Contact(
                         results.getInt(1),
                         results.getString(2),
-                        results.getString(3),
+                        results.getString(3)
                 );
                 allContacts.add(newContact);
             }
