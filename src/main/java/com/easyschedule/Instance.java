@@ -1,5 +1,6 @@
 package com.easyschedule;
 
+import com.location.Country;
 import com.location.Division;
 import com.people.*;
 import com.utils.Query;
@@ -16,6 +17,7 @@ public abstract class Instance {
     public static ObservableList<Contact> allContacts = Query.getAllContacts();
     public static ObservableList<Appointment> allAppointments = Query.getAllAppointments();
     public static ObservableList<Division> allDivisions;
+    public static ObservableList<Country> allCountries;
 
     public static void updateCustomers() {
         allCustomers = Query.getAllCustomers();
@@ -40,6 +42,26 @@ public abstract class Instance {
                         results.getString(2)
                 );
                 allDivisions.add(newDivision);
+            }
+        }
+        catch (SQLException e) {
+            System.out.println(e.getMessage());
+
+        }
+    }
+    public static void updateCountries() {
+        allCountries.clear();
+        ResultSet results = Query.selectAll(
+                "*",
+                "countries"
+        );
+        try {
+            while (results.next()) {
+                Country newCountry = new Country(
+                        results.getInt(1),
+                        results.getString(2)
+                );
+                allCountries.add(newCountry);
             }
         }
         catch (SQLException e) {
