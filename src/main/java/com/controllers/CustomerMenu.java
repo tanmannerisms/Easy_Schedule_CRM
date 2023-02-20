@@ -32,8 +32,9 @@ public class CustomerMenu extends Controller implements Initializable {
         setTableColumns();
         // Listener works for deleting Customers from allCustomers!!!
         // Does a customer need to change for the event listener to fire or does adding a customer fire the listener?
-        Instance.allCustomers.addListener((ListChangeListener<? super Customer>) change -> customerTable.setItems(Instance.allCustomers));
-        customerTable.setItems(Instance.allCustomers);
+        Instance.getAllCustomers().addListener(
+                (ListChangeListener<? super Customer>) change -> customerTable.setItems(Instance.getAllCustomers()));
+        customerTable.setItems(Instance.getAllCustomers());
     }
     @FXML
     private void onSearchClick(ActionEvent actionEvent) {

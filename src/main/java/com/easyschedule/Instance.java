@@ -13,11 +13,11 @@ import java.sql.SQLException;
 public abstract class Instance {
     private static final String CUSTOMER_TABLE = "client_schedule.customers";
     private static User activeUser;
-    public static ObservableList<Customer> allCustomers;
-    public static ObservableList<Contact> allContacts;
-    public static ObservableList<Appointment> allAppointments;
-    public static ObservableList<Division> allDivisions;
-    public static ObservableList<Country> allCountries;
+    private static ObservableList<Customer> allCustomers;
+    private static ObservableList<Contact> allContacts;
+    private static ObservableList<Appointment> allAppointments;
+    private static ObservableList<Division> allDivisions;
+    private static ObservableList<Country> allCountries;
     public static void updateAllLists() {
        updateCustomers();
        updateContacts();
@@ -135,6 +135,26 @@ public abstract class Instance {
             System.out.println(e.getMessage());
         }
     }
+
+    public static ObservableList<Customer> getAllCustomers() {
+        return allCustomers;
+    }
+    public static ObservableList<Contact> getAllContacts() {
+        return allContacts;
+    }
+
+    public static ObservableList<Appointment> getAllAppointments() {
+        return allAppointments;
+    }
+
+    public static ObservableList<Division> getAllDivisions() {
+        return allDivisions;
+    }
+
+    public static ObservableList<Country> getAllCountries() {
+        return allCountries;
+    }
+
     public static Customer lookupCustomer(int customerId) {
         for (Customer returnCustomer : allCustomers) {
             if (returnCustomer.getId() == customerId) {
