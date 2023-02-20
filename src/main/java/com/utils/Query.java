@@ -16,6 +16,26 @@ public abstract class Query {
     private static PreparedStatement statement;
     private static String sql;
 
+    private static ResultSet prepareAndExecute() {
+        try {
+            statement = JDBC.connection.prepareStatement(sql);
+            return statement.executeQuery();
+        }
+        catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
+    public static ResultSet selectAll(String values, String table) {
+        sql = "SELECT " + values + "FROM " + table;
+        return prepareAndExecute();
+    }
+
+    public static ResultSet selectConditional(String values, String table, String conditions) {
+        sql = "SELECT " + values + " FROM " + table + " WHERE " + conditions;
+        return prepareAndExecute();
+    }
     public static boolean delete(String table, String condition) {
         sql = "DELETE FROM " + table + " WHERE " + condition;
         try {

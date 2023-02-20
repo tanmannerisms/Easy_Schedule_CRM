@@ -1,9 +1,13 @@
 package com.easyschedule;
 
+import com.location.Division;
 import com.people.*;
 import com.utils.Query;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public abstract class Instance {
     private static final String CUSTOMER_TABLE = "client_schedule.customers";
@@ -11,6 +15,7 @@ public abstract class Instance {
     public static ObservableList<Customer> allCustomers = Query.getAllCustomers();
     public static ObservableList<Contact> allContacts = Query.getAllContacts();
     public static ObservableList<Appointment> allAppointments = Query.getAllAppointments();
+    public static ObservableList<Division> allDivisions;
 
     public static void updateCustomers() {
         allCustomers = Query.getAllCustomers();
@@ -20,6 +25,27 @@ public abstract class Instance {
     }
     public static void updateAppointments() {
         allAppointments = Query.getAllAppointments();
+    }
+    public static void updateDivisions() {
+        allDivisions.clear();
+        ResultSet results = Query.selectAll(
+                "Division_ID, Country_ID, Division",
+                "first_level_divisions"
+                );
+        try {
+            while (results.next()) {
+                Division newDivision = new Division(
+                        results.getInt(1),
+                        results.getInt(3),
+                        results.getString(2)
+                );
+                allDivisions.add(newDivision);
+            }
+        }
+        catch (SQLException e) {
+            System.out.println(e.getMessage());
+
+        }
     }
     public static Customer lookupCustomer(int customerId) {
         for (Customer returnCustomer : allCustomers) {
