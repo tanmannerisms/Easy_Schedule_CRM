@@ -184,4 +184,7 @@ public abstract class Instance {
         }
         return null;
     }
+    public static Division lookupDivision(int divisionId) {
+        return allDivisions.get(divisionId - 1);
+    }
 }

@@ -1,7 +1,7 @@
 package com.people;
 
 import com.easyschedule.Appointment;
-import com.utils.Query;
+import com.easyschedule.Instance;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -17,7 +17,6 @@ public class Customer extends Person{
         this.postalCode = postalCode;
         this.phoneNumber = phoneNumber;
         this.divisionId = divisionId;
-        setDivision();
         this.associatedAppointments = FXCollections.emptyObservableList();
     }
 
@@ -29,12 +28,8 @@ public class Customer extends Person{
         this.divisionId = divisionId;
     }
     public String getDivision() {
-        return division;
+        return Instance.lookupDivision(divisionId).getDivisionName();
     }
-    public void setDivision() {
-        division = Query.getDivision(divisionId);
-    }
-
     public String getAddress() {
         return address;
     }

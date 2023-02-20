@@ -1,13 +1,5 @@
 package com.utils;
 
-import com.easyschedule.Appointment;
-import com.easyschedule.Instance;
-import com.people.Contact;
-import com.people.Customer;
-import com.people.User;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -59,20 +51,5 @@ public abstract class Query {
             return false;
         }
 
-    }
-    public static String getDivision(int divisionId) {
-        sql = "SELECT Division FROM first_level_divisions WHERE Division_ID = ?";
-        try {
-            statement = JDBC.connection.prepareStatement(sql);
-            statement.setInt(1, divisionId);
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                return resultSet.getString("Division");
-            }
-        }
-        catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-        return null;
     }
 }
