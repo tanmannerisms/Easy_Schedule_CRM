@@ -10,6 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import com.window.Window;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Login extends Controller{
@@ -32,7 +33,7 @@ public class Login extends Controller{
     private boolean validateCredentials(ActionEvent actionEvent) {
         inputUsername = userNameField.getText();
         inputPassword = passwordField.getText();
-        user = Query.getUser(inputUsername);
+        queryUser();
         if (validateUsername() && validatePassword()) {
             actionEvent.consume();
             return true;
@@ -49,5 +50,25 @@ public class Login extends Controller{
     private boolean validatePassword() {
         if (user.getPassword().equals(inputPassword)) return true;
         else return false;
+    }
+    private void queryUser() {
+        String condition = "User_Name = " + inputUsername;
+        ResultSet results = Query.selectConditional(
+                "User_Id, User_Name, Password",
+                "users",
+                condition
+        );
+        try {
+            while (results.next()) {
+                user = new User(
+                        results.getInt(1),
+                        results.getString(2),
+                        results.getString(3)
+                );
+            }
+        }
+        catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

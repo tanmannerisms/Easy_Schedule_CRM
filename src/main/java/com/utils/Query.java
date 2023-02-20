@@ -49,24 +49,6 @@ public abstract class Query {
         }
 
     }
-    public static User getUser(String username) {
-        User newUser = new User();
-        sql = "SELECT User_Id, User_Name, Password FROM users WHERE User_Name = ?";
-        try {
-            statement = JDBC.connection.prepareStatement(sql);
-            statement.setString(1, username);
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                newUser = new User(resultSet.getInt("User_Id"),
-                                   resultSet.getString("User_Name"),
-                                   resultSet.getString("Password"));
-            }
-        }
-        catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-        return newUser;
-    }
     public static String getDivision(int divisionId) {
         sql = "SELECT Division FROM first_level_divisions WHERE Division_ID = ?";
         try {
