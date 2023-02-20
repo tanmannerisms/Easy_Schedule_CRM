@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.controllers.Customer">
+<VBox prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.controllers.CustomerForm">
     <AnchorPane prefHeight="50">
         <Label text="Add Customer" AnchorPane.bottomAnchor="5" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="5">
             <padding>
