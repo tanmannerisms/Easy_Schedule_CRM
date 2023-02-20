@@ -20,13 +20,74 @@ public abstract class Instance {
     public static ObservableList<Country> allCountries;
 
     public static void updateCustomers() {
-        allCustomers = Query.getAllCustomers();
+        allCustomers.clear();
+        ResultSet results = Query.selectAll(
+                "Customer_Id, Customer_Name, Address, Postal_Code, Phone, Division_Id",
+                "customers"
+        );
+        try {
+            while (results.next()) {
+                Customer newCustomer = new Customer(
+                        results.getInt(1);
+                        results.getString(2);
+                        results.getString(3);
+                        results.getString(4);
+                        results.getString(5);
+                        results.getInt(6);
+                );
+                allCustomers.add(newCustomer);
+            }
+        }
+        catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
     public static void updateContacts() {
-        allContacts = Query.getAllContacts();
+        allContacts.clear();
+        ResultSet results = Query.selectAll(
+                "*",
+                "contacts"
+        );
+        try {
+            while (results.next()) {
+                Contact newContact = new Contact(
+                        results.getInt(1),
+                        results.getString(2),
+                        results.getString(3),
+                );
+                allContacts.add(newContact);
+            }
+        }
+        catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
     public static void updateAppointments() {
-        allAppointments = Query.getAllAppointments();
+        allAppointments.clear();
+        ResultSet results = Query.selectAll(
+                "Appointment_Id, User_ID, Customer_ID, Contact_ID, Title, Description, Location, Type, Start, End",
+                "appointments"
+        );
+        try {
+            while (results.next()) {
+                Appointment newAppointment = new Appointment(
+                        results.getInt(1),
+                        results.getInt(2),
+                        results.getInt(3),
+                        results.getInt(4),
+                        results.getString(5),
+                        results.getString(6),
+                        results.getString(7),
+                        results.getString(8),
+                        results.getDate(9),
+                        results.getDate(10)
+                );
+                allAppointments.add(newAppointment);
+            }
+        }
+        catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
     public static void updateDivisions() {
         allDivisions.clear();
@@ -46,7 +107,6 @@ public abstract class Instance {
         }
         catch (SQLException e) {
             System.out.println(e.getMessage());
-
         }
     }
     public static void updateCountries() {
@@ -66,7 +126,6 @@ public abstract class Instance {
         }
         catch (SQLException e) {
             System.out.println(e.getMessage());
-
         }
     }
     public static Customer lookupCustomer(int customerId) {
