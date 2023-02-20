@@ -69,12 +69,12 @@
                     <Insets right="15.0" />
                 </padding>
             </Label>
-            <TextField editable="false" maxWidth="180.0" prefWidth="120.0" promptText="Auto-Generated" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+            <TextField fx:id="idField" editable="false" maxWidth="180.0" prefWidth="120.0" promptText="Auto-Generated" GridPane.columnIndex="1" GridPane.rowIndex="0" />
             <TextField fx:id="nameField" maxWidth="180.0" prefWidth="120" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField fx:id="phoneNumberField" maxWidth="180.0" prefWidth="120" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <TextField fx:id="addressField" maxWidth="180.0" prefWidth="120" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <TextField fx:id="postalCodeField" maxWidth="180.0" prefWidth="120" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <ComboBox fx:id="countrySelector" maxWidth="180.0" prefWidth="120" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <ComboBox fx:id="countrySelector" onMouseClicked="#setDivisions" maxWidth="180.0" prefWidth="120" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <ComboBox fx:id="divisionSelector" maxWidth="180.0" prefWidth="120" GridPane.columnIndex="1" GridPane.rowIndex="6" />
         </GridPane>
         <padding>
