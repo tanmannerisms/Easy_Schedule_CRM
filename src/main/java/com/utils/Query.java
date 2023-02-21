@@ -10,11 +10,9 @@ public abstract class Query {
 
 
     public static ResultSet selectAll(String values, String table) {
-        sql = "SELECT ? FROM ?";
+        sql = "SELECT " + values + " FROM " + table;
         try {
             statement = JDBC.connection.prepareStatement(sql);
-            statement.setString(1, values);
-            statement.setString(2, table);
             return statement.executeQuery();
         }
         catch (SQLException e) {
@@ -23,13 +21,11 @@ public abstract class Query {
         }
     }
 
-    public static ResultSet selectConditional(String values, String table, String conditions) {
-        sql = "SELECT ? FROM ? WHERE ?";
+    public static ResultSet selectConditional(String values, String table, String condition, String comparison) {
+        sql = "SELECT " + values + " FROM " + table + " WHERE " + condition + " ?";
         try {
             statement = JDBC.connection.prepareStatement(sql);
-            statement.setString(1, values);
-            statement.setString(2, table);
-            statement.setString(3, conditions);
+            statement.setString(1, comparison);
             return statement.executeQuery();
         }
         catch (SQLException e) {
@@ -37,12 +33,11 @@ public abstract class Query {
             return null;
         }
     }
-    public static boolean delete(String table, String condition) {
-        sql = "DELETE FROM ? WHERE ?";
+    public static boolean delete(String table, String condition, String comparison) {
+        sql = "DELETE FROM " + table + " WHERE " + condition + " ?";
         try {
             statement = JDBC.connection.prepareStatement(sql);
-            statement.setString(1, table);
-            statement.setString(2, condition);
+            statement.setString(1, comparison);
             statement.execute();
             return true;
         }

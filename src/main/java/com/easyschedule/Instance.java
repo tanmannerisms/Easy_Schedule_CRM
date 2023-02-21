@@ -13,11 +13,11 @@ import java.sql.SQLException;
 public abstract class Instance {
     private static final String CUSTOMER_TABLE = "client_schedule.customers";
     private static User activeUser;
-    private static ObservableList<Customer> allCustomers;
-    private static ObservableList<Contact> allContacts;
-    private static ObservableList<Appointment> allAppointments;
-    private static ObservableList<Division> allDivisions;
-    private static ObservableList<Country> allCountries;
+    private static ObservableList<Customer> allCustomers = FXCollections.observableArrayList();
+    private static ObservableList<Contact> allContacts = FXCollections.observableArrayList();
+    private static ObservableList<Appointment> allAppointments = FXCollections.observableArrayList();
+    private static ObservableList<Division> allDivisions = FXCollections.observableArrayList();
+    private static ObservableList<Country> allCountries = FXCollections.observableArrayList();
     public static void updateAllLists() {
        updateCustomers();
        updateContacts();
@@ -106,8 +106,8 @@ public abstract class Instance {
             while (results.next()) {
                 Division newDivision = new Division(
                         results.getInt(1),
-                        results.getInt(3),
-                        results.getString(2)
+                        results.getInt(2),
+                        results.getString(3)
                 );
                 allDivisions.add(newDivision);
             }
@@ -173,8 +173,7 @@ public abstract class Instance {
         return returnList;
     }
     public static boolean deleteCustomer(Customer customer) {
-        String condition = "Customer_ID = " + customer.getId();
-        if (!Query.delete(CUSTOMER_TABLE, condition)){
+        if (!Query.delete(CUSTOMER_TABLE, "Customer_ID = ", String.valueOf(customer.getId()))){
             return false;
         }
         allCustomers.remove(customer);

@@ -7,7 +7,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 import com.window.Window;
 
 import java.sql.ResultSet;
@@ -52,11 +51,12 @@ public class Login extends Controller{
         else return false;
     }
     private void queryUser() {
-        String condition = "User_Name = " + inputUsername;
+//        String condition =  + inputUsername;
         ResultSet results = Query.selectConditional(
                 "User_Id, User_Name, Password",
                 "users",
-                condition
+                "User_Name = ",
+                inputUsername
         );
         try {
             while (results.next()) {
