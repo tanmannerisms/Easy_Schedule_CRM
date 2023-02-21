@@ -10,7 +10,7 @@ public abstract class Query {
 
 
     public static ResultSet selectAll(String values, String table) {
-        sql = "SELECT " + values + "FROM " + table;
+        sql = "SELECT ? FROM ?";
         try {
             statement = JDBC.connection.prepareStatement(sql);
             statement.setString(1, values);
