@@ -29,7 +29,7 @@ public class Customer extends Person{
         this.divisionId = divisionId;
     }
     public Division getDivision() {
-        return Instance.lookupDivision(divisionId);
+        return Instance.getDivision(divisionId);
     }
     public String getAddress() {
         return address;

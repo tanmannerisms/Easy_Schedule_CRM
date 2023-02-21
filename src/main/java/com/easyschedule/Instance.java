@@ -204,7 +204,23 @@ public abstract class Instance {
         }
         return null;
     }
-    public static Division lookupDivision(int divisionId) {
+    public static Division getDivision(int divisionId) {
         return allDivisions.get(divisionId - 1);
+    }
+    public static ObservableList<Division> getDivision(Country country) {
+        ObservableList<Division> returnList = FXCollections.observableArrayList();
+
+        for (Division division : allDivisions) {
+            if (division.getCountryId() == country.getCountryId()) {
+                returnList.add(division);
+            }
+        }
+
+        return returnList;
+    }
+    public static Country getCountry(int countryId) {
+        System.out.println(allCountries.get(countryId - 1).getCountryName());
+
+        return allCountries.get(countryId - 1);
     }
 }

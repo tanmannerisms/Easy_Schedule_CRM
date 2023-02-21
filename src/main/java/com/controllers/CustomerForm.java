@@ -15,7 +15,7 @@ import java.util.ResourceBundle;
 
 public class CustomerForm extends Controller implements Initializable {
     private boolean customerImported;
-    private Customer customer;
+    protected Customer customer;
     @FXML
     private TextField idField, nameField, addressField, postalCodeField, phoneNumberField;
     @FXML
@@ -27,7 +27,7 @@ public class CustomerForm extends Controller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         countrySelector.setItems(Instance.getAllCountries());
-        setDivisions();
+
         if (customer != null){
             customerImported = true;
             idField.setText(String.valueOf(customer.getId()));
@@ -35,11 +35,14 @@ public class CustomerForm extends Controller implements Initializable {
             addressField.setText(customer.getAddress());
             postalCodeField.setText(customer.getPostalCode());
             phoneNumberField.setText(customer.getPhoneNumber());
-//            divisionSelector.selectionModelProperty().
-//            countrySelector.selectionModelProperty().setValue();
+            countrySelector.setValue(Instance.getCountry(customer.getDivision().getCountryId()));
+            setDivisionSelectorOptions();
+            divisionSelector.setValue(Instance.getDivision(customer.getDivisionId()));
         }
         else {
-
+            customerImported = false;
+            countrySelector.setValue(Instance.getCountry(1));
+            setDivisionSelectorOptions();
         }
     }
     @FXML
@@ -47,7 +50,8 @@ public class CustomerForm extends Controller implements Initializable {
 
     }
     @FXML
-    private void setDivisions() {
-
+    private void setDivisionSelectorOptions() {
+        Country country = countrySelector.getValue();
+        divisionSelector.setItems(Instance.getDivision(country));
     }
 }
