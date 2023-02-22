@@ -2,7 +2,11 @@ package com.controllers;
 
 import com.easyschedule.Instance;
 import com.location.Country;
+import com.location.Division;
+import com.location.Place;
 import com.people.Customer;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -10,6 +14,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 
 import java.net.URL;
+import java.util.Iterator;
 import java.util.ResourceBundle;
 
 public class CustomerForm extends Controller implements Initializable {
@@ -25,7 +30,7 @@ public class CustomerForm extends Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        countrySelector.setItems(null);
+        countrySelector.setItems(getCountryNames(Instance.getAllCountries()));
         if (customer != null){
             customerImported = true;
             idField.setText(String.valueOf(customer.getId()));
@@ -50,6 +55,22 @@ public class CustomerForm extends Controller implements Initializable {
     @FXML
     private void setDivisionSelectorOptions() {
         Country country = Instance.getCountry(countrySelector.getValue());
-        divisionSelector.setItems(null);
+        divisionSelector.setItems(getDivisionNames(Instance.getDivision(country)));
+    }
+    private ObservableList<String> getCountryNames(ObservableList<Country> countries) {
+        ObservableList<String> names = FXCollections.observableArrayList();
+        Iterator<Country> listIterator = countries.listIterator();
+        while (listIterator.hasNext()) {
+            names.add(listIterator.next().getName());
+        }
+        return names;
+    }
+    private ObservableList<String> getDivisionNames(ObservableList<Division> divisions) {
+        ObservableList<String> names = FXCollections.observableArrayList();
+        Iterator<Division> listIterator = divisions.listIterator();
+        while (listIterator.hasNext()) {
+            names.add(listIterator.next().getName());
+        }
+        return names;
     }
 }
