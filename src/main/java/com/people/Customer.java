@@ -9,16 +9,19 @@ import javafx.collections.ObservableList;
 public class Customer extends Person{
     private int divisionId;
     private String address, phoneNumber, postalCode;
-    private ObservableList<Appointment> associatedAppointments;
+    private ObservableList<Appointment> associatedAppointments = FXCollections.observableArrayList();
 
-    public Customer(int id, String name, String address, String postalCode, String phoneNumber, int divisionId) {
-        this.id = id;
+    public Customer (String name, String address, String postalCode, String phoneNumber, int divisionId) {
         this.name = name;
         this.address = address;
         this.postalCode = postalCode;
         this.phoneNumber = phoneNumber;
         this.divisionId = divisionId;
-        this.associatedAppointments = FXCollections.emptyObservableList();
+    }
+    public Customer(int id, String name, String address, String postalCode, String phoneNumber, int divisionId) {
+        this(name, address, postalCode, phoneNumber, divisionId);
+        this.id = id;
+        associatedAppointments = Instance.getCustomerAppointments(this);
     }
 
     public int getDivisionId() {

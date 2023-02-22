@@ -50,7 +50,13 @@ public class CustomerForm extends Controller implements Initializable {
             closeWindow(actionEvent);
         }
         else {
-
+            Customer newCustomer = new Customer(
+                    nameField.getText(),
+                    addressField.getText(),
+                    postalCodeField.getText(),
+                    phoneNumberField.getText(),
+                    Instance.getDivision(divisionSelector.getValue())
+            );
         }
     }
     @FXML
