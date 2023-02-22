@@ -223,8 +223,19 @@ public abstract class Instance {
         return returnList;
     }
     public static Country getCountry(int countryId) {
-        System.out.println(allCountries.get(countryId - 1).getCountryName());
-
-        return allCountries.get(countryId - 1);
+        for (Country country : allCountries) {
+            if (country.getCountryId() == countryId) {
+                return country;
+            }
+        }
+        return null;
+    }
+    public static Country getCountry(String countryName) {
+        for (Country country : allCountries) {
+            if (country.getCountryName() == countryName) {
+                return country;
+            }
+        }
+        return null;
     }
 }
