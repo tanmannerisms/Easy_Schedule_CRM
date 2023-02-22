@@ -2,10 +2,7 @@ package com.controllers;
 
 import com.easyschedule.Instance;
 import com.location.Country;
-import com.location.Division;
 import com.people.Customer;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -13,7 +10,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 
 import java.net.URL;
-import java.util.Iterator;
 import java.util.ResourceBundle;
 
 public class CustomerForm extends Controller implements Initializable {
@@ -37,13 +33,13 @@ public class CustomerForm extends Controller implements Initializable {
             addressField.setText(customer.getAddress());
             postalCodeField.setText(customer.getPostalCode());
             phoneNumberField.setText(customer.getPhoneNumber());
-            countrySelector.setValue(Instance.getCountry(customer.getDivision().getCountryId()).getCountryName());
+            countrySelector.setValue(Instance.getCountry(customer.getDivision().getCountryId()).getName());
             setDivisionSelectorOptions();
             divisionSelector.setValue(Instance.getDivision(customer.getDivisionId()).getName());
         }
         else {
             customerImported = false;
-            countrySelector.setValue(Instance.getCountry(1).getCountryName());
+            countrySelector.setValue(Instance.getCountry(1).getName());
             setDivisionSelectorOptions();
         }
     }

@@ -215,7 +215,7 @@ public abstract class Instance {
         ObservableList<Division> returnList = FXCollections.observableArrayList();
 
         for (Division division : allDivisions) {
-            if (division.getCountryId() == country.getCountryId()) {
+            if (division.getCountryId() == country.getId()) {
                 returnList.add(division);
             }
         }
@@ -224,7 +224,7 @@ public abstract class Instance {
     }
     public static Country getCountry(int countryId) {
         for (Country country : allCountries) {
-            if (country.getCountryId() == countryId) {
+            if (country.getId() == countryId) {
                 return country;
             }
         }
@@ -232,7 +232,7 @@ public abstract class Instance {
     }
     public static Country getCountry(String countryName) {
         for (Country country : allCountries) {
-            if (country.getCountryName() == countryName) {
+            if (country.getName() == countryName) {
                 return country;
             }
         }
