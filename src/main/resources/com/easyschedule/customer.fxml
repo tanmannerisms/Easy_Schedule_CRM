@@ -74,7 +74,7 @@
             <TextField fx:id="phoneNumberField" maxWidth="180.0" prefWidth="120" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <TextField fx:id="addressField" maxWidth="180.0" prefWidth="120" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <TextField fx:id="postalCodeField" maxWidth="180.0" prefWidth="120" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <ComboBox fx:id="countrySelector" onMouseClicked="#setDivisions" maxWidth="180.0" prefWidth="120" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <ComboBox fx:id="countrySelector" onMouseClicked="#setDivisionSelectorOptions" maxWidth="180.0" prefWidth="120" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <ComboBox fx:id="divisionSelector" maxWidth="180.0" prefWidth="120" GridPane.columnIndex="1" GridPane.rowIndex="6" />
         </GridPane>
         <padding>

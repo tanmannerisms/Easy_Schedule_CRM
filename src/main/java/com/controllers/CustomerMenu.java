@@ -61,12 +61,12 @@ public class CustomerMenu extends Controller implements Initializable {
     }
     @FXML
     private void onAddClick(ActionEvent actionEvent) {
-        Window addCustomer = new Window("add-customer.fxml", "Add Customer");
+        Window addCustomer = new Window("customer.fxml", "Add Customer");
         addCustomer.showWindowAndWait(actionEvent);
     }
     @FXML
     private void onModifyClick(ActionEvent actionEvent) {
-        Window modifyCustomer = new Window("modify-customer.fxml", "Edit Customer");
+        Window modifyCustomer = new Window("customer.fxml", "Edit Customer");
         modifyCustomer.showWindowAndWait(actionEvent);
     }
     @FXML
