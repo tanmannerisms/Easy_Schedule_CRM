@@ -9,6 +9,9 @@ import javafx.collections.ObservableList;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.Instant;
+import java.util.Date;
 
 public abstract class Instance {
     private static final String CUSTOMER_TABLE = "client_schedule.customers";
@@ -141,6 +144,30 @@ public abstract class Instance {
     }
     public static void addCustomer(Customer customer) {
         allCustomers.add(customer);
+        long now = System.currentTimeMillis();
+        Query.insert(
+                "customers",
+                "Customer_Name, Phone, Address, Postal_Code, Division_Id, Create_Date, Created_By",
+                customer.getName(),
+                customer.getPhoneNumber(),
+                customer.getAddress(),
+                customer.getPostalCode(),
+                String.valueOf(customer.getDivisionId()),
+                String.valueOf(now),
+                getActiveUser().getName()
+                );
+        ResultSet resultSet = Query.selectConditional(
+                "Customer_Id",
+                "customers",
+                "Customer_Name = '" + customer.getName() + "' AND Address = ",
+                customer.getAddress());
+        try {
+            while (resultSet.next()) {
+                customer.setId(resultSet.getInt(1));
+            }
+        } catch (SQLException e){
+
+        }
     }
     public static ObservableList<Contact> getAllContacts() {
         return allContacts;

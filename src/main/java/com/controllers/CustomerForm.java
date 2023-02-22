@@ -53,11 +53,12 @@ public class CustomerForm extends Controller implements Initializable {
             Customer newCustomer = new Customer(
                     nameField.getText(),
                     addressField.getText(),
-                    postalCodeField.getText(),
+                    postalCodeField.getText() + " ",
                     phoneNumberField.getText(),
                     Instance.getDivision(divisionSelector.getValue())
             );
             Instance.addCustomer(newCustomer);
+            closeWindow(actionEvent);
         }
     }
     @FXML

@@ -1,23 +1,20 @@
 package com.people;
 
 public class User extends Person{
-    private String username, password;
+    private String password;
 
     public User() {
     }
     public User(int id, String username, String password) {
         setId(id);
-        setUsername(username);
+        setName(username);
         setPassword(password);
     }
 
     public String getUsername() {
-        return username;
+        return name;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
 
     public String getPassword() {
         return password;

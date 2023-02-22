@@ -1,8 +1,6 @@
 package com.utils;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public abstract class Query {
     private static PreparedStatement statement;
@@ -31,6 +29,36 @@ public abstract class Query {
         catch (SQLException e) {
             System.out.println(e.getMessage());
             return null;
+        }
+    }
+    public static boolean insert(String table, String columns, String ... values) {
+        String bindVariables = "?";
+        if (values.length > 1) {
+            for (int i = 0; i < values.length - 1; i++) {
+                bindVariables += ", ?";
+            }
+        }
+        sql = "INSERT INTO " + table + " (" + columns + ") VALUES (" + bindVariables + ")";
+        try {
+            statement = JDBC.connection.prepareStatement(sql);
+            for (int i = 0; i < values.length; i++) {
+                try {
+                    statement.setInt(i+1, Integer.parseInt(values[i]));
+                    continue;
+                } catch (NumberFormatException e){}
+                try {
+                    Timestamp timestamp = new Timestamp(Long.valueOf(values[i]));
+                    statement.setTimestamp(i+1, timestamp);
+                    continue;
+                } catch (IllegalArgumentException e){}
+                statement.setString(i+1, values[i]);
+            }
+            statement.execute();
+            return true;
+        }
+        catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return false;
         }
     }
     public static boolean delete(String table, String condition, String comparison) {
