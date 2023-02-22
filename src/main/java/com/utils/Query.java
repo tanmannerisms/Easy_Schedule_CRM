@@ -18,7 +18,7 @@ public abstract class Query {
             return null;
         }
     }
-
+// Need to make this more like the insert statement.
     public static ResultSet selectConditional(String values, String table, String condition, String comparison) {
         sql = "SELECT " + values + " FROM " + table + " WHERE " + condition + " ?";
         try {
@@ -47,6 +47,7 @@ public abstract class Query {
                     continue;
                 } catch (NumberFormatException e){}
                 try {
+                    // Need to convert timestamp to UTC before updating DB!!!!!!
                     Timestamp timestamp = new Timestamp(Long.valueOf(values[i]));
                     statement.setTimestamp(i+1, timestamp);
                     continue;
