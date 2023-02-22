@@ -45,13 +45,13 @@ public abstract class Query {
                 try {
                     statement.setInt(i+1, Integer.parseInt(values[i]));
                     continue;
-                } catch (NumberFormatException e){}
+                } catch (NumberFormatException ignored){}
                 try {
                     // Need to convert timestamp to UTC before updating DB!!!!!!
                     Timestamp timestamp = new Timestamp(Long.valueOf(values[i]));
                     statement.setTimestamp(i+1, timestamp);
                     continue;
-                } catch (IllegalArgumentException e){}
+                } catch (IllegalArgumentException ignored){}
                 statement.setString(i+1, values[i]);
             }
             statement.execute();
