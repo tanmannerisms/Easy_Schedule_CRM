@@ -66,11 +66,11 @@ public abstract class Query {
         String columnArr[] = new String[values.length];
         try {
             StringBuilder column = new StringBuilder();
-            for (int j = 0; j < values.length; j++) {
-                for (int i = 0; i < columns.length(); i++) {
+                for (int i = 0, j = 0; i < columns.length(); i++) {
                     if (columns.charAt(i) == ',') {
-                        column.append(" = ");
+                        column.append(" = ?");
                         columnArr[j] = String.valueOf(column);
+                        j++;
                         column = new StringBuilder();
                     } else if (columns.charAt(i) == ' ') {
                         // Do nothing
@@ -78,9 +78,8 @@ public abstract class Query {
                         column.append(columns.charAt(i));
                     }
                 }
-            }
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Number of columns does not match number of values.");
+            System.out.println("Number of columns and number of values do not match!");
         }
         String bindVariables = "?";
         if (values.length > 1) {
