@@ -11,6 +11,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 import java.net.URL;
@@ -20,6 +21,8 @@ import java.util.ResourceBundle;
 public class CustomerForm extends Controller implements Initializable {
     private boolean customerImported;
     protected Customer customer;
+    @FXML
+    private Label title;
     @FXML
     private TextField idField, nameField, addressField, postalCodeField, phoneNumberField;
     @FXML
@@ -34,6 +37,7 @@ public class CustomerForm extends Controller implements Initializable {
         customerImported = false;
         countrySelector.setValue(Instance.getCountry(1).getName());
         setDivisionSelectorOptions();
+        title.setText("Add Customer");
     }
     @FXML
     private void onSaveClick(ActionEvent actionEvent) {
@@ -55,6 +59,7 @@ public class CustomerForm extends Controller implements Initializable {
         divisionSelector.setItems(getDivisionNames(Instance.getDivision(country)));
     }
     public void setCustomer(Customer customer) {
+        title.setText("Modify Customer");
         this.customer = customer;
         customerImported = true;
         idField.setText(String.valueOf(customer.getId()));
