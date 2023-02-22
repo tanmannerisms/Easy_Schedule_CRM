@@ -31,22 +31,9 @@ public class CustomerForm extends Controller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         countrySelector.setItems(getCountryNames(Instance.getAllCountries()));
-        if (customer != null){
-            customerImported = true;
-            idField.setText(String.valueOf(customer.getId()));
-            nameField.setText(customer.getName());
-            addressField.setText(customer.getAddress());
-            postalCodeField.setText(customer.getPostalCode());
-            phoneNumberField.setText(customer.getPhoneNumber());
-            countrySelector.setValue(Instance.getCountry(customer.getDivision().getCountryId()).getName());
-            setDivisionSelectorOptions();
-            divisionSelector.setValue(Instance.getDivision(customer.getDivisionId()).getName());
-        }
-        else {
-            customerImported = false;
-            countrySelector.setValue(Instance.getCountry(1).getName());
-            setDivisionSelectorOptions();
-        }
+        customerImported = false;
+        countrySelector.setValue(Instance.getCountry(1).getName());
+        setDivisionSelectorOptions();
     }
     @FXML
     private void onSaveClick(ActionEvent actionEvent) {
@@ -56,6 +43,18 @@ public class CustomerForm extends Controller implements Initializable {
     private void setDivisionSelectorOptions() {
         Country country = Instance.getCountry(countrySelector.getValue());
         divisionSelector.setItems(getDivisionNames(Instance.getDivision(country)));
+    }
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+        customerImported = true;
+        idField.setText(String.valueOf(customer.getId()));
+        nameField.setText(customer.getName());
+        addressField.setText(customer.getAddress());
+        postalCodeField.setText(customer.getPostalCode());
+        phoneNumberField.setText(customer.getPhoneNumber());
+        countrySelector.setValue(Instance.getCountry(customer.getDivision().getCountryId()).getName());
+        setDivisionSelectorOptions();
+        divisionSelector.setValue(Instance.getDivision(customer.getDivisionId()).getName());
     }
     private ObservableList<String> getCountryNames(ObservableList<Country> countries) {
         ObservableList<String> names = FXCollections.observableArrayList();

@@ -1,5 +1,6 @@
 package com.window;
 
+import com.controllers.Controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -28,8 +29,8 @@ public class Window {
         setScene();
         setStage();
     }
-    public Stage getStage() {
-        return this.stage;
+    public Controller getController() {
+        return this.fxmlLoader.getController();
     }
 
     /**

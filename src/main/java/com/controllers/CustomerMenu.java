@@ -13,6 +13,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -67,6 +68,8 @@ public class CustomerMenu extends Controller implements Initializable {
     @FXML
     private void onModifyClick(ActionEvent actionEvent) {
         Window modifyCustomer = new Window("customer.fxml", "Edit Customer");
+        CustomerForm controller = (CustomerForm) modifyCustomer.getController();
+        controller.setCustomer(getSelectedCustomer(actionEvent));
         modifyCustomer.showWindowAndWait(actionEvent);
     }
     @FXML
