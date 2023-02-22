@@ -43,6 +43,7 @@ public class CustomerForm extends Controller implements Initializable {
             customer.setAddress(addressField.getText());
             customer.setPostalCode(postalCodeField.getText());
             customer.setDivisionId(Instance.getDivision(divisionSelector.getValue()));
+            closeWindow(actionEvent);
         }
         else {
 

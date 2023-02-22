@@ -71,6 +71,7 @@ public class CustomerMenu extends Controller implements Initializable {
         CustomerForm controller = (CustomerForm) modifyCustomer.getController();
         controller.setCustomer(getSelectedCustomer(actionEvent));
         modifyCustomer.showWindowAndWait(actionEvent);
+        customerTable.refresh();
     }
     @FXML
     private void onDeleteClick(ActionEvent actionEvent) {
