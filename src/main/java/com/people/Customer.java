@@ -31,6 +31,9 @@ public class Customer extends Person{
     public Division getDivision() {
         return Instance.getDivision(divisionId);
     }
+    public String  getDivisionName() {
+        return Instance.getDivision(divisionId).getDivisionName();
+    }
     public String getAddress() {
         return address;
     }

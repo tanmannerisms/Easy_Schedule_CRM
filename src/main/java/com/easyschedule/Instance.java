@@ -204,7 +204,12 @@ public abstract class Instance {
         return null;
     }
     public static Division getDivision(int divisionId) {
-        return allDivisions.get(divisionId - 1);
+        for (Division division : allDivisions) {
+            if (division.getDivisionId() == divisionId) {
+                return division;
+            }
+        }
+        return null;
     }
     public static ObservableList<Division> getDivision(Country country) {
         ObservableList<Division> returnList = FXCollections.observableArrayList();

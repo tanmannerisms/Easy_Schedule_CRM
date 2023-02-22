@@ -29,6 +29,7 @@ public class CustomerMenu extends Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        Instance.updateCustomers();
         setTableColumns();
         // Listener works for deleting Customers from allCustomers!!!
         // Does a customer need to change for the event listener to fire or does adding a customer fire the listener?
@@ -85,7 +86,7 @@ public class CustomerMenu extends Controller implements Initializable {
         idColumn.setCellValueFactory(new PropertyValueFactory<>("Id"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
         addressColumn.setCellValueFactory(new PropertyValueFactory<>("Address"));
-        divisionColumn.setCellValueFactory(new PropertyValueFactory<>("Division"));
+        divisionColumn.setCellValueFactory(new PropertyValueFactory<>("DivisionName"));
         phoneColumn.setCellValueFactory(new PropertyValueFactory<>("PhoneNumber"));
     }
     private Customer getSelectedCustomer(ActionEvent actionEvent) {
