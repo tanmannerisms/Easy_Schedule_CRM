@@ -32,7 +32,7 @@ public class Customer extends Person{
         return Instance.getDivision(divisionId);
     }
     public String  getDivisionName() {
-        return Instance.getDivision(divisionId).getDivisionName();
+        return Instance.getDivision(divisionId).getName();
     }
     public String getAddress() {
         return address;

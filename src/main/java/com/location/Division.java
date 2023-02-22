@@ -1,20 +1,11 @@
 package com.location;
 
-public class Division {
-    private int divisionId, countryId;
-    private String divisionName;
+public class Division extends Place {
+    private int countryId;
     public Division(int divisionId, int countryId, String divisionName) {
-        setDivisionId(divisionId);
+        setId(divisionId);
         setCountryId(countryId);
-        setDivisionName(divisionName);
-    }
-
-    public void setDivisionId(int divisionId) {
-        this.divisionId = divisionId;
-    }
-
-    public int getDivisionId() {
-        return divisionId;
+        setName(divisionName);
     }
 
     public void setCountryId(int countryId) {
@@ -23,13 +14,5 @@ public class Division {
 
     public int getCountryId() {
         return countryId;
-    }
-
-    public void setDivisionName(String divisionName) {
-        this.divisionName = divisionName;
-    }
-
-    public String getDivisionName() {
-        return divisionName;
     }
 }

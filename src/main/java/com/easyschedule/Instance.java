@@ -205,7 +205,7 @@ public abstract class Instance {
     }
     public static Division getDivision(int divisionId) {
         for (Division division : allDivisions) {
-            if (division.getDivisionId() == divisionId) {
+            if (division.getId() == divisionId) {
                 return division;
             }
         }

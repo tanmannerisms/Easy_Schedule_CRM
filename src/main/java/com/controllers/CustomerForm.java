@@ -39,7 +39,7 @@ public class CustomerForm extends Controller implements Initializable {
             phoneNumberField.setText(customer.getPhoneNumber());
             countrySelector.setValue(Instance.getCountry(customer.getDivision().getCountryId()).getCountryName());
             setDivisionSelectorOptions();
-            divisionSelector.setValue(Instance.getDivision(customer.getDivisionId()).getDivisionName());
+            divisionSelector.setValue(Instance.getDivision(customer.getDivisionId()).getName());
         }
         else {
             customerImported = false;
