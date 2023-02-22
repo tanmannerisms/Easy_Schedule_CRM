@@ -37,7 +37,16 @@ public class CustomerForm extends Controller implements Initializable {
     }
     @FXML
     private void onSaveClick(ActionEvent actionEvent) {
+        if (customerImported) {
+            customer.setName(nameField.getText());
+            customer.setPhoneNumber(phoneNumberField.getText());
+            customer.setAddress(addressField.getText());
+            customer.setPostalCode(postalCodeField.getText());
+            customer.setDivisionId(Instance.getDivision(divisionSelector.getValue()));
+        }
+        else {
 
+        }
     }
     @FXML
     private void setDivisionSelectorOptions() {

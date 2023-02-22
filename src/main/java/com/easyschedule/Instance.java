@@ -222,6 +222,14 @@ public abstract class Instance {
 
         return returnList;
     }
+    public static int getDivision(String divisionName) {
+        for (Division division : allDivisions) {
+            if (division.getName() == divisionName) {
+                return division.getId();
+            }
+        }
+        return 0;
+    }
     public static Country getCountry(int countryId) {
         for (Country country : allCountries) {
             if (country.getId() == countryId) {
