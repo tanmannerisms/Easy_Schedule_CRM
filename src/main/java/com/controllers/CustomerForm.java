@@ -57,6 +57,7 @@ public class CustomerForm extends Controller implements Initializable {
                     phoneNumberField.getText(),
                     Instance.getDivision(divisionSelector.getValue())
             );
+            Instance.addCustomer(newCustomer);
         }
     }
     @FXML

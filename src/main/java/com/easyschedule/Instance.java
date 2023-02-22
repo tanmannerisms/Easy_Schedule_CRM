@@ -139,6 +139,9 @@ public abstract class Instance {
     public static ObservableList<Customer> getAllCustomers() {
         return allCustomers;
     }
+    public static void addCustomer(Customer customer) {
+        allCustomers.add(customer);
+    }
     public static ObservableList<Contact> getAllContacts() {
         return allContacts;
     }
