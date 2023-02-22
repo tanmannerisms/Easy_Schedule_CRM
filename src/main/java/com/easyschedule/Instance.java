@@ -98,10 +98,10 @@ public abstract class Instance {
     }
     public static void updateDivisions() {
         allDivisions.clear();
-        ResultSet results = Query.selectAllDivisions();/*Query.selectAll(
+        ResultSet results = Query.selectAll(
                 "Division_ID, Country_ID, Division",
                 "first_level_divisions"
-                );*/
+                );
         try {
             while (results.next()) {
                 Division newDivision = new Division(

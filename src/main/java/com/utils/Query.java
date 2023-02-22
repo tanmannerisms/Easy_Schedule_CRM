@@ -47,15 +47,4 @@ public abstract class Query {
         }
 
     }
-    public static ResultSet selectAllDivisions() {
-        sql = "SELECT Division_ID, Country_ID, Division FROM first_level_divisions";
-        try {
-            statement = JDBC.connection.prepareStatement(sql);
-            return statement.executeQuery();
-        }
-        catch (SQLException e) {
-            System.out.println(e.getMessage());
-            return null;
-        }
-    }
 }
