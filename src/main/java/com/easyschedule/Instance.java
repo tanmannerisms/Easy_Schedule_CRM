@@ -9,9 +9,6 @@ import javafx.collections.ObservableList;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.time.Instant;
-import java.util.Date;
 
 public abstract class Instance {
     private static final String CUSTOMER_TABLE = "client_schedule.customers";
@@ -22,14 +19,14 @@ public abstract class Instance {
     private static ObservableList<Division> allDivisions = FXCollections.observableArrayList();
     private static ObservableList<Country> allCountries = FXCollections.observableArrayList();
     public static void updateAllLists() {
-       updateCustomers();
-       updateContacts();
-       updateAppointments();
-       updateDivisions();
-       updateCountries();
+       updateCustomerList();
+       updateContactList();
+       updateAppointmentList();
+       updateDivisionList();
+       updateCountryList();
     }
 
-    public static void updateCustomers() {
+    public static void updateCustomerList() {
         allCustomers.clear();
         ResultSet results = Query.selectAll(
                 "Customer_Id, Customer_Name, Address, Postal_Code, Phone, Division_Id",
@@ -52,7 +49,7 @@ public abstract class Instance {
             System.out.println(e.getMessage());
         }
     }
-    public static void updateContacts() {
+    public static void updateContactList() {
         allContacts.clear();
         ResultSet results = Query.selectAll(
                 "*",
@@ -72,7 +69,7 @@ public abstract class Instance {
             System.out.println(e.getMessage());
         }
     }
-    public static void updateAppointments() {
+    public static void updateAppointmentList() {
         allAppointments.clear();
         ResultSet results = Query.selectAll(
                 "Appointment_Id, User_ID, Customer_ID, Contact_ID, Title, Description, Location, Type, Start, End",
@@ -99,7 +96,7 @@ public abstract class Instance {
             System.out.println(e.getMessage());
         }
     }
-    public static void updateDivisions() {
+    public static void updateDivisionList() {
         allDivisions.clear();
         ResultSet results = Query.selectAll(
                 "Division_ID, Country_ID, Division",
@@ -119,7 +116,7 @@ public abstract class Instance {
             System.out.println(e.getMessage());
         }
     }
-    public static void updateCountries() {
+    public static void updateCountryList() {
         allCountries.clear();
         ResultSet results = Query.selectAll(
                 "*",

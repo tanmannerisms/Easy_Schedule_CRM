@@ -13,7 +13,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -30,7 +29,7 @@ public class CustomerMenu extends Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        Instance.updateCustomers();
+        Instance.updateCustomerList();
         setTableColumns();
         // Listener works for deleting Customers from allCustomers!!!
         // Does a customer need to change for the event listener to fire or does adding a customer fire the listener?
