@@ -3,15 +3,17 @@ package com.controllers;
 import com.easyschedule.Appointment;
 import com.people.Customer;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
+import java.net.URL;
 import java.time.ZonedDateTime;
-import java.time.chrono.ChronoZonedDateTime;
+import java.util.ResourceBundle;
 
-public class Appointments extends Controller {
+public class Appointments extends Controller implements Initializable {
     private Customer customer;
     public TableColumn<Appointment, Integer> idColumn, customerColumn, userColumn;
     public TableColumn<Appointment, String> titleColumn, descriptionColumn, locationColumn, contactColumn, typeColumn;
@@ -20,6 +22,10 @@ public class Appointments extends Controller {
     public Tab allAppointments, monthAppointments, weekAppointments;
     public TextField appointmentSearchField;
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+    }
     protected void setCustomer(Customer customer) {
         this.customer = customer;
     }
