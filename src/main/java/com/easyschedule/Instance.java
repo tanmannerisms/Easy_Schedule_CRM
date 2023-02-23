@@ -166,6 +166,21 @@ public abstract class Instance {
 
         }
     }
+    public static void updateCustomer(Customer customer) {
+        long now = System.currentTimeMillis();
+        Query.update(
+                "customers",
+                "Customer_Id = " + 1,
+                "Customer_Name, Phone, Address, Postal_Code, Division_Id, Last_Update, Last_Updated_By",
+                customer.getName(),
+                customer.getPhoneNumber(),
+                customer.getAddress(),
+                customer.getPostalCode(),
+                String.valueOf(customer.getId()),
+                String.valueOf(now),
+                Instance.getActiveUser().getName()
+        );
+    }
     public static ObservableList<Contact> getAllContacts() {
         return allContacts;
     }

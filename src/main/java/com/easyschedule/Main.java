@@ -24,6 +24,7 @@ public class Main extends Application {
         JDBC.closeConnection();
     }
     public void test() {
+/*
         long now = System.currentTimeMillis();
         Query.update(
                 "customers",
@@ -37,5 +38,6 @@ public class Main extends Application {
                 String.valueOf(now),
                 "Me"
         );
+*/
     }
 }
