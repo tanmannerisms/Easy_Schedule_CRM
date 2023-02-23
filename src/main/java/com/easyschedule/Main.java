@@ -26,16 +26,16 @@ public class Main extends Application {
     public void test() {
         long now = System.currentTimeMillis();
         Query.update(
-                "cusotmers",
-                "Customer_Id = ",
+                "customers",
+                "Customer_Id = " + 1,
                 "Customer_Name, Phone, Address, Postal_Code, Division_Id, Last_Update, Last_Updated_By",
-                "Tanner",
-                "541-571",
-                "83706",
+                "Tanner Mills",
+                "541-571-6542",
+                "1109 S. Leadville Ave",
+                "83706 ",
                 "1",
                 String.valueOf(now),
-                "Me",
-                "Shite"
+                "Me"
         );
     }
 }

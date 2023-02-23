@@ -41,19 +41,7 @@ public abstract class Query {
         sql = "INSERT INTO " + table + " (" + columns + ") VALUES (" + bindVariables + ")";
         try {
             statement = JDBC.connection.prepareStatement(sql);
-            for (int i = 0; i < values.length; i++) {
-                try {
-                    statement.setInt(i+1, Integer.parseInt(values[i]));
-                    continue;
-                } catch (NumberFormatException ignored){}
-                try {
-                    // Need to convert timestamp to UTC before updating DB!!!!!!
-                    Timestamp timestamp = new Timestamp(Long.valueOf(values[i]));
-                    statement.setTimestamp(i+1, timestamp);
-                    continue;
-                } catch (IllegalArgumentException ignored){}
-                statement.setString(i+1, values[i]);
-            }
+            setBindVariables(values);
             statement.execute();
             return true;
         }
@@ -64,11 +52,21 @@ public abstract class Query {
     }
     public static boolean update(String table, String condition, String columns, String ... values) {
         String columnArr[] = new String[values.length];
+        // Convert the columns String to an array of Strings that have the bind variable attached
         try {
             StringBuilder column = new StringBuilder();
-                for (int i = 0, j = 0; i < columns.length(); i++) {
-                    if (columns.charAt(i) == ',') {
-                        column.append(" = ?");
+                for (int i = 0, j = 0; i <= columns.length(); i++) {
+                    if (j >= values.length) {
+                        throw new IndexOutOfBoundsException("Too many columns specified!\n" +
+                                "Columns: " + j + " Values: " + (values.length - 1));
+                    }
+                    if (i == columns.length() || columns.charAt(i) == ',') {
+                        if (i == columns.length()) {
+                            column.append(" = ?");
+                        }
+                        else {
+                            column.append(" = ?, ");
+                        }
                         columnArr[j] = String.valueOf(column);
                         j++;
                         column = new StringBuilder();
@@ -78,42 +76,29 @@ public abstract class Query {
                         column.append(columns.charAt(i));
                     }
                 }
+                if (columnArr[values.length - 1] == null) {
+                    throw new IndexOutOfBoundsException("Not enough columns specified for number of values given!");
+                }
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Number of columns and number of values do not match!");
+            System.out.println(e.getMessage());
         }
-        String bindVariables = "?";
-        if (values.length > 1) {
-            for (int i = 0; i < values.length - 1; i++) {
-                bindVariables += ", ?";
-            }
+        columns = "";
+        // Convert it back to a String for use in concatenation.
+        for (String string : columnArr) {
+            columns += string;
         }
-        sql = "UPDATE " + table + " SET" ;
-/*
+        sql = "UPDATE " + table + " SET " + columns + " WHERE " + condition ;
         try {
             statement = JDBC.connection.prepareStatement(sql);
-            for (int i = 0; i < values.length; i++) {
-                try {
-                    statement.setInt(i+1, Integer.parseInt(values[i]));
-                    continue;
-                } catch (NumberFormatException ignored){}
-                try {
-                    // Need to convert timestamp to UTC before updating DB!!!!!!
-                    Timestamp timestamp = new Timestamp(Long.valueOf(values[i]));
-                    statement.setTimestamp(i+1, timestamp);
-                    continue;
-                } catch (IllegalArgumentException ignored){}
-                statement.setString(i+1, values[i]);
-            }
+            setBindVariables(values);
             statement.execute();
             return true;
         }
         catch (SQLException e) {
             System.out.println(e.getMessage());
             return false;
-        }
-*/
-        return true;
-    }
+        }}
     public static boolean delete(String table, String condition, String comparison) {
         sql = "DELETE FROM " + table + " WHERE " + condition + " ?";
         try {
@@ -126,6 +111,20 @@ public abstract class Query {
             System.out.println(e.getMessage());
             return false;
         }
-
+    }
+    private static void setBindVariables(String values[]) throws SQLException {
+        for (int i = 0; i < values.length; i++) {
+            try {
+                statement.setInt(i+1, Integer.parseInt(values[i]));
+                continue;
+            } catch (NumberFormatException ignored){}
+            try {
+                // Need to convert timestamp to UTC before updating DB!!!!!!
+                Timestamp timestamp = new Timestamp(Long.valueOf(values[i]));
+                statement.setTimestamp(i+1, timestamp);
+                continue;
+            } catch (IllegalArgumentException ignored){}
+            statement.setString(i+1, values[i]);
+        }
     }
 }
