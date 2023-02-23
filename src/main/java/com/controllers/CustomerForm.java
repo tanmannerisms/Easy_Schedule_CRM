@@ -67,7 +67,7 @@ public class CustomerForm extends Controller implements Initializable {
         Country country = Instance.getCountry(countrySelector.getValue());
         divisionSelector.setItems(getDivisionNames(Instance.getDivision(country)));
     }
-    public void setCustomer(Customer customer) {
+    protected void setCustomer(Customer customer) {
         title.setText("Modify Customer");
         this.customer = customer;
         customerImported = true;

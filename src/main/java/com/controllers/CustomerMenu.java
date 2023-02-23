@@ -56,8 +56,10 @@ public class CustomerMenu extends Controller implements Initializable {
     }
     @FXML
     private void onViewClick(ActionEvent actionEvent) {
-        Window viewCustomer = new Window("view-customer.fxml", "Customer Info");
-        viewCustomer.showWindowAndWait(actionEvent);
+        Window viewCustomer = new Window("appointments.fxml", "Customer Info");
+        Appointments controller = (Appointments) viewCustomer.getController();
+        controller.setCustomer(getSelectedCustomer(actionEvent));
+        viewCustomer.showWindow();
     }
     @FXML
     private void onAddClick(ActionEvent actionEvent) {
