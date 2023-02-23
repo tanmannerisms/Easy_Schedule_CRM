@@ -170,7 +170,7 @@ public abstract class Instance {
         long now = System.currentTimeMillis();
         Query.update(
                 "customers",
-                "Customer_Id = " + 1,
+                "Customer_Id = " + customer.getId(),
                 "Customer_Name, Phone, Address, Postal_Code, Division_Id, Last_Update, Last_Updated_By",
                 customer.getName(),
                 customer.getPhoneNumber(),
