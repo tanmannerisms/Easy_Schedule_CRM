@@ -7,8 +7,8 @@ public abstract class Query {
     private static String sql;
 
 
-    public static ResultSet selectAll(String values, String table) {
-        sql = "SELECT " + values + " FROM " + table;
+    public static ResultSet selectAll(String columns, String table) {
+        sql = "SELECT " + columns + " FROM " + table;
         try {
             statement = JDBC.connection.prepareStatement(sql);
             return statement.executeQuery();
@@ -55,30 +55,30 @@ public abstract class Query {
         // Convert the columns String to an array of Strings that have the bind variable attached
         try {
             StringBuilder column = new StringBuilder();
-                for (int i = 0, j = 0; i <= columns.length(); i++) {
-                    if (j >= values.length) {
-                        throw new IndexOutOfBoundsException("Too many columns specified!\n" +
-                                "Columns: " + j + " Values: " + (values.length - 1));
-                    }
-                    if (i == columns.length() || columns.charAt(i) == ',') {
-                        if (i == columns.length()) {
-                            column.append(" = ?");
-                        }
-                        else {
-                            column.append(" = ?, ");
-                        }
-                        columnArr[j] = String.valueOf(column);
-                        j++;
-                        column = new StringBuilder();
-                    } else if (columns.charAt(i) == ' ') {
-                        // Do nothing
-                    } else {
-                        column.append(columns.charAt(i));
-                    }
+            for (int i = 0, j = 0; i <= columns.length(); i++) {
+                if (j >= values.length) {
+                    throw new IndexOutOfBoundsException("Too many columns specified!\n" +
+                            "Columns: " + j + " Values: " + (values.length - 1));
                 }
-                if (columnArr[values.length - 1] == null) {
-                    throw new IndexOutOfBoundsException("Not enough columns specified for number of values given!");
+                if (i == columns.length() || columns.charAt(i) == ',') {
+                    if (i == columns.length()) {
+                        column.append(" = ?");
+                    }
+                    else {
+                        column.append(" = ?, ");
+                    }
+                    columnArr[j] = String.valueOf(column);
+                    j++;
+                    column = new StringBuilder();
+                } else if (columns.charAt(i) == ' ') {
+                    // Do nothing
+                } else {
+                    column.append(columns.charAt(i));
                 }
+            }
+            if (columnArr[values.length - 1] == null) {
+                throw new IndexOutOfBoundsException("Not enough columns specified for number of values given!");
+            }
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Number of columns and number of values do not match!");
             System.out.println(e.getMessage());
