@@ -98,7 +98,8 @@ public abstract class Query {
         catch (SQLException e) {
             System.out.println(e.getMessage());
             return false;
-        }}
+        }
+    }
     public static boolean delete(String table, String condition, String comparison) {
         sql = "DELETE FROM " + table + " WHERE " + condition + " ?";
         try {

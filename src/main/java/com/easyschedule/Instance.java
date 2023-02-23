@@ -176,7 +176,7 @@ public abstract class Instance {
                 customer.getPhoneNumber(),
                 customer.getAddress(),
                 customer.getPostalCode(),
-                String.valueOf(customer.getId()),
+                String.valueOf(customer.getDivision().getId()),
                 String.valueOf(now),
                 Instance.getActiveUser().getName()
         );
