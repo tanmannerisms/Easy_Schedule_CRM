@@ -6,6 +6,14 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import com.window.*;
 
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
+import java.util.Set;
+
 public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
@@ -13,7 +21,7 @@ public class Main extends Application {
 
         Instance.updateAllLists();
 
-        test();
+//        test();
 
         Window login = new Window("login.fxml", "Login Page");
         login.showWindow();
@@ -24,20 +32,25 @@ public class Main extends Application {
         JDBC.closeConnection();
     }
     public void test() {
-/*
-        long now = System.currentTimeMillis();
-        Query.update(
-                "customers",
-                "Customer_Id = " + 1,
-                "Customer_Name, Phone, Address, Postal_Code, Division_Id, Last_Update, Last_Updated_By",
-                "Tanner Mills",
-                "541-571-6542",
-                "1109 S. Leadville Ave",
-                "83706 ",
-                "1",
-                String.valueOf(now),
-                "Me"
-        );
-*/
+        Instant instant = Instant.now();
+        System.out.println("Instant in UTC: " + instant + "\n\n");
+
+        Timestamp timestamp = Timestamp.from(instant);
+        Instant instant1 = timestamp.toInstant();
+
+        System.out.println(instant1.toString());
+
+
+        System.out.println(timestamp);
+
+        ZoneId osZone = ZoneId.systemDefault();
+        System.out.println("Zone ID of OS: " + osZone);
+
+
+
+        ZonedDateTime zonedInstant = instant.atZone(osZone);
+        System.out.println(zonedInstant);
+
+        Instance.updateCustomer(Instance.getAllCustomers().get(1));
     }
 }
