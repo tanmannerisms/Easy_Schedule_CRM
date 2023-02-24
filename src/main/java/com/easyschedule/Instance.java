@@ -9,10 +9,9 @@ import javafx.collections.ObservableList;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZoneOffset;
-import java.time.ZonedDateTime;
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.time.*;
 
 public abstract class Instance {
     private static final String CUSTOMER_TABLE = "client_schedule.customers";
@@ -81,6 +80,11 @@ public abstract class Instance {
         );
         try {
             while (results.next()) {
+
+                Timestamp start = results.getTimestamp(9);
+                Timestamp end = results.getTimestamp(10);
+
+                results.getDate(10)
                 Appointment newAppointment = new Appointment(
                         results.getInt(1),
                         results.getInt(2),
@@ -90,8 +94,8 @@ public abstract class Instance {
                         results.getString(6),
                         results.getString(7),
                         results.getString(8),
-                        (ZonedDateTime) results.getObject(9),
-                        (ZonedDateTime) results.getObject(10)
+                        results.getDate(9),
+                        results.getDate(10)
                 );
                 allAppointments.add(newAppointment);
             }
@@ -99,6 +103,12 @@ public abstract class Instance {
         catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+    }
+    private static LocalDateTime convertToLocal(Timestamp timestamp) {
+        ZoneId localZoneId = ZoneId.systemDefault();
+        Instant instant = timestamp.toInstant();
+
+        return LocalDateTime.ofInstant(instant, localZoneId);
     }
     public static void updateDivisionList() {
         allDivisions.clear();
@@ -173,6 +183,7 @@ public abstract class Instance {
     public static void updateCustomer(Customer customer) {
         // Get current UTC time in epoch milliseconds
         long now = ZonedDateTime.now().toEpochSecond() * 1000;
+        System.out.println(now);
         Query.update(
                 "customers",
                 "Customer_Id = " + customer.getId(),
