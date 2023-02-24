@@ -5,6 +5,7 @@ import com.people.Customer;
 import com.window.Window;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -56,24 +57,26 @@ public class CalendarView extends Controller implements Initializable {
         updateTable();
     }
     @FXML
-    private void  onSearchClick() {
+    private void  onSearchClick(ActionEvent actionEvent) {
 
     }
     @FXML
-    private void onAddClick() {
+    private void onAddClick(ActionEvent actionEvent) {
         Window addAppointment = new Window("appointment.fxml", "Add Appointment");
         AppointmentManagement controller = (AppointmentManagement) addAppointment.getController();
         controller.setCustomer(customer);
+        addAppointment.showWindowAndWait(actionEvent);
     }
     @FXML
-    private void onModifyClick() {
+    private void onModifyClick(ActionEvent actionEvent) {
         Window modifyAppointment = new Window("appointment.fxml", "Modify Appointment");
         AppointmentManagement controller = (AppointmentManagement) modifyAppointment.getController();
         controller.setCustomer(customer);
         controller.setAppointment(appointmentsTable.getSelectionModel().getSelectedItem());
+        modifyAppointment.showWindowAndWait(actionEvent);
     }
     @FXML
-    private void onDeleteClick() {
+    private void onDeleteClick(ActionEvent actionEvent) {
 
     }
     @FXML

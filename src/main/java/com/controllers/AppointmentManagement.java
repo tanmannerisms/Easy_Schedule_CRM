@@ -45,16 +45,15 @@ public class AppointmentManagement extends Controller implements Initializable {
         for (int i = 0; i < 24; i++) {
             hours.add(i);
         }
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
         startHourSelector.setItems(hours);
         endHourSelector.setItems(hours);
         startMinuteSelector.setItems(minutes);
         endMinuteSelector.setItems(minutes);
         appointmentImported = false;
-    }
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-
     }
     public void setCustomer(Customer customer) {
         this.customer = customer;
