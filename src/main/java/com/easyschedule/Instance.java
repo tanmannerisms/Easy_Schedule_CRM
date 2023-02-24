@@ -335,4 +335,20 @@ public abstract class Instance {
         }
         return null;
     }
+    public static Contact getContact(int contactId) {
+        for (Contact contact : allContacts) {
+            if (contact.getId() == contactId) {
+                return contact;
+            }
+        }
+        return null;
+    }
+    public static Contact getContact(String contactName) {
+        for (Contact contact : allContacts) {
+            if (contact.getName() == contactName) {
+                return contact;
+            }
+        }
+        return null;
+    }
 }

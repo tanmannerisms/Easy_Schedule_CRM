@@ -27,15 +27,17 @@ public class AppointmentManagement extends Controller implements Initializable {
     @FXML
     private DatePicker startDatePicker, endDatePicker;
     @FXML
-    private ComboBox<Contact> contactSelector;
+    private ComboBox<String> contactSelector;
     @FXML
     private ComboBox<Integer> startHourSelector, startMinuteSelector, endHourSelector, endMinuteSelector;
     private ObservableList<Integer> hours, minutes;
+    private ObservableList<String> contactNameList;
     private Appointment appointment;
     private boolean appointmentImported;
     private Customer customer;
 
     public AppointmentManagement() {
+        contactNameList = FXCollections.observableArrayList();
         hours = FXCollections.observableArrayList();
         minutes = FXCollections.observableArrayList();
         for (int i = 0; i < 4; i++) {
@@ -45,6 +47,9 @@ public class AppointmentManagement extends Controller implements Initializable {
         for (int i = 0; i < 24; i++) {
             hours.add(i);
         }
+        for (Contact contact : Instance.getAllContacts()) {
+            contactNameList.add(contact.getName());
+        }
     }
 
     @Override
@@ -53,14 +58,28 @@ public class AppointmentManagement extends Controller implements Initializable {
         endHourSelector.setItems(hours);
         startMinuteSelector.setItems(minutes);
         endMinuteSelector.setItems(minutes);
+        contactSelector.setItems(contactNameList);
         appointmentImported = false;
     }
     public void setCustomer(Customer customer) {
         this.customer = customer;
+        customerField.setText(Integer.toString(customer.getId()));
     }
     public void setAppointment(Appointment appointment) {
         this.appointment = appointment;
         appointmentImported = true;
+        idField.setText(Integer.toString(appointment.getAppointmentId()));
+        contactSelector.setValue(Instance.getContact(appointment.getContactId()).getName());
+        titleField.setText(appointment.getTitle());
+        descriptionField.setText(appointment.getDescription());
+        locationField.setText(appointment.getLocation());
+        typeField.setText(appointment.getType());
+        startDatePicker.setValue(getDate(appointment.getStartDate()));
+        startHourSelector.setValue(getHours(appointment.getStartDate()));
+        startMinuteSelector.setValue(getMinutes(appointment.getStartDate()));
+        endDatePicker.setValue(getDate(appointment.getEndDate()));
+        endHourSelector.setValue(getHours(appointment.getEndDate()));
+        endMinuteSelector.setValue(getMinutes(appointment.getEndDate()));
     }
     @FXML
     private void onSaveClick(ActionEvent actionEvent) {
@@ -79,7 +98,7 @@ public class AppointmentManagement extends Controller implements Initializable {
             appointment.setLocation(locationField.getText());
             appointment.setDescription(descriptionField.getText());
             appointment.setUserId(Instance.getActiveUser().getId());
-            appointment.setContactId(contactSelector.getValue().getId());
+            appointment.setContactId(Instance.getContact(contactSelector.getValue()).getId());
             appointment.setStartDate(startDateTime);
             appointment.setEndDate(endDateTime);
         }
@@ -87,7 +106,7 @@ public class AppointmentManagement extends Controller implements Initializable {
             Appointment newAppointment = new Appointment(
                     Instance.getActiveUser().getId(),
                     customer.getId(),
-                    contactSelector.getValue().getId(),
+                    Instance.getContact(contactSelector.getValue()).getId(),
                     titleField.getText(),
                     descriptionField.getText(),
                     locationField.getText(),
@@ -102,5 +121,14 @@ public class AppointmentManagement extends Controller implements Initializable {
         LocalDateTime time = date.atStartOfDay();
         time = time.plusHours(hours).plusMinutes(minutes);
         return time;
+    }
+    private LocalDate getDate(LocalDateTime dateTime) {
+        return dateTime.toLocalDate();
+    }
+    private Integer getHours(LocalDateTime dateTime) {
+        return dateTime.getHour();
+    }
+    private Integer getMinutes(LocalDateTime dateTime) {
+        return dateTime.getMinute();
     }
 }
