@@ -84,7 +84,6 @@ public abstract class Instance {
                 Timestamp start = results.getTimestamp(9);
                 Timestamp end = results.getTimestamp(10);
 
-                results.getDate(10)
                 Appointment newAppointment = new Appointment(
                         results.getInt(1),
                         results.getInt(2),
@@ -94,8 +93,8 @@ public abstract class Instance {
                         results.getString(6),
                         results.getString(7),
                         results.getString(8),
-                        results.getDate(9),
-                        results.getDate(10)
+                        convertToLocal(start),
+                        convertToLocal(end)
                 );
                 allAppointments.add(newAppointment);
             }

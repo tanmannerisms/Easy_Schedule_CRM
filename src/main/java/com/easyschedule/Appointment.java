@@ -4,16 +4,17 @@ import com.people.Contact;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 
 public class Appointment {
     private int appointmentId, userId, customerId, contactId;
     private String title, description, location, type;
-    private ZonedDateTime startDate, endDate;
+    private LocalDateTime startDate, endDate;
 
     public Appointment(int appointmentId, int userId, int customerId, int contactId,
                        String title, String description, String location,
-                       String type, ZonedDateTime startDate, ZonedDateTime endDate) {
+                       String type, LocalDateTime startDate, LocalDateTime endDate) {
         setAppointmentId(appointmentId);
         setUserId(userId);
         setCustomerId(customerId);
@@ -90,19 +91,19 @@ public class Appointment {
         this.contactId = id;
     }
 
-    public ZonedDateTime getStartDate() {
+    public LocalDateTime getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(ZonedDateTime startDate) {
+    public void setStartDate(LocalDateTime startDate) {
         this.startDate = startDate;
     }
 
-    public ZonedDateTime getEndDate() {
+    public LocalDateTime getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(ZonedDateTime endDate) {
+    public void setEndDate(LocalDateTime endDate) {
         this.endDate = endDate;
     }
 }

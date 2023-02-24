@@ -73,7 +73,7 @@ public class CalendarView extends Controller implements Initializable {
     @FXML
     private void updateTable() {
 
-        ZonedDateTime now = ZonedDateTime.now();
+        LocalDateTime now = LocalDateTime.now();
         Tab selectedTab = tabPane.getSelectionModel().getSelectedItem();
 
         if (selectedTab.equals(allAppointments)) {
@@ -83,20 +83,20 @@ public class CalendarView extends Controller implements Initializable {
         if (selectedTab.equals(monthAppointments)) {
             // Get all associated appointments one Month after today.
 
-            ZonedDateTime before = now.plusMonths(1);
+            LocalDateTime before = now.plusMonths(1);
             appointmentsTable.setItems(getAppointments(now, before));
         }
         if (selectedTab.equals(weekAppointments)) {
             // Get all associated appointments 7 days after today.
-            ZonedDateTime before = now.plusWeeks(1);
+            LocalDateTime before = now.plusWeeks(1);
             appointmentsTable.setItems(getAppointments(now, before));
         }
     }
-    private ObservableList<Appointment> getAppointments(ZonedDateTime after, ZonedDateTime before) {
+    private ObservableList<Appointment> getAppointments(LocalDateTime after, LocalDateTime before) {
         ObservableList<Appointment> returnList = FXCollections.observableArrayList();
 
         for (Appointment appointment : customer.getAssociatedAppointments()){
-            ZonedDateTime appointmentDate = appointment.getStartDate();
+            LocalDateTime appointmentDate = appointment.getStartDate();
             if (appointmentDate.isAfter(after) && appointmentDate.isBefore(before)) {
                 returnList.add(appointment);
             }
