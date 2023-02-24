@@ -20,11 +20,11 @@ public abstract class Query {
         }
     }
 // Need to make this more like the insert statement.
-    public static ResultSet selectConditional(String values, String table, String condition, String comparison) {
+    public static ResultSet selectConditional(String values, String table, String condition, String ... comparison) {
         sql = "SELECT " + values + " FROM " + table + " WHERE " + condition + " ?";
         try {
             statement = JDBC.connection.prepareStatement(sql);
-            statement.setString(1, comparison);
+            setBindVariables(comparison);
             return statement.executeQuery();
         }
         catch (SQLException e) {
@@ -114,7 +114,7 @@ public abstract class Query {
             return false;
         }
     }
-    private static void setBindVariables(String values[]) throws SQLException {
+    private static void setBindVariables(String ... values) throws SQLException {
         for (int i = 0; i < values.length; i++) {
             try {
                 statement.setInt(i+1, Integer.parseInt(values[i]));

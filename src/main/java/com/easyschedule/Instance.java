@@ -103,6 +103,37 @@ public abstract class Instance {
             System.out.println(e.getMessage());
         }
     }
+    public static void addAppointment(Appointment appointment) {
+        allAppointments.add(appointment);
+        long now = ZonedDateTime.now().toEpochSecond() * 1000;
+//        Timestamp nowTs = new Timestamp(now);
+        Query.insert(
+                "appointments",
+                "Title, Description, Location, Type, Start, End, Create_Date, Created_By, Customer_ID, User_Id, Contact_Id",
+                appointment.getTitle(),
+                appointment.getDescription(),
+                appointment.getLocation(),
+                appointment.getType(),
+                String.valueOf(appointment.getStartDate()),
+                String.valueOf(appointment.getEndDate()),
+                String.valueOf(now),
+                Instance.getActiveUser().getName(),
+                String.valueOf(appointment.getCustomerId()),
+                String.valueOf(appointment.getUserId()),
+                String.valueOf(appointment.getContactId())
+        );
+        ResultSet resultSet = Query.selectConditional(
+                "Appointment_Id",
+                "appointments",
+                "Create_Date = ",
+                String.valueOf(now)
+        );
+        try {
+            while (resultSet.next()) {
+                appointment.setAppointmentId(resultSet.getInt(1));
+            }
+        } catch (SQLException ignored){}
+    }
     private static LocalDateTime convertToLocal(Timestamp timestamp) {
         ZoneId localZoneId = ZoneId.systemDefault();
         Instant instant = timestamp.toInstant();
@@ -169,7 +200,8 @@ public abstract class Instance {
         ResultSet resultSet = Query.selectConditional(
                 "Customer_Id",
                 "customers",
-                "Customer_Name = '" + customer.getName() + "' AND Address = ",
+                "Customer_Name = ? AND Address = ",
+                customer.getName(),
                 customer.getAddress());
         try {
             while (resultSet.next()) {

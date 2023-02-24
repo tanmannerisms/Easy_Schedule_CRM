@@ -2,6 +2,7 @@ package com.controllers;
 
 import com.easyschedule.Appointment;
 import com.people.Customer;
+import com.window.Window;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -60,11 +61,16 @@ public class CalendarView extends Controller implements Initializable {
     }
     @FXML
     private void onAddClick() {
-
+        Window addAppointment = new Window("appointment.fxml", "Add Appointment");
+        AppointmentManagement controller = (AppointmentManagement) addAppointment.getController();
+        controller.setCustomer(customer);
     }
     @FXML
     private void onModifyClick() {
-
+        Window modifyAppointment = new Window("appointment.fxml", "Modify Appointment");
+        AppointmentManagement controller = (AppointmentManagement) modifyAppointment.getController();
+        controller.setCustomer(customer);
+        controller.setAppointment(appointmentsTable.getSelectionModel().getSelectedItem());
     }
     @FXML
     private void onDeleteClick() {

@@ -12,10 +12,9 @@ public class Appointment {
     private String title, description, location, type;
     private LocalDateTime startDate, endDate;
 
-    public Appointment(int appointmentId, int userId, int customerId, int contactId,
+    public Appointment(int userId, int customerId, int contactId,
                        String title, String description, String location,
                        String type, LocalDateTime startDate, LocalDateTime endDate) {
-        setAppointmentId(appointmentId);
         setUserId(userId);
         setCustomerId(customerId);
         setTitle(title);
@@ -25,6 +24,12 @@ public class Appointment {
         setContactId(contactId);
         setStartDate(startDate);
         setEndDate(endDate);
+    }
+    public Appointment(int appointmentId, int userId, int customerId, int contactId,
+                       String title, String description, String location,
+                       String type, LocalDateTime startDate, LocalDateTime endDate) {
+        this(userId, customerId, contactId, title, description, location, type, startDate, endDate);
+        setAppointmentId(appointmentId);
     }
 
     public int getAppointmentId() {
