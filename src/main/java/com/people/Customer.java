@@ -63,4 +63,8 @@ public class Customer extends Person{
     public void printCustomer() {
         System.out.println(getName() + ":\n" + getAddress() + " " + getDivisionId() + ", " + getPostalCode() + "\n\n");
     }
+
+    public ObservableList<Appointment> getAssociatedAppointments() {
+        return associatedAppointments;
+    }
 }

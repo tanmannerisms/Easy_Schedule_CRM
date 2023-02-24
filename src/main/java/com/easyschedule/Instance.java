@@ -9,6 +9,7 @@ import javafx.collections.ObservableList;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.ZonedDateTime;
 
 public abstract class Instance {
     private static final String CUSTOMER_TABLE = "client_schedule.customers";
@@ -86,8 +87,8 @@ public abstract class Instance {
                         results.getString(6),
                         results.getString(7),
                         results.getString(8),
-                        results.getDate(9),
-                        results.getDate(10)
+                        (ZonedDateTime) results.getObject(9),
+                        (ZonedDateTime) results.getObject(10)
                 );
                 allAppointments.add(newAppointment);
             }

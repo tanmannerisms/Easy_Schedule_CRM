@@ -3,15 +3,17 @@ package com.easyschedule;
 import com.people.Contact;
 
 import java.sql.Date;
+import java.sql.Timestamp;
+import java.time.ZonedDateTime;
 
 public class Appointment {
     private int appointmentId, userId, customerId, contactId;
     private String title, description, location, type;
-    private Date startDate, endDate;
+    private ZonedDateTime startDate, endDate;
 
     public Appointment(int appointmentId, int userId, int customerId, int contactId,
                        String title, String description, String location,
-                       String type, Date startDate, Date endDate) {
+                       String type, ZonedDateTime startDate, ZonedDateTime endDate) {
         setAppointmentId(appointmentId);
         setUserId(userId);
         setCustomerId(customerId);
@@ -88,19 +90,19 @@ public class Appointment {
         this.contactId = id;
     }
 
-    public Date getStartDate() {
+    public ZonedDateTime getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(ZonedDateTime startDate) {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
+    public ZonedDateTime getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(ZonedDateTime endDate) {
         this.endDate = endDate;
     }
 }
