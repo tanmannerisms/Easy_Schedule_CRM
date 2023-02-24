@@ -1,6 +1,7 @@
 package com.utils;
 
 import java.sql.*;
+import java.time.Instant;
 
 public abstract class Query {
     private static PreparedStatement statement;
@@ -120,8 +121,9 @@ public abstract class Query {
                 continue;
             } catch (NumberFormatException ignored){}
             try {
-                // Need to convert timestamp to UTC before updating DB!!!!!!
-                Timestamp timestamp = new Timestamp(Long.valueOf(values[i]));
+                Instant now = Instant.ofEpochMilli(Long.valueOf(values[i]));
+                Timestamp timestamp = Timestamp.from(now);
+                System.out.println(timestamp);
                 statement.setTimestamp(i+1, timestamp);
                 continue;
             } catch (IllegalArgumentException ignored){}

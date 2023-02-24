@@ -9,6 +9,10 @@ import javafx.collections.ObservableList;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 
 public abstract class Instance {
     private static final String CUSTOMER_TABLE = "client_schedule.customers";
@@ -141,7 +145,7 @@ public abstract class Instance {
     }
     public static void addCustomer(Customer customer) {
         allCustomers.add(customer);
-        long now = System.currentTimeMillis();
+        LocalDateTime now = LocalDateTime.now();
         Query.insert(
                 "customers",
                 "Customer_Name, Phone, Address, Postal_Code, Division_Id, Create_Date, Created_By",
@@ -150,7 +154,7 @@ public abstract class Instance {
                 customer.getAddress(),
                 customer.getPostalCode(),
                 String.valueOf(customer.getDivisionId()),
-                String.valueOf(now),
+                String.valueOf(now.toEpochSecond(ZoneOffset.UTC)),
                 getActiveUser().getName()
                 );
         ResultSet resultSet = Query.selectConditional(
@@ -167,7 +171,9 @@ public abstract class Instance {
         }
     }
     public static void updateCustomer(Customer customer) {
-        long now = System.currentTimeMillis();
+        // Get current UTC time in epoch milliseconds
+        long now = ZonedDateTime.now().toEpochSecond() * 1000;
+        System.out.println(now);
         Query.update(
                 "customers",
                 "Customer_Id = " + customer.getId(),
