@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
 import java.time.LocalDateTime;
@@ -34,11 +35,24 @@ public class CalendarView extends Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        setTableColumns();
+    }
+    private void setTableColumns() {
+        idColumn.setCellValueFactory(new PropertyValueFactory<>("AppointmentId"));
+        customerColumn.setCellValueFactory(new PropertyValueFactory<>("CustomerId"));
+        userColumn.setCellValueFactory(new PropertyValueFactory<>("UserId"));
+        contactColumn.setCellValueFactory(new PropertyValueFactory<>("ContactId"));
+        titleColumn.setCellValueFactory(new PropertyValueFactory<>("Title"));
+        descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("Description"));
+        locationColumn.setCellValueFactory(new PropertyValueFactory<>("Location"));
+        typeColumn.setCellValueFactory(new PropertyValueFactory<>("Type"));
+        startColumn.setCellValueFactory(new PropertyValueFactory<>("StartDate"));
+        endColumn.setCellValueFactory(new PropertyValueFactory<>("EndDate"));
     }
     protected void setCustomer(Customer customer) {
         this.customer = customer;
         customerLabel.setText("Customer: " + customer.getName());
+        updateTable();
     }
     @FXML
     private void  onSearchClick() {
@@ -70,22 +84,23 @@ public class CalendarView extends Controller implements Initializable {
             // Get all associated appointments one Month after today.
 
             ZonedDateTime before = now.plusMonths(1);
-            getAppointments(now, before);
+            appointmentsTable.setItems(getAppointments(now, before));
         }
         if (selectedTab.equals(weekAppointments)) {
             // Get all associated appointments 7 days after today.
+            ZonedDateTime before = now.plusWeeks(1);
+            appointmentsTable.setItems(getAppointments(now, before));
         }
     }
     private ObservableList<Appointment> getAppointments(ZonedDateTime after, ZonedDateTime before) {
         ObservableList<Appointment> returnList = FXCollections.observableArrayList();
 
-
         for (Appointment appointment : customer.getAssociatedAppointments()){
-            if () {
+            ZonedDateTime appointmentDate = appointment.getStartDate();
+            if (appointmentDate.isAfter(after) && appointmentDate.isBefore(before)) {
                 returnList.add(appointment);
             }
         }
-
         return returnList;
     }
 }
