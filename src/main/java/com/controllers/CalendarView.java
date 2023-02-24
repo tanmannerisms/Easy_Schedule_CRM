@@ -9,13 +9,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 
 import java.net.URL;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
-import java.util.Date;
 import java.util.ResourceBundle;
 
-public class Appointments extends Controller implements Initializable {
+public class CalendarView extends Controller implements Initializable {
     private Customer customer;
     @FXML
     private Label customerLabel;
