@@ -10,11 +10,11 @@ import java.time.ZonedDateTime;
 public class Appointment {
     private int appointmentId, userId, customerId, contactId;
     private String title, description, location, type;
-    private LocalDateTime startDate, endDate;
+    private ZonedDateTime startDate, endDate;
 
     public Appointment(int userId, int customerId, int contactId,
                        String title, String description, String location,
-                       String type, LocalDateTime startDate, LocalDateTime endDate) {
+                       String type, ZonedDateTime startDate, ZonedDateTime endDate) {
         setUserId(userId);
         setCustomerId(customerId);
         setTitle(title);
@@ -27,7 +27,7 @@ public class Appointment {
     }
     public Appointment(int appointmentId, int userId, int customerId, int contactId,
                        String title, String description, String location,
-                       String type, LocalDateTime startDate, LocalDateTime endDate) {
+                       String type, ZonedDateTime startDate, ZonedDateTime endDate) {
         this(userId, customerId, contactId, title, description, location, type, startDate, endDate);
         setAppointmentId(appointmentId);
     }
@@ -96,19 +96,19 @@ public class Appointment {
         this.contactId = id;
     }
 
-    public LocalDateTime getStartDate() {
+    public ZonedDateTime getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(LocalDateTime startDate) {
+    public void setStartDate(ZonedDateTime startDate) {
         this.startDate = startDate;
     }
 
-    public LocalDateTime getEndDate() {
+    public ZonedDateTime getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(LocalDateTime endDate) {
+    public void setEndDate(ZonedDateTime endDate) {
         this.endDate = endDate;
     }
 }

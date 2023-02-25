@@ -15,6 +15,7 @@ import java.time.*;
 
 public abstract class Instance {
     public static final ZoneId SYSTEMZONEID = ZoneId.systemDefault();
+    public static final ZoneId BUSINESSZONEID = ZoneId.of("America/New_York");
     private static final String CUSTOMER_TABLE = "client_schedule.customers";
     private static User activeUser;
     private static ObservableList<Customer> allCustomers = FXCollections.observableArrayList();
@@ -104,9 +105,9 @@ public abstract class Instance {
             System.out.println(e.getMessage());
         }
     }
-    private static LocalDateTime convertToLocal(Timestamp timestamp) {
+    private static ZonedDateTime convertToLocal(Timestamp timestamp) {
         Instant instant = timestamp.toInstant();
-        return LocalDateTime.ofInstant(instant, SYSTEMZONEID);
+        return ZonedDateTime.ofInstant(instant, SYSTEMZONEID);
     }
     public static void updateDivisionList() {
         allDivisions.clear();
@@ -204,7 +205,6 @@ public abstract class Instance {
     }
     public static void addAppointment(Appointment appointment) {
         Long now = getLocalDateTimeLong();
-//        Timestamp nowTs = new Timestamp(now);
         Query.insert(
                 "appointments",
                 "Title, Description, Location, Type, Start, End, Create_Date, Created_By, Customer_ID, User_Id, Contact_Id",
@@ -212,8 +212,8 @@ public abstract class Instance {
                 appointment.getDescription(),
                 appointment.getLocation(),
                 appointment.getType(),
-                appointment.getStartDate().toString(),
-                appointment.getEndDate().toString(),
+                appointment.getStartDate().toInstant().toString(),
+                appointment.getEndDate().toInstant().toString(),
                 now.toString(),
                 Instance.getActiveUser().getName(),
                 String.valueOf(appointment.getCustomerId()),
@@ -242,8 +242,8 @@ public abstract class Instance {
                 appointment.getDescription(),
                 appointment.getLocation(),
                 appointment.getType(),
-                appointment.getStartDate().toString(),
-                appointment.getEndDate().toString(),
+                String.valueOf(appointment.getStartDate().toInstant().toEpochMilli()),
+                String.valueOf(appointment.getEndDate().toInstant().toEpochMilli()),
                 now.toString(),
                 getActiveUser().getName(),
                 String.valueOf(appointment.getUserId()),
@@ -375,6 +375,6 @@ public abstract class Instance {
         return null;
     }
     private static long getLocalDateTimeLong() {
-        return ZonedDateTime.now().toEpochSecond() * 1000;
+        return Instant.now().toEpochMilli();
     }
 }
