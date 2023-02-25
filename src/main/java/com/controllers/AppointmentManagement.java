@@ -17,11 +17,14 @@ import javafx.scene.control.TextField;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZonedDateTime;
 import java.time.chrono.Chronology;
 import java.util.ResourceBundle;
 
 public class AppointmentManagement extends Controller implements Initializable {
-    @FXML private Label title;
+    @FXML
+    private Label title;
     @FXML
     private TextField idField, customerField, titleField, descriptionField, locationField, typeField;
     @FXML
@@ -36,6 +39,7 @@ public class AppointmentManagement extends Controller implements Initializable {
     private boolean appointmentImported;
     private Customer customer;
     private LocalDate today = LocalDate.now(Instance.SYSTEMZONEID);
+    private final ZonedDateTime bussinessHourStart = ZonedDateTime.now();
 
     public AppointmentManagement() {
         contactNameList = FXCollections.observableArrayList();
@@ -99,33 +103,67 @@ public class AppointmentManagement extends Controller implements Initializable {
                 endHourSelector.getValue(),
                 endMinuteSelector.getValue()
         );
-        if (appointmentImported) {
-            appointment.setTitle(titleField.getText());
-            appointment.setType(typeField.getText());
-            appointment.setLocation(locationField.getText());
-            appointment.setDescription(descriptionField.getText());
-            appointment.setUserId(Instance.getActiveUser().getId());
-            appointment.setContactId(Instance.getContact(contactSelector.getValue()).getId());
-            appointment.setStartDate(startDateTime);
-            appointment.setEndDate(endDateTime);
-            Instance.updateAppointment(appointment);
+        if (validateFields(actionEvent, startDateTime, endDateTime)) {
+            if (appointmentImported) {
+                appointment.setTitle(titleField.getText());
+                appointment.setType(typeField.getText());
+                appointment.setLocation(locationField.getText());
+                appointment.setDescription(descriptionField.getText());
+                appointment.setUserId(Instance.getActiveUser().getId());
+                appointment.setContactId(Instance.getContact(contactSelector.getValue()).getId());
+                appointment.setStartDate(startDateTime);
+                appointment.setEndDate(endDateTime);
+                Instance.updateAppointment(appointment);
+            }
+            else {
+                Appointment newAppointment = new Appointment(
+                        Instance.getActiveUser().getId(),
+                        customer.getId(),
+                        Instance.getContact(contactSelector.getValue()).getId(),
+                        titleField.getText(),
+                        descriptionField.getText(),
+                        locationField.getText(),
+                        typeField.getText(),
+                        startDateTime,
+                        endDateTime
+                );
+                Instance.addAppointment(newAppointment);
+                customer.addAssociatedAppointments(newAppointment);
+            }
+            closeWindow(actionEvent);
         }
-        else {
-            Appointment newAppointment = new Appointment(
-                    Instance.getActiveUser().getId(),
-                    customer.getId(),
-                    Instance.getContact(contactSelector.getValue()).getId(),
-                    titleField.getText(),
-                    descriptionField.getText(),
-                    locationField.getText(),
-                    typeField.getText(),
-                    startDateTime,
-                    endDateTime
-            );
-            Instance.addAppointment(newAppointment);
-            customer.addAssociatedAppointments(newAppointment);
+    }
+    private boolean validateFields(ActionEvent actionEvent, LocalDateTime startDateTime, LocalDateTime endDateTime) {
+        LocalDateTime now = LocalDateTime.now();
+        if (fieldsEmpty()){
+            openNotifyWindow("Ensure all fields are filled out and try again", actionEvent);
+            return false;
         }
-        closeWindow(actionEvent);
+        if (startDateTime.isAfter(endDateTime)) {
+            openNotifyWindow("Start date/time must be before end date/time", actionEvent);
+            return false;
+        }
+        if (startDateTime.isBefore(now) || endDateTime.isBefore(now)) {
+            openNotifyWindow("Start and End Dates/Times must be in the future.", actionEvent);
+            return false;
+        }
+        LocalDate startDate = startDatePicker.getValue();
+        LocalDate endDate = endDatePicker.getValue();
+        return true;
+    }
+    private boolean fieldsEmpty() {
+        if (
+                contactSelector.getValue() == null ||
+                        title.getText().isEmpty() ||
+                        descriptionField.getText().isEmpty() ||
+                        locationField.getText().isEmpty() ||
+                        typeField.getText().isEmpty() ||
+                        startDatePicker.getValue() == null ||
+                        endDatePicker.getValue() == null
+        ) {
+            return false;
+        }
+        return true;
     }
     private LocalDateTime createDateTime(LocalDate date, Integer hours, Integer minutes) {
         LocalDateTime time = date.atStartOfDay();
