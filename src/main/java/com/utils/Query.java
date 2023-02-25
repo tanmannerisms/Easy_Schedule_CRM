@@ -83,6 +83,7 @@ public abstract class Query {
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Number of columns and number of values do not match!");
             System.out.println(e.getMessage());
+            return false;
         }
         columns = "";
         // Convert it back to a String for use in concatenation.

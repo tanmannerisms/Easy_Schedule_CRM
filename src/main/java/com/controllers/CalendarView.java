@@ -78,7 +78,7 @@ public class CalendarView extends Controller implements Initializable {
         controller.setCustomer(customer);
         controller.setAppointment(appointmentsTable.getSelectionModel().getSelectedItem());
         modifyAppointment.showWindowAndWait(actionEvent);
-        updateTable();
+        appointmentsTable.refresh();
     }
     @FXML
     private void onDeleteClick(ActionEvent actionEvent) {

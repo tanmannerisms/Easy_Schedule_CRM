@@ -103,36 +103,6 @@ public abstract class Instance {
             System.out.println(e.getMessage());
         }
     }
-    public static void addAppointment(Appointment appointment) {
-        long now = ZonedDateTime.now().toEpochSecond() * 1000;
-//        Timestamp nowTs = new Timestamp(now);
-        Query.insert(
-                "appointments",
-                "Title, Description, Location, Type, Start, End, Create_Date, Created_By, Customer_ID, User_Id, Contact_Id",
-                appointment.getTitle(),
-                appointment.getDescription(),
-                appointment.getLocation(),
-                appointment.getType(),
-                String.valueOf(appointment.getStartDate()),
-                String.valueOf(appointment.getEndDate()),
-                String.valueOf(now),
-                Instance.getActiveUser().getName(),
-                String.valueOf(appointment.getCustomerId()),
-                String.valueOf(appointment.getUserId()),
-                String.valueOf(appointment.getContactId())
-        );
-        ResultSet resultSet = Query.selectConditional(
-                "Appointment_Id",
-                "appointments",
-                "Create_Date = ",
-                String.valueOf(now)
-        );
-        try {
-            while (resultSet.next()) {
-                appointment.setAppointmentId(resultSet.getInt(1));
-            }
-        } catch (SQLException ignored){}
-    }
     private static LocalDateTime convertToLocal(Timestamp timestamp) {
         ZoneId localZoneId = ZoneId.systemDefault();
         Instant instant = timestamp.toInstant();
@@ -184,7 +154,7 @@ public abstract class Instance {
     }
     public static void addCustomer(Customer customer) {
         allCustomers.add(customer);
-        long now = ZonedDateTime.now().toEpochSecond() * 1000;
+        long now = getLocalDateTimeLong();
         Query.insert(
                 "customers",
                 "Customer_Name, Phone, Address, Postal_Code, Division_Id, Create_Date, Created_By",
@@ -212,8 +182,7 @@ public abstract class Instance {
     }
     public static void updateCustomer(Customer customer) {
         // Get current UTC time in epoch milliseconds
-        long now = ZonedDateTime.now().toEpochSecond() * 1000;
-        System.out.println(now);
+        long now = getLocalDateTimeLong();
         Query.update(
                 "customers",
                 "Customer_Id = " + customer.getId(),
@@ -233,6 +202,54 @@ public abstract class Instance {
 
     public static ObservableList<Appointment> getAllAppointments() {
         return allAppointments;
+    }
+    public static void addAppointment(Appointment appointment) {
+        Long now = getLocalDateTimeLong();
+//        Timestamp nowTs = new Timestamp(now);
+        Query.insert(
+                "appointments",
+                "Title, Description, Location, Type, Start, End, Create_Date, Created_By, Customer_ID, User_Id, Contact_Id",
+                appointment.getTitle(),
+                appointment.getDescription(),
+                appointment.getLocation(),
+                appointment.getType(),
+                appointment.getStartDate().toString(),
+                appointment.getEndDate().toString(),
+                now.toString(),
+                Instance.getActiveUser().getName(),
+                String.valueOf(appointment.getCustomerId()),
+                String.valueOf(appointment.getUserId()),
+                String.valueOf(appointment.getContactId())
+        );
+        ResultSet resultSet = Query.selectConditional(
+                "Appointment_Id",
+                "appointments",
+                "Create_Date = ",
+                String.valueOf(now)
+        );
+        try {
+            while (resultSet.next()) {
+                appointment.setAppointmentId(resultSet.getInt(1));
+            }
+        } catch (SQLException ignored){}
+    }
+    public static void updateAppointment(Appointment appointment) {
+        Long now = getLocalDateTimeLong();
+        Query.update(
+                "appointments",
+                "Appointment_Id = " + appointment.getAppointmentId(),
+                "Title, Description, Location, Type, Start, End, Last_Update, Last_Updated_By, User_Id, Contact_Id",
+                appointment.getTitle(),
+                appointment.getDescription(),
+                appointment.getLocation(),
+                appointment.getType(),
+                appointment.getStartDate().toString(),
+                appointment.getEndDate().toString(),
+                now.toString(),
+                getActiveUser().getName(),
+                String.valueOf(appointment.getUserId()),
+                String.valueOf(appointment.getContactId())
+                );
     }
 
     public static ObservableList<Division> getAllDivisions() {
@@ -349,5 +366,8 @@ public abstract class Instance {
             }
         }
         return null;
+    }
+    private static long getLocalDateTimeLong() {
+        return ZonedDateTime.now().toEpochSecond() * 1000;
     }
 }

@@ -101,7 +101,7 @@ public class AppointmentManagement extends Controller implements Initializable {
             appointment.setContactId(Instance.getContact(contactSelector.getValue()).getId());
             appointment.setStartDate(startDateTime);
             appointment.setEndDate(endDateTime);
-
+            Instance.updateAppointment(appointment);
         }
         else {
             Appointment newAppointment = new Appointment(
