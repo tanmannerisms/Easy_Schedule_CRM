@@ -151,6 +151,9 @@ public class AppointmentManagement extends Controller implements Initializable {
             openNotifyWindow("Start and end Dates/Times must be on the same day", actionEvent);
             return false;
         }
+        if (startDateTime.equals(endDateTime)) {
+            openNotifyWindow("Start and end times must not be the same.", actionEvent);
+        }
         if (!inBusinessHours(startDateTime, endDateTime, actionEvent)) {
             return false;
         }
