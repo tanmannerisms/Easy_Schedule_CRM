@@ -4,6 +4,7 @@ import com.easyschedule.Appointment;
 import com.people.Customer;
 import com.window.Window;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -28,6 +29,7 @@ public class CalendarView extends Controller implements Initializable {
     private TableColumn<Appointment, LocalDateTime> startColumn, endColumn;
     @FXML
     private TableView<Appointment> appointmentsTable;
+    private ObservableList<Appointment> associatedAppointments;
     @FXML
     private TabPane tabPane;
     @FXML
@@ -53,6 +55,8 @@ public class CalendarView extends Controller implements Initializable {
     }
     protected void setCustomer(Customer customer) {
         this.customer = customer;
+        associatedAppointments = customer.getAssociatedAppointments();
+        associatedAppointments.addListener((ListChangeListener<? super Appointment>) change -> updateTable());
         customerLabel.setText("Customer: " + customer.getName());
         updateTable();
     }
@@ -74,6 +78,7 @@ public class CalendarView extends Controller implements Initializable {
         controller.setCustomer(customer);
         controller.setAppointment(appointmentsTable.getSelectionModel().getSelectedItem());
         modifyAppointment.showWindowAndWait(actionEvent);
+        updateTable();
     }
     @FXML
     private void onDeleteClick(ActionEvent actionEvent) {
@@ -81,7 +86,6 @@ public class CalendarView extends Controller implements Initializable {
     }
     @FXML
     private void updateTable() {
-
         LocalDateTime now = LocalDateTime.now();
         Tab selectedTab = tabPane.getSelectionModel().getSelectedItem();
 
@@ -89,13 +93,13 @@ public class CalendarView extends Controller implements Initializable {
             //Get all associated appointments
             appointmentsTable.setItems(customer.getAssociatedAppointments());
         }
-        if (selectedTab.equals(monthAppointments)) {
+        else if (selectedTab.equals(monthAppointments)) {
             // Get all associated appointments one Month after today.
 
             LocalDateTime before = now.plusMonths(1);
             appointmentsTable.setItems(getAppointments(now, before));
         }
-        if (selectedTab.equals(weekAppointments)) {
+        else if (selectedTab.equals(weekAppointments)) {
             // Get all associated appointments 7 days after today.
             LocalDateTime before = now.plusWeeks(1);
             appointmentsTable.setItems(getAppointments(now, before));
@@ -104,9 +108,21 @@ public class CalendarView extends Controller implements Initializable {
     private ObservableList<Appointment> getAppointments(LocalDateTime after, LocalDateTime before) {
         ObservableList<Appointment> returnList = FXCollections.observableArrayList();
 
-        for (Appointment appointment : customer.getAssociatedAppointments()){
+        for (Appointment appointment : associatedAppointments){
             LocalDateTime appointmentDate = appointment.getStartDate();
             if (appointmentDate.isAfter(after) && appointmentDate.isBefore(before)) {
+                returnList.add(appointment);
+            }
+        }
+        return returnList;
+    }
+    private ObservableList<Appointment> getAppointments(){
+        ObservableList<Appointment> returnList = FXCollections.observableArrayList();
+        LocalDateTime now = LocalDateTime.now();
+
+        for (Appointment appointment : associatedAppointments){
+            LocalDateTime appointmentDate = appointment.getStartDate();
+            if (appointmentDate.isAfter(now)) {
                 returnList.add(appointment);
             }
         }

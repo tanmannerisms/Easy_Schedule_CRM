@@ -104,7 +104,6 @@ public abstract class Instance {
         }
     }
     public static void addAppointment(Appointment appointment) {
-        allAppointments.add(appointment);
         long now = ZonedDateTime.now().toEpochSecond() * 1000;
 //        Timestamp nowTs = new Timestamp(now);
         Query.insert(
@@ -282,7 +281,7 @@ public abstract class Instance {
                 returnList.add(appointment);
             }
         }
-        return allAppointments;
+        return returnList;
     }
     public static Contact lookupContact(int contactId) {
         for (Contact contact : allContacts) {

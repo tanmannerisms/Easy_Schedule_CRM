@@ -67,4 +67,7 @@ public class Customer extends Person{
     public ObservableList<Appointment> getAssociatedAppointments() {
         return associatedAppointments;
     }
+    public void addAssociatedAppointments(Appointment appointment) {
+        associatedAppointments.add(appointment);
+    }
 }

@@ -101,6 +101,7 @@ public class AppointmentManagement extends Controller implements Initializable {
             appointment.setContactId(Instance.getContact(contactSelector.getValue()).getId());
             appointment.setStartDate(startDateTime);
             appointment.setEndDate(endDateTime);
+
         }
         else {
             Appointment newAppointment = new Appointment(
@@ -115,7 +116,9 @@ public class AppointmentManagement extends Controller implements Initializable {
                     endDateTime
             );
             Instance.addAppointment(newAppointment);
+            customer.addAssociatedAppointments(newAppointment);
         }
+        closeWindow(actionEvent);
     }
     private LocalDateTime createDateTime(LocalDate date, Integer hours, Integer minutes) {
         LocalDateTime time = date.atStartOfDay();
