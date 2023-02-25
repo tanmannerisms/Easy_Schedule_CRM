@@ -1,6 +1,7 @@
 package com.controllers;
 
 import com.easyschedule.Appointment;
+import com.easyschedule.Instance;
 import com.people.Customer;
 import com.window.Window;
 import javafx.collections.FXCollections;
@@ -73,16 +74,30 @@ public class CalendarView extends Controller implements Initializable {
     }
     @FXML
     private void onModifyClick(ActionEvent actionEvent) {
-        Window modifyAppointment = new Window("appointment.fxml", "Modify Appointment");
-        AppointmentManagement controller = (AppointmentManagement) modifyAppointment.getController();
-        controller.setCustomer(customer);
-        controller.setAppointment(appointmentsTable.getSelectionModel().getSelectedItem());
-        modifyAppointment.showWindowAndWait(actionEvent);
-        appointmentsTable.refresh();
+        Appointment appointment = appointmentsTable.getSelectionModel().getSelectedItem();
+        if (appointment != null) {
+            Window modifyAppointment = new Window("appointment.fxml", "Modify Appointment");
+            AppointmentManagement controller = (AppointmentManagement) modifyAppointment.getController();
+            controller.setCustomer(customer);
+            controller.setAppointment(appointment);
+            modifyAppointment.showWindowAndWait(actionEvent);
+            appointmentsTable.refresh();
+        }
+        else {
+            openNotifyWindow("Please select an appointment", actionEvent);
+        }
     }
     @FXML
     private void onDeleteClick(ActionEvent actionEvent) {
-
+        Appointment appointment = appointmentsTable.getSelectionModel().getSelectedItem();
+        if (appointment != null) {
+            Instance.deleteAppointment(appointment);
+            associatedAppointments.remove(appointment);
+            openNotifyWindow("Appointment with ID: " + appointment.getAppointmentId() + " deleted.", actionEvent);
+        }
+        else {
+            openNotifyWindow("Please select an appointment", actionEvent);
+        }
     }
     @FXML
     private void updateTable() {

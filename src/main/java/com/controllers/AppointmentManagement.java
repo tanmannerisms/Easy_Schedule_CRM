@@ -35,6 +35,7 @@ public class AppointmentManagement extends Controller implements Initializable {
     private Appointment appointment;
     private boolean appointmentImported;
     private Customer customer;
+    private LocalDate today = LocalDate.now(Instance.SYSTEMZONEID);
 
     public AppointmentManagement() {
         contactNameList = FXCollections.observableArrayList();
@@ -54,10 +55,16 @@ public class AppointmentManagement extends Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        startDatePicker.setValue(today);
+        endDatePicker.setValue(today);
         startHourSelector.setItems(hours);
+        startHourSelector.setValue(0);
         endHourSelector.setItems(hours);
+        endHourSelector.setValue(0);
         startMinuteSelector.setItems(minutes);
+        startMinuteSelector.setValue(0);
         endMinuteSelector.setItems(minutes);
+        endMinuteSelector.setValue(0);
         contactSelector.setItems(contactNameList);
         appointmentImported = false;
     }

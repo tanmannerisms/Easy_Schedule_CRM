@@ -14,6 +14,7 @@ import java.sql.Timestamp;
 import java.time.*;
 
 public abstract class Instance {
+    public static final ZoneId SYSTEMZONEID = ZoneId.systemDefault();
     private static final String CUSTOMER_TABLE = "client_schedule.customers";
     private static User activeUser;
     private static ObservableList<Customer> allCustomers = FXCollections.observableArrayList();
@@ -104,10 +105,8 @@ public abstract class Instance {
         }
     }
     private static LocalDateTime convertToLocal(Timestamp timestamp) {
-        ZoneId localZoneId = ZoneId.systemDefault();
         Instant instant = timestamp.toInstant();
-
-        return LocalDateTime.ofInstant(instant, localZoneId);
+        return LocalDateTime.ofInstant(instant, SYSTEMZONEID);
     }
     public static void updateDivisionList() {
         allDivisions.clear();
@@ -250,6 +249,14 @@ public abstract class Instance {
                 String.valueOf(appointment.getUserId()),
                 String.valueOf(appointment.getContactId())
                 );
+    }
+    public static void deleteAppointment(Appointment appointment) {
+        Query.delete(
+                "appointments",
+                "Appointment_Id = ",
+                String.valueOf(appointment.getAppointmentId())
+        );
+        allAppointments.remove(appointment);
     }
 
     public static ObservableList<Division> getAllDivisions() {
