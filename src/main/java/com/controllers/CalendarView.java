@@ -62,8 +62,27 @@ public class CalendarView extends Controller implements Initializable {
         updateTable();
     }
     @FXML
-    private void  onSearchClick(ActionEvent actionEvent) {
-
+    private void onSearchClick(ActionEvent actionEvent) {
+        ObservableList<Appointment> returnList = FXCollections.observableArrayList();
+        String searchParam = appointmentSearchField.getText();
+        if (searchParam.length() == 0) {
+            updateTable();
+        }
+        else {
+            try {
+                Integer id = Integer.parseInt(searchParam);
+                for (Appointment appointment : associatedAppointments) {
+                    if (appointment.getAppointmentId() == id) {
+                        returnList.add(appointment);
+                    }
+                }
+                if (returnList.isEmpty()) {
+                    openNotifyWindow("No appointment with that ID found!", actionEvent);
+                } else appointmentsTable.setItems(returnList);
+            } catch (NumberFormatException ignored) {
+                openNotifyWindow("Appointment ID only allowed", actionEvent);
+            }
+        }
     }
     @FXML
     private void onAddClick(ActionEvent actionEvent) {
@@ -93,7 +112,7 @@ public class CalendarView extends Controller implements Initializable {
         if (appointment != null) {
             Instance.deleteAppointment(appointment);
             associatedAppointments.remove(appointment);
-            openNotifyWindow("Appointment with ID: " + appointment.getAppointmentId() + " deleted.", actionEvent);
+            openNotifyWindow("Appointment with ID " + appointment.getAppointmentId() + " deleted.", actionEvent);
         }
         else {
             openNotifyWindow("Please select an appointment", actionEvent);
@@ -131,6 +150,7 @@ public class CalendarView extends Controller implements Initializable {
         }
         return returnList;
     }
+/*
     private ObservableList<Appointment> getAppointments(){
         ObservableList<Appointment> returnList = FXCollections.observableArrayList();
         LocalDateTime now = LocalDateTime.now();
@@ -143,4 +163,5 @@ public class CalendarView extends Controller implements Initializable {
         }
         return returnList;
     }
+*/
 }
