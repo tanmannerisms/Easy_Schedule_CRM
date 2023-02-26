@@ -20,7 +20,8 @@
             <RowConstraints prefHeight="100" vgrow="SOMETIMES" />
             <RowConstraints prefHeight="100" vgrow="SOMETIMES" />
             <RowConstraints prefHeight="100" vgrow="SOMETIMES" />
-            <RowConstraints prefHeight="100" vgrow="SOMETIMES" />
+            <RowConstraints prefHeight="75" vgrow="SOMETIMES" />
+            <RowConstraints prefHeight="50" vgrow="SOMETIMES" />
         </rowConstraints>
         <padding>
             <Insets left="15" top="15" right="15" bottom="15" />
@@ -66,6 +67,15 @@
                     <Font name="System Bold" size="14.0" />
                 </font>
             </Button>
+        </AnchorPane>
+        <AnchorPane GridPane.rowIndex="4">
+            <Button text="Back"
+                    onAction="#onBackClick"
+                    prefHeight="30"
+                    prefWidth="50"
+                    AnchorPane.rightAnchor="0"
+                    AnchorPane.topAnchor="10"
+            />
         </AnchorPane>
     </GridPane>
 </AnchorPane>
