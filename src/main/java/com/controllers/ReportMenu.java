@@ -15,7 +15,8 @@ public class ReportMenu extends Controller implements Initializable {
     }
     @FXML
     private void onAppointmentsClick(ActionEvent actionEvent) {
-
+        Window appointmentsReport = new Window("appointments-report.fxml", "Appointments Report");
+        appointmentsReport.showWindow();
     }
     @FXML
     private void onScheduleClick(ActionEvent actionEvent) {
