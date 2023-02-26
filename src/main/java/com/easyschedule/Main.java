@@ -33,24 +33,6 @@ public class Main extends Application {
     }
     public void test() {
         Instant instant = Instant.now();
-        System.out.println("Instant in UTC: " + instant + "\n\n");
-
-        Timestamp timestamp = Timestamp.from(instant);
-        Instant instant1 = timestamp.toInstant();
-
-        System.out.println(instant1.toString());
-
-
-        System.out.println(timestamp);
-
-        ZoneId osZone = ZoneId.systemDefault();
-        System.out.println("Zone ID of OS: " + osZone);
-
-
-
-        ZonedDateTime zonedInstant = instant.atZone(osZone);
-        System.out.println(zonedInstant);
-
-        Instance.updateCustomer(Instance.getAllCustomers().get(1));
+        System.out.println(instant);
     }
 }

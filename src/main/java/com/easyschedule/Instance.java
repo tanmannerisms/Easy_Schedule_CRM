@@ -9,7 +9,6 @@ import javafx.collections.ObservableList;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.*;
 
@@ -153,8 +152,7 @@ public abstract class Instance {
         return allCustomers;
     }
     public static void addCustomer(Customer customer) {
-        allCustomers.add(customer);
-        long now = getLocalDateTimeLong();
+        long now = getCurrentDateTime();
         Query.insert(
                 "customers",
                 "Customer_Name, Phone, Address, Postal_Code, Division_Id, Create_Date, Created_By",
@@ -179,10 +177,11 @@ public abstract class Instance {
         } catch (SQLException e){
 
         }
+        allCustomers.add(customer);
     }
     public static void updateCustomer(Customer customer) {
         // Get current UTC time in epoch milliseconds
-        long now = getLocalDateTimeLong();
+        long now = getCurrentDateTime();
         Query.update(
                 "customers",
                 "Customer_Id = " + customer.getId(),
@@ -204,7 +203,7 @@ public abstract class Instance {
         return allAppointments;
     }
     public static void addAppointment(Appointment appointment) {
-        Long now = getLocalDateTimeLong();
+        Long now = getCurrentDateTime();
         Query.insert(
                 "appointments",
                 "Title, Description, Location, Type, Start, End, Create_Date, Created_By, Customer_ID, User_Id, Contact_Id",
@@ -212,8 +211,8 @@ public abstract class Instance {
                 appointment.getDescription(),
                 appointment.getLocation(),
                 appointment.getType(),
-                appointment.getStartDate().toInstant().toString(),
-                appointment.getEndDate().toInstant().toString(),
+                String.valueOf(appointment.getStartDate().toInstant().toEpochMilli()),
+                String.valueOf(appointment.getEndDate().toInstant().toEpochMilli()),
                 now.toString(),
                 Instance.getActiveUser().getName(),
                 String.valueOf(appointment.getCustomerId()),
@@ -223,8 +222,9 @@ public abstract class Instance {
         ResultSet resultSet = Query.selectConditional(
                 "Appointment_Id",
                 "appointments",
-                "Create_Date = ",
-                String.valueOf(now)
+                "Start = ? AND End = ",
+                String.valueOf(appointment.getStartDate().toInstant().toEpochMilli()),
+                String.valueOf(appointment.getEndDate().toInstant().toEpochMilli())
         );
         try {
             while (resultSet.next()) {
@@ -233,7 +233,7 @@ public abstract class Instance {
         } catch (SQLException ignored){}
     }
     public static void updateAppointment(Appointment appointment) {
-        Long now = getLocalDateTimeLong();
+        Long now = getCurrentDateTime();
         Query.update(
                 "appointments",
                 "Appointment_Id = " + appointment.getAppointmentId(),
@@ -374,7 +374,7 @@ public abstract class Instance {
         }
         return null;
     }
-    private static long getLocalDateTimeLong() {
+    private static long getCurrentDateTime() {
         return Instant.now().toEpochMilli();
     }
 }

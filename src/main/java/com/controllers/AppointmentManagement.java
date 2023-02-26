@@ -157,8 +157,9 @@ public class AppointmentManagement extends Controller implements Initializable {
         if (!inBusinessHours(startDateTime, endDateTime, actionEvent)) {
             return false;
         }
-        LocalDate startDate = startDatePicker.getValue();
-        LocalDate endDate = endDatePicker.getValue();
+        if (overlappingAppointments(startDateTime, endDateTime, actionEvent)) {
+            return false;
+        }
         return true;
     }
     private boolean fieldsEmpty() {
@@ -184,6 +185,36 @@ public class AppointmentManagement extends Controller implements Initializable {
             return false;
         }
         return true;
+    }
+    private boolean overlappingAppointments(ZonedDateTime start, ZonedDateTime end, ActionEvent actionEvent) {
+        for (Appointment testAppointment : customer.getAssociatedAppointments()) {
+            if (testAppointment.equals(appointment)) {
+                continue;
+            }
+            ZonedDateTime appointmentStart = testAppointment.getStartDate();
+            ZonedDateTime appointmentEnd = testAppointment.getEndDate();
+            if (start.isEqual(appointmentStart)) {
+                openNotifyWindow("Appointment cannot begin at the same time as another appointment. Overlapping appointment: " + testAppointment.getAppointmentId(), actionEvent);
+                return true;
+            }
+            if ((start.isAfter(appointmentStart) && end.isBefore(appointmentEnd)) || end.isEqual(appointmentEnd)) {
+                openNotifyWindow("Appointment cannot occur during another appointment. Overlapping appointment: " + testAppointment.getAppointmentId(), actionEvent);
+                return true;
+            }
+            if (start.isBefore(appointmentStart) &&  (end.isAfter(appointmentStart) && end.isBefore(appointmentEnd) ) ) {
+                openNotifyWindow("Appointment cannot end in the middle of another appointment. Overlapping appointment: " + testAppointment.getAppointmentId(), actionEvent);
+                return true;
+            }
+            if (start.isAfter(appointmentStart) && start.isBefore(appointmentEnd) && end.isAfter(appointmentEnd)) {
+                openNotifyWindow("Appointment cannot start in the middle of another appointment. Overlapping appointment: " + testAppointment.getAppointmentId(), actionEvent);
+                return true;
+            }
+            if (start.isBefore(appointmentStart) && end.isAfter(appointmentEnd)) {
+                openNotifyWindow("Appointment is overlapping another appointment. Overlapping ID: " + testAppointment.getAppointmentId(), actionEvent);
+                return true;
+            }
+        }
+        return false;
     }
     private ZonedDateTime createDateTime(LocalDate date, Integer hours, Integer minutes) {
         LocalDateTime localDateTime = date.atStartOfDay();
