@@ -79,10 +79,13 @@ public class CustomerMenu extends Controller implements Initializable {
         Customer customer = getSelectedCustomer(actionEvent);
         if (customer != null){
             if (hasAssociatedAppointments(customer)){
-                openNotifyWindow("Please delete all apppointments for customer " + customer.getName() + " before deleting.", actionEvent);
+                openNotifyWindow("Please delete all apppointments for customer " + customer.getId() + " before deleting.", actionEvent);
             }
             else if(!Instance.deleteCustomer(customer)) {
                 openNotifyWindow("Deletion of customer with ID " + customer.getId() + "failed!", actionEvent);
+            }
+            else {
+                openNotifyWindow("Deletion of customer with ID " + customer.getId() + " successful!", actionEvent);
             }
         }
     }
