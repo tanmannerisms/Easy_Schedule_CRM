@@ -11,7 +11,7 @@ import com.easyschedule.Instance;
 public class Error extends Controller implements Initializable {
     @FXML
     private Text errorTextField;
-    private String errorMessage = "Error! Please try again.";
+    private String errorMessage;
     private ResourceBundle resourceBundle;
     public Error(){
         super();
@@ -26,23 +26,26 @@ public class Error extends Controller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.resourceBundle = resourceBundle;
-        setErrorTextField(errorMessage);
+        setErrorTextField("Error! Please try again.");
     }
 
     /**
      * Sets the error message of the window after initialization.
      *
      * @param text the error message to set.
-     * @see com.window.ErrorWindow#ErrorWindow(String)  ErrorWindow
+     * @see com.window.ErrorWindow#ErrorWindow(String[])  ErrorWindow
      * @see com.window.ErrorWindow#ErrorWindow(Exception)  ErrorWindow
      */
-    public void setErrorTextField(String text) {
-        try {
-            errorMessage = resourceBundle.getString(text);
-        }
-        catch (MissingResourceException e) {
-            System.out.println("Unable to find value associated with key " + text);
-            errorMessage = text;
+    public void setErrorTextField(String ... text) {
+        errorMessage = new String();
+        for (String string : text) {
+            try {
+                errorMessage += resourceBundle.getString(string);
+            }
+            catch (MissingResourceException e) {
+                System.out.println("Unable to find value associated with key " + text);
+                errorMessage += " " + string + " ";
+            }
         }
         errorTextField.setText(errorMessage);
     }

@@ -77,10 +77,10 @@ public class CalendarView extends Controller implements Initializable {
                     }
                 }
                 if (returnList.isEmpty()) {
-                    openNotifyWindow("No appointment with that ID found!", actionEvent);
+                    openNotifyWindow(actionEvent, "No appointment with that ID found!");
                 } else appointmentsTable.setItems(returnList);
             } catch (NumberFormatException ignored) {
-                openNotifyWindow("Appointment ID only allowed", actionEvent);
+                openNotifyWindow(actionEvent, "Appointment ID only allowed");
             }
         }
     }
@@ -103,7 +103,7 @@ public class CalendarView extends Controller implements Initializable {
             appointmentsTable.refresh();
         }
         else {
-            openNotifyWindow("Please select an appointment", actionEvent);
+            openNotifyWindow(actionEvent, "Please select an appointment");
         }
     }
     @FXML
@@ -112,14 +112,14 @@ public class CalendarView extends Controller implements Initializable {
         if (appointment != null) {
             if (!Instance.deleteAppointment(appointment)) {
                 associatedAppointments.remove(appointment);
-                openNotifyWindow("Appointment with ID " + appointment.getAppointmentId() + " successfully deleted.", actionEvent);
+                openNotifyWindow(actionEvent, "Appointment with ID " + appointment.getAppointmentId() + " successfully deleted.");
             }
             else {
-                openNotifyWindow("Appointment with ID " + appointment.getAppointmentId() + " unsuccessfully deleted.", actionEvent);
+                openNotifyWindow(actionEvent, "Appointment with ID " + appointment.getAppointmentId() + " unsuccessfully deleted.");
             }
         }
         else {
-            openNotifyWindow("Please select an appointment", actionEvent);
+            openNotifyWindow(actionEvent, "Please select an appointment");
         }
     }
     @FXML

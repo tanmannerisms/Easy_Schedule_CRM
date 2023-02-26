@@ -23,8 +23,8 @@ public abstract class Controller {
     /**
      * ADD A openNotifyWindow HERE.
      */
-    protected void openNotifyWindow(String notifyMessage, ActionEvent actionEvent) {
-        ErrorWindow notifyWindow = new ErrorWindow(notifyMessage);
+    protected void openNotifyWindow(ActionEvent actionEvent, String ... message) {
+        ErrorWindow notifyWindow = new ErrorWindow(message);
         notifyWindow.showWindowAndWait(actionEvent);
     }
 

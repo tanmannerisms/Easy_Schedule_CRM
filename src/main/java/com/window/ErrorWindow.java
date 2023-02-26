@@ -26,7 +26,7 @@ public class ErrorWindow extends Window{
      *
      * @param message the string that will be used when displaying the error window. .
      */
-    public ErrorWindow(String message) {
+    public ErrorWindow(String ... message) {
         super(file, "Attention!");
         Error controller = fxmlLoader.getController();
         controller.setErrorTextField(message);

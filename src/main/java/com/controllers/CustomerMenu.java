@@ -44,7 +44,7 @@ public class CustomerMenu extends Controller implements Initializable {
         if (searchResults != null) {
             customerTable.setItems(searchResults);
         }
-        else openNotifyWindow("No customers found.", actionEvent);
+        else openNotifyWindow(actionEvent, "No customers found.");
     }
     private ObservableList<Customer> searchCustomers() {
         try {
@@ -79,13 +79,13 @@ public class CustomerMenu extends Controller implements Initializable {
         Customer customer = getSelectedCustomer(actionEvent);
         if (customer != null){
             if (hasAssociatedAppointments(customer)){
-                openNotifyWindow("Please delete all apppointments for customer " + customer.getId() + " before deleting.", actionEvent);
+                openNotifyWindow(actionEvent, "Please delete all apppointments for customer " + customer.getId() + " before deleting.");
             }
             else if(!Instance.deleteCustomer(customer)) {
-                openNotifyWindow("Deletion of customer with ID " + customer.getId() + "failed!", actionEvent);
+                openNotifyWindow(actionEvent, "Deletion of customer with ID " + customer.getId() + "failed!");
             }
             else {
-                openNotifyWindow("Deletion of customer with ID " + customer.getId() + " successful!", actionEvent);
+                openNotifyWindow(actionEvent, "Deletion of customer with ID " + customer.getId() + " successful!");
             }
         }
     }
@@ -103,7 +103,7 @@ public class CustomerMenu extends Controller implements Initializable {
     private Customer getSelectedCustomer(ActionEvent actionEvent) {
         Customer selectedCustomer = (Customer) customerTable.getSelectionModel().getSelectedItem();
         if (selectedCustomer == null) {
-            openNotifyWindow("Please select a customer first.", actionEvent);
+            openNotifyWindow(actionEvent, "Please select a customer first.");
         }
         actionEvent.consume();
         return selectedCustomer;

@@ -51,7 +51,7 @@ public class Login extends Controller implements Initializable {
             checkUpcomingAppointments(actionEvent);
             Window.changeScene(actionEvent, "main-menu.fxml", "Main Menu");
         }
-        else openNotifyWindow("error.incorrectCreds", actionEvent);
+        else openNotifyWindow(actionEvent, "error.incorrectCreds");
     }
     @FXML
     private boolean validateCredentials(ActionEvent actionEvent) {
@@ -105,16 +105,19 @@ public class Login extends Controller implements Initializable {
             ZonedDateTime start = appointment.getStartDate();
             if (start.isAfter(now) && (start.isBefore(now.plusMinutes(15)) || start.isEqual(now.plusMinutes(15)))) {
                 String customer = Instance.lookupCustomer(appointment.getCustomerId()).getName();
-                int id = appointment.getAppointmentId();
+                String id = String.valueOf(appointment.getAppointmentId());
                 openNotifyWindow(
-                        "Appointment with " + customer + " in less than 15 minutes. Appointment ID " + id,
-                        actionEvent
+                        actionEvent,
+                        "notify.appointmentWith1",
+                         customer,
+                        "notify.appointmentWith2",
+                        id
                 );
                 upcomingAppointments = true;
             }
         }
         if (!upcomingAppointments) {
-            openNotifyWindow("No upcoming appointments.", actionEvent);
+            openNotifyWindow(actionEvent, "notify.noAppointments");
         }
     }
 }
