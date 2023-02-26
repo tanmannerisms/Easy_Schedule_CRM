@@ -1,5 +1,6 @@
 package com.controllers;
 
+import com.easyschedule.Appointment;
 import com.easyschedule.Instance;
 import com.people.User;
 import com.utils.Query;
@@ -8,9 +9,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import com.window.Window;
+import javafx.stage.Stage;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.ZonedDateTime;
 
 public class Login extends Controller{
     private User user;
@@ -24,6 +27,7 @@ public class Login extends Controller{
     private void login(ActionEvent actionEvent) {
         if (validateCredentials(actionEvent)) {
             Instance.setActiveUser(user);
+            checkUpcomingAppointments(actionEvent);
             Window.changeScene(actionEvent, "main-menu.fxml", "Main Menu");
         }
         else openNotifyWindow("Username or password incorrect", actionEvent);
@@ -69,6 +73,25 @@ public class Login extends Controller{
         }
         catch (SQLException e) {
             System.out.println(e.getMessage());
+        }
+    }
+    private void checkUpcomingAppointments(ActionEvent actionEvent) {
+        boolean upcompingAppointments = false;
+        ZonedDateTime now = ZonedDateTime.now(Instance.SYSTEMZONEID);
+        for (Appointment appointment : Instance.getAllAppointments()) {
+            ZonedDateTime start = appointment.getStartDate();
+            if (start.isAfter(now) && (start.isBefore(now.plusMinutes(15)) || start.isEqual(now.plusMinutes(15)))) {
+                String customer = Instance.lookupCustomer(appointment.getCustomerId()).getName();
+                int id = appointment.getAppointmentId();
+                openNotifyWindow(
+                        "Appointment with " + customer + " in less than 15 minutes. Appointment ID " + id,
+                        actionEvent
+                );
+                upcompingAppointments = true;
+            }
+        }
+        if (!upcompingAppointments) {
+            openNotifyWindow("No upcoming appointments.", actionEvent);
         }
     }
 }

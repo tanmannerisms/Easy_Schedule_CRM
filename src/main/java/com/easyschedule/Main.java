@@ -21,7 +21,6 @@ public class Main extends Application {
 
         Instance.updateAllLists();
 
-//        test();
 
         Window login = new Window("login.fxml", "Login Page");
         login.showWindow();
