@@ -11,11 +11,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.*;
+import java.util.Locale;
 
 public abstract class Instance {
     public static final ZoneId SYSTEMZONEID = ZoneId.systemDefault();
     public static final ZoneId BUSINESSZONEID = ZoneId.of("America/New_York");
     private static final String CUSTOMER_TABLE = "client_schedule.customers";
+    private static final Locale SYSTEMLOCALE = Locale.getDefault();
     private static User activeUser;
     private static ObservableList<Customer> allCustomers = FXCollections.observableArrayList();
     private static ObservableList<Contact> allContacts = FXCollections.observableArrayList();
