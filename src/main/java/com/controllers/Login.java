@@ -3,11 +3,11 @@ package com.controllers;
 import com.easyschedule.Instance;
 import com.people.User;
 import com.utils.Query;
+import com.window.Window;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import com.window.Window;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

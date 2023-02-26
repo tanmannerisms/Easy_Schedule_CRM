@@ -1,18 +1,12 @@
 package com.easyschedule;
 
 import com.utils.JDBC;
-import com.utils.Query;
+import com.window.Window;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import com.window.*;
 
-import java.sql.Timestamp;
-import java.text.DateFormat;
-import java.time.Instant;
-import java.time.ZoneId;
-import java.time.ZoneOffset;
-import java.time.ZonedDateTime;
-import java.util.Set;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 public class Main extends Application {
     @Override
@@ -32,7 +26,13 @@ public class Main extends Application {
         JDBC.closeConnection();
     }
     public void test() {
-        Instant instant = Instant.now();
-        System.out.println(instant);
+//        URL url = getClass().getResource("login.fxml");
+//        System.out.println(url);
+//        SecureClassLoader loader = new URLClassLoader(url);
+        Module module = getClass().getModule();
+        ResourceBundle resourceBundle = ResourceBundle.getBundle(
+                "com.easyschedule.lang.Nat",
+                Locale.getDefault()
+        );
     }
 }

@@ -2,7 +2,9 @@ package com.easyschedule;
 
 import com.location.Country;
 import com.location.Division;
-import com.people.*;
+import com.people.Contact;
+import com.people.Customer;
+import com.people.User;
 import com.utils.Query;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,14 +12,21 @@ import javafx.collections.ObservableList;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.time.*;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.Locale;
+import java.util.ResourceBundle;
 
 public abstract class Instance {
     public static final ZoneId SYSTEMZONEID = ZoneId.systemDefault();
     public static final ZoneId BUSINESSZONEID = ZoneId.of("America/New_York");
     private static final String CUSTOMER_TABLE = "client_schedule.customers";
     private static final Locale SYSTEMLOCALE = Locale.getDefault();
+    public static final ResourceBundle resourceBundle = ResourceBundle.getBundle(
+            "com.easyschedule.lang.Nat",
+            Locale.getDefault()
+    );
     private static User activeUser;
     private static ObservableList<Customer> allCustomers = FXCollections.observableArrayList();
     private static ObservableList<Contact> allContacts = FXCollections.observableArrayList();
