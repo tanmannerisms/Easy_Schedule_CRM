@@ -77,10 +77,10 @@ public class CalendarView extends Controller implements Initializable {
                     }
                 }
                 if (returnList.isEmpty()) {
-                    openNotifyWindow(actionEvent, "No appointment with that ID found!");
+                    openNotifyWindow(actionEvent, "notify.noAppointmentFound");
                 } else appointmentsTable.setItems(returnList);
             } catch (NumberFormatException ignored) {
-                openNotifyWindow(actionEvent, "Appointment ID only allowed");
+                openNotifyWindow(actionEvent, "notify.idOnly");
             }
         }
     }
@@ -103,7 +103,7 @@ public class CalendarView extends Controller implements Initializable {
             appointmentsTable.refresh();
         }
         else {
-            openNotifyWindow(actionEvent, "Please select an appointment");
+            openNotifyWindow(actionEvent, "notify.pleaseSelect", "word.an", "word.appointment");
         }
     }
     @FXML
@@ -112,14 +112,22 @@ public class CalendarView extends Controller implements Initializable {
         if (appointment != null) {
             if (!Instance.deleteAppointment(appointment)) {
                 associatedAppointments.remove(appointment);
-                openNotifyWindow(actionEvent, "Appointment with ID " + appointment.getAppointmentId() + " successfully deleted.");
+                openNotifyWindow(actionEvent, "notify.appointmentWithId",
+                        String.valueOf(appointment.getAppointmentId()),
+                        "word.deletion",
+                        "notify.success"
+                );
             }
             else {
-                openNotifyWindow(actionEvent, "Appointment with ID " + appointment.getAppointmentId() + " unsuccessfully deleted.");
+                openNotifyWindow(actionEvent, "notify.appointmentWithId",
+                        String.valueOf(appointment.getAppointmentId()),
+                        "word.deletion",
+                        "notify.success"
+                        );
             }
         }
         else {
-            openNotifyWindow(actionEvent, "Please select an appointment");
+            openNotifyWindow(actionEvent, "notify.selectAppointment");
         }
     }
     @FXML

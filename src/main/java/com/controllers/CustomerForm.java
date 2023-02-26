@@ -106,7 +106,7 @@ public class CustomerForm extends Controller implements Initializable {
                         countrySelector.getValue().isEmpty() ||
                         divisionSelector.getValue().isEmpty()
         ) {
-            openNotifyWindow(actionEvent, "All fields must be filled out!");
+            openNotifyWindow(actionEvent, "notify.emptyFields");
             return false;
         }
         return true;

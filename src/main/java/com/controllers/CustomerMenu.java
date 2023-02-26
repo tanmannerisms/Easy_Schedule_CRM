@@ -44,7 +44,7 @@ public class CustomerMenu extends Controller implements Initializable {
         if (searchResults != null) {
             customerTable.setItems(searchResults);
         }
-        else openNotifyWindow(actionEvent, "No customers found.");
+        else openNotifyWindow(actionEvent, "notify.searchCustomerFailed");
     }
     private ObservableList<Customer> searchCustomers() {
         try {
@@ -79,13 +79,27 @@ public class CustomerMenu extends Controller implements Initializable {
         Customer customer = getSelectedCustomer(actionEvent);
         if (customer != null){
             if (hasAssociatedAppointments(customer)){
-                openNotifyWindow(actionEvent, "Please delete all apppointments for customer " + customer.getId() + " before deleting.");
+                openNotifyWindow(
+                        actionEvent,
+                        "notify.pleaseDelete1",
+                        String.valueOf(customer.getId()),
+                        "notify.pleaseDelete2"
+                );
             }
             else if(!Instance.deleteCustomer(customer)) {
-                openNotifyWindow(actionEvent, "Deletion of customer with ID " + customer.getId() + "failed!");
+                openNotifyWindow(
+                        actionEvent,
+                        "Deletion of customer with ID ",
+                        String.valueOf(customer.getId()),
+                        "notify.fail");
             }
             else {
-                openNotifyWindow(actionEvent, "Deletion of customer with ID " + customer.getId() + " successful!");
+                openNotifyWindow(
+                        actionEvent,
+                        "Deletion of customer with ID ",
+                        String.valueOf(customer.getId()),
+                        "notify.success"
+                );
             }
         }
     }
@@ -103,7 +117,7 @@ public class CustomerMenu extends Controller implements Initializable {
     private Customer getSelectedCustomer(ActionEvent actionEvent) {
         Customer selectedCustomer = (Customer) customerTable.getSelectionModel().getSelectedItem();
         if (selectedCustomer == null) {
-            openNotifyWindow(actionEvent, "Please select a customer first.");
+            openNotifyWindow(actionEvent, "notify.selectCustomer");
         }
         actionEvent.consume();
         return selectedCustomer;

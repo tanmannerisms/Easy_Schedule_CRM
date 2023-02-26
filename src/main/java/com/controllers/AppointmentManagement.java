@@ -136,23 +136,23 @@ public class AppointmentManagement extends Controller implements Initializable {
     private boolean validateFields(ActionEvent actionEvent, ZonedDateTime startDateTime, ZonedDateTime endDateTime) {
         ZonedDateTime now = ZonedDateTime.now(Instance.SYSTEMZONEID);
         if (fieldsEmpty()){
-            openNotifyWindow(actionEvent, "Ensure all fields are filled out and try again");
+            openNotifyWindow(actionEvent, "notify.emptyFields");
             return false;
         }
         if (startDateTime.isAfter(endDateTime)) {
-            openNotifyWindow(actionEvent, "Start date/time must be before end date/time");
+            openNotifyWindow(actionEvent, "notify.startBeforeEnd");
             return false;
         }
         if (startDateTime.isBefore(now) || endDateTime.isBefore(now)) {
-            openNotifyWindow(actionEvent, "Start and End Dates/Times must be in the future.");
+            openNotifyWindow(actionEvent, "notify.startEndFuture");
             return false;
         }
         if (startDateTime.getDayOfYear() != endDateTime.getDayOfYear()) {
-            openNotifyWindow(actionEvent, "Start and end Dates/Times must be on the same day");
+            openNotifyWindow(actionEvent, "notify.startEndSameDay");
             return false;
         }
         if (startDateTime.equals(endDateTime)) {
-            openNotifyWindow(actionEvent, "Start and end times must not be the same.");
+            openNotifyWindow(actionEvent, "notify.startEndSame");
         }
         if (!inBusinessHours(startDateTime, endDateTime, actionEvent)) {
             return false;
@@ -183,12 +183,10 @@ public class AppointmentManagement extends Controller implements Initializable {
         if (start.getDayOfWeek().equals(DayOfWeek.SATURDAY) ||
             start.getDayOfWeek().equals(DayOfWeek.SUNDAY) ||
             end.getDayOfWeek().equals(DayOfWeek.SATURDAY) ||
-            end.getDayOfWeek().equals(DayOfWeek.SUNDAY)
+            end.getDayOfWeek().equals(DayOfWeek.SUNDAY) ||
+            (start.isBefore(businessHourStart) || end.isAfter(businessHourEnd))
         ) {
-            openNotifyWindow(actionEvent, "Meeting times must be on a weekday.");
-        }
-        if (start.isBefore(businessHourStart) || end.isAfter(businessHourEnd)) {
-            openNotifyWindow(actionEvent, "Meeting times must be between the business hours of 8AM and 10PM");
+            openNotifyWindow(actionEvent, "notify.businessHours");
             return false;
         }
         return true;
@@ -200,24 +198,17 @@ public class AppointmentManagement extends Controller implements Initializable {
             }
             ZonedDateTime appointmentStart = testAppointment.getStartDate();
             ZonedDateTime appointmentEnd = testAppointment.getEndDate();
-            if (start.isEqual(appointmentStart)) {
-                openNotifyWindow(actionEvent, "Appointment cannot begin at the same time as another appointment. Overlapping appointment: " + testAppointment.getAppointmentId());
-                return true;
-            }
-            if ((start.isAfter(appointmentStart) && end.isBefore(appointmentEnd)) || end.isEqual(appointmentEnd)) {
-                openNotifyWindow(actionEvent, "Appointment cannot occur during another appointment. Overlapping appointment: " + testAppointment.getAppointmentId());
-                return true;
-            }
-            if (start.isBefore(appointmentStart) &&  (end.isAfter(appointmentStart) && end.isBefore(appointmentEnd) ) ) {
-                openNotifyWindow(actionEvent, "Appointment cannot end in the middle of another appointment. Overlapping appointment: " + testAppointment.getAppointmentId());
-                return true;
-            }
-            if (start.isAfter(appointmentStart) && start.isBefore(appointmentEnd) && end.isAfter(appointmentEnd)) {
-                openNotifyWindow(actionEvent, "Appointment cannot start in the middle of another appointment. Overlapping appointment: " + testAppointment.getAppointmentId());
-                return true;
-            }
-            if (start.isBefore(appointmentStart) && end.isAfter(appointmentEnd)) {
-                openNotifyWindow(actionEvent, "Appointment is overlapping another appointment. Overlapping ID: " + testAppointment.getAppointmentId());
+            if (
+                    start.isEqual(appointmentStart) ||
+                            ((start.isAfter(appointmentStart) && end.isBefore(appointmentEnd)) || end.isEqual(appointmentEnd)) ||
+                            (start.isBefore(appointmentStart) &&  (end.isAfter(appointmentStart) && end.isBefore(appointmentEnd))) ||
+                            (start.isAfter(appointmentStart) && start.isBefore(appointmentEnd) && end.isAfter(appointmentEnd)) ||
+                            (start.isBefore(appointmentStart) && end.isAfter(appointmentEnd))
+            ) {
+                openNotifyWindow(actionEvent,
+                        "notify.overlappingAppointment",
+                        String.valueOf(testAppointment.getAppointmentId())
+                );
                 return true;
             }
         }
