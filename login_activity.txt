@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2023-02-26T03:49:21.951219100Z</date>
+  <millis>1677383361951</millis>
+  <nanos>219100</nanos>
+  <sequence>0</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>com.controllers.Login</class>
+  <method>login</method>
+  <thread>19</thread>
+  <message>User with ID 1 successfully logged in.</message>
+</record>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2023-02-26T03:59:06.632075100Z</date>
+  <millis>1677383946632</millis>
+  <nanos>75100</nanos>
+  <sequence>0</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>com.controllers.Login</class>
+  <method>login</method>
+  <thread>19</thread>
+  <message>User with ID 1 successfully logged in.</message>
+</record>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2023-02-26T04:03:41.474534900Z</date>
+  <millis>1677384221474</millis>
+  <nanos>534900</nanos>
+  <sequence>0</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>com.controllers.Login</class>
+  <method>login</method>
+  <thread>19</thread>
+  <message>User with ID 1 successfully logged in.</message>
+</record>
+</log>

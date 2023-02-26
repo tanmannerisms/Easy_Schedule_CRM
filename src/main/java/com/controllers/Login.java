@@ -13,11 +13,13 @@ import javafx.scene.control.TextField;
 import com.window.Window;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.ZonedDateTime;
 import java.util.ResourceBundle;
+import java.util.logging.*;
 
 public class Login extends Controller implements Initializable {
     private User user;
@@ -28,14 +30,25 @@ public class Login extends Controller implements Initializable {
     private PasswordField passwordField;
     @FXML
     private Label tzLabel;
+    private FileHandler loginHandler;
+    private Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);;
+    private Formatter formatter;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         tzLabel.setText(tzLabel.getText() + Instance.SYSTEMZONEID);
+        try {
+            loginHandler = new FileHandler("./login_activity.txt", true);
+            logger.addHandler(loginHandler);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+
     }
     @FXML
     private void login(ActionEvent actionEvent) {
         if (validateCredentials(actionEvent)) {
+            logger.log(Level.INFO, "User with ID " + user.getId() + " successfully logged in.");
             Instance.setActiveUser(user);
             checkUpcomingAppointments(actionEvent);
             Window.changeScene(actionEvent, "main-menu.fxml", "Main Menu");
@@ -62,7 +75,10 @@ public class Login extends Controller implements Initializable {
     }
     private boolean validatePassword() {
         if (user.getPassword().equals(inputPassword)) return true;
-        else return false;
+        else {
+            logger.log(Level.INFO, "User with ID " + user.getId() + " entered an incorrect password.");
+            return false;
+        }
     }
     private void queryUser() {
         ResultSet results = Query.selectConditional(
