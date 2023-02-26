@@ -1,6 +1,7 @@
 package com.window;
 
 import com.controllers.Controller;
+import com.easyschedule.Instance;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -8,6 +9,8 @@ import javafx.scene.control.Button;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import java.io.IOException;
+import java.util.ResourceBundle;
+
 import com.easyschedule.Main;
 
 public class Window {
@@ -25,7 +28,7 @@ public class Window {
     public Window(String file, String title) {
         fxmlFile = file;
         windowTitle = title;
-        fxmlLoader = new FXMLLoader(Main.class.getResource(fxmlFile));
+        fxmlLoader = new FXMLLoader(Main.class.getResource(fxmlFile), Instance.resourceBundle);
         setScene();
         setStage();
     }

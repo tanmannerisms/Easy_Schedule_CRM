@@ -25,7 +25,7 @@ public abstract class Instance {
     private static final Locale SYSTEMLOCALE = Locale.getDefault();
     public static final ResourceBundle resourceBundle = ResourceBundle.getBundle(
             "com.easyschedule.lang.Nat",
-            Locale.getDefault()
+            SYSTEMLOCALE
     );
     private static User activeUser;
     private static ObservableList<Customer> allCustomers = FXCollections.observableArrayList();

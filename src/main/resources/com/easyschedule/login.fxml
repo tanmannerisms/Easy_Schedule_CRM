@@ -26,14 +26,14 @@
             <Insets left="15" top="15" right="15" bottom="15" />
         </padding>
         <AnchorPane GridPane.columnIndex="0" GridPane.rowIndex="0">
-            <Label text="Login" >
+            <Label text="%label.login" >
                 <font>
                     <Font name="System Bold" size="24.0" />
                 </font>
             </Label>
         </AnchorPane>
         <AnchorPane GridPane.columnIndex="0" GridPane.rowIndex="1">
-            <Label text="Username" AnchorPane.bottomAnchor="7" >
+            <Label text="%label.username" AnchorPane.bottomAnchor="7" >
                 <font>
                     <Font name="System Regular" size="14" />
                 </font>
@@ -43,7 +43,7 @@
             <TextField fx:id="userNameField" promptText="Username" />
         </AnchorPane>
         <AnchorPane GridPane.columnIndex="0" GridPane.rowIndex="3">
-            <Label text="Password" AnchorPane.bottomAnchor="7" >
+            <Label text="%label.password" AnchorPane.bottomAnchor="7" >
                 <font>
                     <Font name="System Regular" size="14" />
                 </font>
@@ -55,8 +55,8 @@
       <AnchorPane GridPane.rowIndex="5" >
           <ButtonBar prefWidth="225.0" AnchorPane.topAnchor="0" >
               <buttons>
-                  <Button text="Login" onAction="#login" prefWidth="50" ButtonBar.buttonData="RIGHT" />
-                  <Button text="Cancel" onAction="#closeWindow" prefWidth="50" ButtonBar.buttonData="LEFT" />
+                  <Button text="%button.login" onAction="#login" prefWidth="50" ButtonBar.buttonData="RIGHT" />
+                  <Button text="%button.cancel" onAction="#closeWindow" prefWidth="50" ButtonBar.buttonData="LEFT" />
               </buttons>
           </ButtonBar>
       </AnchorPane>

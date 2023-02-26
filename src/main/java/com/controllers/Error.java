@@ -5,11 +5,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.text.Text;
 import java.net.URL;
 import java.util.ResourceBundle;
+import com.easyschedule.Instance;
 
 public class Error extends Controller implements Initializable {
     @FXML
     private Text errorTextField;
     private String errorMessage = "Error! Please try again.";
+    private ResourceBundle resourceBundle;
     public Error(){
         super();
     }
@@ -22,6 +24,7 @@ public class Error extends Controller implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        this.resourceBundle = resourceBundle;
         setErrorTextField(errorMessage);
     }
 
@@ -33,7 +36,13 @@ public class Error extends Controller implements Initializable {
      * @see com.window.ErrorWindow#ErrorWindow(Exception)  ErrorWindow
      */
     public void setErrorTextField(String text) {
-        errorMessage = text;
+        try {
+            errorMessage = resourceBundle.getString(text);
+        }
+        catch (NullPointerException ignored) {
+            System.out.println("Unable to find value associated with key " + text);
+            errorMessage = text;
+        }
         errorTextField.setText(errorMessage);
     }
 }

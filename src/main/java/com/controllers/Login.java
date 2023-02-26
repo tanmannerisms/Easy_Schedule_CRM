@@ -6,20 +6,33 @@ import com.utils.Query;
 import com.window.Window;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
+import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ResourceBundle;
 
-public class Login extends Controller{
+public class Login extends Controller implements Initializable {
     private User user;
     private String validUsername, validPassword, inputUsername, inputPassword;
+    @FXML
+    private Label usernameLabel, passwordLabel, loginLabel;
+    @FXML
+    private Button loginButton, cancelButton;
     @FXML
     private TextField userNameField;
     @FXML
     private PasswordField passwordField;
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+    }
     @FXML
     private void login(ActionEvent actionEvent) {
         if (validateCredentials(actionEvent)) {
