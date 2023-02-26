@@ -110,19 +110,19 @@ public class CalendarView extends Controller implements Initializable {
     private void onDeleteClick(ActionEvent actionEvent) {
         Appointment appointment = appointmentsTable.getSelectionModel().getSelectedItem();
         if (appointment != null) {
-            if (!Instance.deleteAppointment(appointment)) {
-                associatedAppointments.remove(appointment);
+            if (Instance.deleteAppointment(appointment)) {
                 openNotifyWindow(actionEvent, "notify.appointmentWithId",
                         String.valueOf(appointment.getAppointmentId()),
                         "word.deletion",
                         "notify.success"
                 );
+                associatedAppointments.remove(appointment);
             }
             else {
                 openNotifyWindow(actionEvent, "notify.appointmentWithId",
                         String.valueOf(appointment.getAppointmentId()),
                         "word.deletion",
-                        "notify.success"
+                        "notify.fail"
                         );
             }
         }

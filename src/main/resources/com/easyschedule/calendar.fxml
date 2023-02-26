@@ -40,7 +40,7 @@
                     </Label>
                     <HBox alignment="CENTER_RIGHT" prefHeight="45" spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="0">
 
-                        <TextField fx:id="appointmentSearchField" onAction="#onSearchClick" prefWidth="155" promptText="Search by Appointment ID" />
+                        <TextField fx:id="appointmentSearchField" prefWidth="155" promptText="Search by Appointment ID" />
                         <Button onAction="#onSearchClick" prefWidth="60" text="Search" />
                     </HBox>
                     <TabPane fx:id="tabPane" tabMinWidth="100" GridPane.columnSpan="2" GridPane.rowIndex="1" onMouseClicked="#updateTable" >

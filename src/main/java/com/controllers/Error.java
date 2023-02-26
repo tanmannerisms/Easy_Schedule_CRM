@@ -40,11 +40,11 @@ public class Error extends Controller implements Initializable {
         errorMessage = new String();
         for (String string : text) {
             try {
-                errorMessage += resourceBundle.getString(string);
+                errorMessage += resourceBundle.getString(string) + " ";
             }
             catch (MissingResourceException e) {
-                System.out.println("Unable to find value associated with key " + text);
-                errorMessage += " " + string + " ";
+                System.out.println("Unable to find value associated with key " + string);
+                errorMessage += string + " ";
             }
         }
         errorTextField.setText(errorMessage);
