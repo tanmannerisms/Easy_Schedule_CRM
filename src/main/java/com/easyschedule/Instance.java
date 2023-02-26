@@ -261,13 +261,16 @@ public abstract class Instance {
                 String.valueOf(appointment.getContactId())
                 );
     }
-    public static void deleteAppointment(Appointment appointment) {
-        Query.delete(
+    public static boolean deleteAppointment(Appointment appointment) {
+        if (Query.delete(
                 "appointments",
                 "Appointment_Id = ",
                 String.valueOf(appointment.getAppointmentId())
-        );
-        allAppointments.remove(appointment);
+        )) {
+            allAppointments.remove(appointment);
+            return true;
+        }
+        else return false;
     }
 
     public static ObservableList<Division> getAllDivisions() {

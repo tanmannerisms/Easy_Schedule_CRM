@@ -180,6 +180,13 @@ public class AppointmentManagement extends Controller implements Initializable {
         LocalDate selectedDay = startDatePicker.getValue();
         ZonedDateTime businessHourStart = ZonedDateTime.of(selectedDay, LocalTime.of(8,00),Instance.BUSINESSZONEID);
         ZonedDateTime businessHourEnd = ZonedDateTime.of(selectedDay, LocalTime.of(22,0), Instance.BUSINESSZONEID);
+        if (start.getDayOfWeek().equals(DayOfWeek.SATURDAY) ||
+            start.getDayOfWeek().equals(DayOfWeek.SUNDAY) ||
+            end.getDayOfWeek().equals(DayOfWeek.SATURDAY) ||
+            end.getDayOfWeek().equals(DayOfWeek.SUNDAY)
+        ) {
+            openNotifyWindow("Meeting times must be on a weekday.", actionEvent);
+        }
         if (start.isBefore(businessHourStart) || end.isAfter(businessHourEnd)) {
             openNotifyWindow("Meeting times must be between the business hours of 8AM and 10PM", actionEvent);
             return false;
