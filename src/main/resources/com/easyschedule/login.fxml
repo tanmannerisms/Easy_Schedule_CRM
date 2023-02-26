@@ -53,12 +53,19 @@
             <PasswordField fx:id="passwordField" promptText="Password" />
         </AnchorPane>
       <AnchorPane GridPane.rowIndex="5" >
-          <ButtonBar prefWidth="225.0" AnchorPane.topAnchor="0" >
-              <buttons>
-                  <Button text="Login" onAction="#login" prefWidth="50" ButtonBar.buttonData="RIGHT" />
-                  <Button text="Cancel" onAction="#closeWindow" prefWidth="50" ButtonBar.buttonData="LEFT" />
-              </buttons>
-          </ButtonBar>
+          <VBox>
+              <ButtonBar prefWidth="110.0" AnchorPane.topAnchor="0" >
+                  <buttons>
+                      <Button text="Login" onAction="#login" prefWidth="50" ButtonBar.buttonData="LEFT" />
+                      <Button text="Cancel" onAction="#closeWindow" prefWidth="50" ButtonBar.buttonData="LEFT" />
+                  </buttons>
+              </ButtonBar>
+              <Label fx:id="tzLabel" text="TimeZone: " >
+                  <padding>
+                      <Insets top="10" left="10" />
+                  </padding>
+              </Label>
+          </VBox>
       </AnchorPane>
     </GridPane>
 </AnchorPane>
