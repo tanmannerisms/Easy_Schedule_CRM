@@ -39,7 +39,7 @@ public class Login extends Controller implements Initializable {
             Instance.setActiveUser(user);
             Window.changeScene(actionEvent, "main-menu.fxml", "Main Menu");
         }
-        else openNotifyWindow("Username or password incorrect", actionEvent);
+        else openNotifyWindow("error.incorrectCreds", actionEvent);
     }
     @FXML
     private boolean validateCredentials(ActionEvent actionEvent) {

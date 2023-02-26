@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.text.Text;
 import java.net.URL;
+import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import com.easyschedule.Instance;
 
@@ -39,7 +40,7 @@ public class Error extends Controller implements Initializable {
         try {
             errorMessage = resourceBundle.getString(text);
         }
-        catch (NullPointerException ignored) {
+        catch (MissingResourceException e) {
             System.out.println("Unable to find value associated with key " + text);
             errorMessage = text;
         }
