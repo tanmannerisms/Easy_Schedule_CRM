@@ -11,13 +11,14 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import com.window.Window;
-import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.ZonedDateTime;
 import java.util.ResourceBundle;
+import java.util.logging.*;
 
 public class Login extends Controller implements Initializable {
     private User user;
@@ -28,14 +29,24 @@ public class Login extends Controller implements Initializable {
     private PasswordField passwordField;
     @FXML
     private Label tzLabel;
+    private FileHandler loginHandler;
+    private final Logger loginLogger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         tzLabel.setText(tzLabel.getText() + Instance.SYSTEMZONEID);
+        try {
+            loginHandler = new FileHandler("./login_activity.txt", true);
+            loginLogger.addHandler(loginHandler);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+
     }
     @FXML
     private void login(ActionEvent actionEvent) {
         if (validateCredentials(actionEvent)) {
+            loginLogger.log(Level.INFO, "User with ID " + user.getId() + " successfully logged in.");
             Instance.setActiveUser(user);
             checkUpcomingAppointments(actionEvent);
             Window.changeScene(actionEvent, "main-menu.fxml", "Main Menu");
@@ -62,10 +73,12 @@ public class Login extends Controller implements Initializable {
     }
     private boolean validatePassword() {
         if (user.getPassword().equals(inputPassword)) return true;
-        else return false;
+        else {
+            loginLogger.log(Level.INFO, "User with ID " + user.getId() + " entered an incorrect password.");
+            return false;
+        }
     }
     private void queryUser() {
-//        String condition =  + inputUsername;
         ResultSet results = Query.selectConditional(
                 "User_Id, User_Name, Password",
                 "users",
@@ -86,7 +99,7 @@ public class Login extends Controller implements Initializable {
         }
     }
     private void checkUpcomingAppointments(ActionEvent actionEvent) {
-        boolean upcompingAppointments = false;
+        boolean upcomingAppointments = false;
         ZonedDateTime now = ZonedDateTime.now(Instance.SYSTEMZONEID);
         for (Appointment appointment : Instance.getAllAppointments()) {
             ZonedDateTime start = appointment.getStartDate();
@@ -97,10 +110,10 @@ public class Login extends Controller implements Initializable {
                         "Appointment with " + customer + " in less than 15 minutes. Appointment ID " + id,
                         actionEvent
                 );
-                upcompingAppointments = true;
+                upcomingAppointments = true;
             }
         }
-        if (!upcompingAppointments) {
+        if (!upcomingAppointments) {
             openNotifyWindow("No upcoming appointments.", actionEvent);
         }
     }
