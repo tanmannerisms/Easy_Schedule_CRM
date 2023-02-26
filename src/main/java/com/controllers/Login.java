@@ -65,7 +65,6 @@ public class Login extends Controller implements Initializable {
         else return false;
     }
     private void queryUser() {
-//        String condition =  + inputUsername;
         ResultSet results = Query.selectConditional(
                 "User_Id, User_Name, Password",
                 "users",
@@ -86,7 +85,7 @@ public class Login extends Controller implements Initializable {
         }
     }
     private void checkUpcomingAppointments(ActionEvent actionEvent) {
-        boolean upcompingAppointments = false;
+        boolean upcomingAppointments = false;
         ZonedDateTime now = ZonedDateTime.now(Instance.SYSTEMZONEID);
         for (Appointment appointment : Instance.getAllAppointments()) {
             ZonedDateTime start = appointment.getStartDate();
@@ -97,10 +96,10 @@ public class Login extends Controller implements Initializable {
                         "Appointment with " + customer + " in less than 15 minutes. Appointment ID " + id,
                         actionEvent
                 );
-                upcompingAppointments = true;
+                upcomingAppointments = true;
             }
         }
-        if (!upcompingAppointments) {
+        if (!upcomingAppointments) {
             openNotifyWindow("No upcoming appointments.", actionEvent);
         }
     }
