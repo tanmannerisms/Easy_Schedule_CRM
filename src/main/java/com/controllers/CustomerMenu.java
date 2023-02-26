@@ -78,8 +78,14 @@ public class CustomerMenu extends Controller implements Initializable {
     private void onDeleteClick(ActionEvent actionEvent) {
         Customer customer = getSelectedCustomer(actionEvent);
         if (customer != null){
-            if(!Instance.deleteCustomer(customer)) {
+            if (hasAssociatedAppointments(customer)){
+                openNotifyWindow("Please delete all apppointments for customer " + customer.getId() + " before deleting.", actionEvent);
+            }
+            else if(!Instance.deleteCustomer(customer)) {
                 openNotifyWindow("Deletion of customer with ID " + customer.getId() + "failed!", actionEvent);
+            }
+            else {
+                openNotifyWindow("Deletion of customer with ID " + customer.getId() + " successful!", actionEvent);
             }
         }
     }
@@ -101,5 +107,11 @@ public class CustomerMenu extends Controller implements Initializable {
         }
         actionEvent.consume();
         return selectedCustomer;
+    }
+    private boolean hasAssociatedAppointments(Customer customer) {
+        if (customer.getAssociatedAppointments().isEmpty()) {
+            return false;
+        }
+        else return true;
     }
 }

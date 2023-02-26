@@ -41,25 +41,26 @@ public class CustomerForm extends Controller implements Initializable {
     }
     @FXML
     private void onSaveClick(ActionEvent actionEvent) {
-        if (customerImported) {
-            customer.setName(nameField.getText());
-            customer.setPhoneNumber(phoneNumberField.getText());
-            customer.setAddress(addressField.getText());
-            customer.setPostalCode(postalCodeField.getText());
-            customer.setDivisionId(Instance.getDivision(divisionSelector.getValue()));
-            Instance.updateCustomer(customer);
-            closeWindow(actionEvent);
-        }
-        else {
-            Customer newCustomer = new Customer(
-                    nameField.getText(),
-                    addressField.getText(),
-                    postalCodeField.getText() + " ",
-                    phoneNumberField.getText(),
-                    Instance.getDivision(divisionSelector.getValue())
-            );
-            Instance.addCustomer(newCustomer);
-            closeWindow(actionEvent);
+        if (fieldsValid(actionEvent)) {
+            if (customerImported) {
+                customer.setName(nameField.getText());
+                customer.setPhoneNumber(phoneNumberField.getText());
+                customer.setAddress(addressField.getText());
+                customer.setPostalCode(postalCodeField.getText());
+                customer.setDivisionId(Instance.getDivision(divisionSelector.getValue()));
+                Instance.updateCustomer(customer);
+                closeWindow(actionEvent);
+            } else {
+                Customer newCustomer = new Customer(
+                        nameField.getText(),
+                        addressField.getText(),
+                        postalCodeField.getText() + " ",
+                        phoneNumberField.getText(),
+                        Instance.getDivision(divisionSelector.getValue())
+                );
+                Instance.addCustomer(newCustomer);
+                closeWindow(actionEvent);
+            }
         }
     }
     @FXML
@@ -95,5 +96,19 @@ public class CustomerForm extends Controller implements Initializable {
             names.add(listIterator.next().getName());
         }
         return names;
+    }
+    private boolean fieldsValid(ActionEvent actionEvent) {
+        if (
+                nameField.getText().isEmpty() ||
+                        phoneNumberField.getText().isEmpty() ||
+                        addressField.getText().isEmpty() ||
+                        postalCodeField.getText().isEmpty() ||
+                        countrySelector.getValue().isEmpty() ||
+                        divisionSelector.getValue().isEmpty()
+        ) {
+            openNotifyWindow("All fields must be filled out!", actionEvent);
+            return false;
+        }
+        return true;
     }
 }
