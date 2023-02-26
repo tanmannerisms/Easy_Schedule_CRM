@@ -103,8 +103,8 @@ public class CustomerForm extends Controller implements Initializable {
                         phoneNumberField.getText().isEmpty() ||
                         addressField.getText().isEmpty() ||
                         postalCodeField.getText().isEmpty() ||
-                        countrySelector.getValue().isEmpty() ||
-                        divisionSelector.getValue().isEmpty()
+                        countrySelector.getValue() == null ||
+                        divisionSelector.getValue() == null
         ) {
             openNotifyWindow(actionEvent, "notify.emptyFields");
             return false;

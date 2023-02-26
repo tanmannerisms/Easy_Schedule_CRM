@@ -40,7 +40,7 @@
             </Label>
         </AnchorPane>
         <AnchorPane GridPane.columnIndex="0" GridPane.rowIndex="2">
-            <TextField fx:id="userNameField" promptText="Username" />
+            <TextField fx:id="userNameField" promptText="%label.username" />
         </AnchorPane>
         <AnchorPane GridPane.columnIndex="0" GridPane.rowIndex="3">
             <Label text="%label.password" AnchorPane.bottomAnchor="7" >
@@ -50,17 +50,17 @@
             </Label>
         </AnchorPane>
         <AnchorPane GridPane.columnIndex="0" GridPane.rowIndex="4">
-            <PasswordField fx:id="passwordField" promptText="Password" />
+            <PasswordField fx:id="passwordField" promptText="%label.password" />
         </AnchorPane>
       <AnchorPane GridPane.rowIndex="5" >
           <VBox>
               <ButtonBar prefWidth="110.0" AnchorPane.topAnchor="0" >
                   <buttons>
-                      <Button text="Login" onAction="#login" prefWidth="50" ButtonBar.buttonData="LEFT" />
-                      <Button text="Cancel" onAction="#closeWindow" prefWidth="50" ButtonBar.buttonData="LEFT" />
+                      <Button text="%button.login" onAction="#login" prefWidth="50" ButtonBar.buttonData="LEFT" />
+                      <Button text="%button.cancel" onAction="#closeWindow" prefWidth="50" ButtonBar.buttonData="LEFT" />
                   </buttons>
               </ButtonBar>
-              <Label fx:id="tzLabel" text="TimeZone: " >
+              <Label fx:id="tzLabel" >
                   <padding>
                       <Insets top="10" left="10" />
                   </padding>

@@ -34,7 +34,7 @@ public class Login extends Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        tzLabel.setText(tzLabel.getText() + Instance.SYSTEMZONEID);
+        tzLabel.setText(resourceBundle.getString("label.timezone") + Instance.SYSTEMZONEID);
         try {
             loginHandler = new FileHandler("./login_activity.txt", true);
             loginLogger.addHandler(loginHandler);
