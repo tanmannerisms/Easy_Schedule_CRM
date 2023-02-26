@@ -6,23 +6,33 @@ import com.people.User;
 import com.utils.Query;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import com.window.Window;
 import javafx.stage.Stage;
 
+import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.ZonedDateTime;
+import java.util.ResourceBundle;
 
-public class Login extends Controller{
+public class Login extends Controller implements Initializable {
     private User user;
     private String validUsername, validPassword, inputUsername, inputPassword;
     @FXML
     private TextField userNameField;
     @FXML
     private PasswordField passwordField;
+    @FXML
+    private Label tzLabel;
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        tzLabel.setText(tzLabel.getText() + Instance.SYSTEMZONEID);
+    }
     @FXML
     private void login(ActionEvent actionEvent) {
         if (validateCredentials(actionEvent)) {
