@@ -27,7 +27,7 @@ public class CalendarView extends Controller implements Initializable {
     @FXML
     private TableColumn<Appointment, String> titleColumn, descriptionColumn, locationColumn, contactColumn, typeColumn;
     @FXML
-    private TableColumn<Appointment, LocalDateTime> startColumn, endColumn;
+    private TableColumn<Appointment, String> startColumn, endColumn;
     @FXML
     private TableView<Appointment> appointmentsTable;
     private ObservableList<Appointment> associatedAppointments;
@@ -51,8 +51,8 @@ public class CalendarView extends Controller implements Initializable {
         descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("Description"));
         locationColumn.setCellValueFactory(new PropertyValueFactory<>("Location"));
         typeColumn.setCellValueFactory(new PropertyValueFactory<>("Type"));
-        startColumn.setCellValueFactory(new PropertyValueFactory<>("StartDate"));
-        endColumn.setCellValueFactory(new PropertyValueFactory<>("EndDate"));
+        startColumn.setCellValueFactory(new PropertyValueFactory<>("FormattedStartDate"));
+        endColumn.setCellValueFactory(new PropertyValueFactory<>("FormattedEndDate"));
     }
     protected void setCustomer(Customer customer) {
         this.customer = customer;

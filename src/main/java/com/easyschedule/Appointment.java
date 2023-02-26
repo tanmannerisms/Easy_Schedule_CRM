@@ -6,6 +6,7 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Appointment {
     private int appointmentId, userId, customerId, contactId;
@@ -24,6 +25,8 @@ public class Appointment {
         setContactId(contactId);
         setStartDate(startDate);
         setEndDate(endDate);
+        startDate.format(DateTimeFormatter.ofPattern("HH:mm, MM-dd-yyyy"));
+        endDate.format(DateTimeFormatter.ofPattern("HH:mm, MM-dd-yyyy"));
     }
     public Appointment(int appointmentId, int userId, int customerId, int contactId,
                        String title, String description, String location,
@@ -99,6 +102,9 @@ public class Appointment {
     public ZonedDateTime getStartDate() {
         return startDate;
     }
+    public String getFormattedStartDate() {
+        return startDate.format(DateTimeFormatter.ofPattern("HH:mm, MM-dd-yyyy"));
+    }
 
     public void setStartDate(ZonedDateTime startDate) {
         this.startDate = startDate;
@@ -106,6 +112,9 @@ public class Appointment {
 
     public ZonedDateTime getEndDate() {
         return endDate;
+    }
+    public String getFormattedEndDate() {
+        return endDate.format(DateTimeFormatter.ofPattern("HH:mm, MM-dd-yyyy"));
     }
 
     public void setEndDate(ZonedDateTime endDate) {
