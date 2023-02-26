@@ -11,7 +11,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import com.window.Window;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -31,15 +30,14 @@ public class Login extends Controller implements Initializable {
     @FXML
     private Label tzLabel;
     private FileHandler loginHandler;
-    private Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);;
-    private Formatter formatter;
+    private final Logger loginLogger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         tzLabel.setText(tzLabel.getText() + Instance.SYSTEMZONEID);
         try {
             loginHandler = new FileHandler("./login_activity.txt", true);
-            logger.addHandler(loginHandler);
+            loginLogger.addHandler(loginHandler);
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
@@ -48,7 +46,7 @@ public class Login extends Controller implements Initializable {
     @FXML
     private void login(ActionEvent actionEvent) {
         if (validateCredentials(actionEvent)) {
-            logger.log(Level.INFO, "User with ID " + user.getId() + " successfully logged in.");
+            loginLogger.log(Level.INFO, "User with ID " + user.getId() + " successfully logged in.");
             Instance.setActiveUser(user);
             checkUpcomingAppointments(actionEvent);
             Window.changeScene(actionEvent, "main-menu.fxml", "Main Menu");
@@ -76,7 +74,7 @@ public class Login extends Controller implements Initializable {
     private boolean validatePassword() {
         if (user.getPassword().equals(inputPassword)) return true;
         else {
-            logger.log(Level.INFO, "User with ID " + user.getId() + " entered an incorrect password.");
+            loginLogger.log(Level.INFO, "User with ID " + user.getId() + " entered an incorrect password.");
             return false;
         }
     }

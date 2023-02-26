@@ -46,3 +46,19 @@
   <message>User with ID 1 successfully logged in.</message>
 </record>
 </log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2023-02-26T04:06:14.779104200Z</date>
+  <millis>1677384374779</millis>
+  <nanos>104200</nanos>
+  <sequence>0</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>com.controllers.Login</class>
+  <method>login</method>
+  <thread>19</thread>
+  <message>User with ID 1 successfully logged in.</message>
+</record>
+</log>
