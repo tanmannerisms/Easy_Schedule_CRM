@@ -23,26 +23,26 @@ public class CalendarView extends Controller implements Initializable {
     @FXML
     private Label customerLabel;
     @FXML
-    private TableColumn<Appointment, Integer> idColumn, customerColumn, userColumn;
+    protected TableColumn<Appointment, Integer> idColumn, customerColumn, userColumn;
     @FXML
-    private TableColumn<Appointment, String> titleColumn, descriptionColumn, locationColumn, contactColumn, typeColumn;
+    protected TableColumn<Appointment, String> titleColumn, descriptionColumn, locationColumn, contactColumn, typeColumn;
     @FXML
-    private TableColumn<Appointment, String> startColumn, endColumn;
+    protected TableColumn<Appointment, String> startColumn, endColumn;
     @FXML
-    private TableView<Appointment> appointmentsTable;
-    private ObservableList<Appointment> associatedAppointments;
+    protected TableView<Appointment> appointmentsTable;
+    protected ObservableList<Appointment> associatedAppointments;
     @FXML
-    private TabPane tabPane;
+    protected TabPane tabPane;
     @FXML
-    private Tab allAppointments, monthAppointments, weekAppointments;
+    protected Tab allAppointments, monthAppointments, weekAppointments;
     @FXML
-    private TextField appointmentSearchField;
+    protected TextField appointmentSearchField;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setTableColumns();
     }
-    private void setTableColumns() {
+    protected void setTableColumns() {
         idColumn.setCellValueFactory(new PropertyValueFactory<>("AppointmentId"));
         customerColumn.setCellValueFactory(new PropertyValueFactory<>("CustomerId"));
         userColumn.setCellValueFactory(new PropertyValueFactory<>("UserId"));
@@ -151,7 +151,7 @@ public class CalendarView extends Controller implements Initializable {
             appointmentsTable.setItems(getAppointments(now, before));
         }
     }
-    private ObservableList<Appointment> getAppointments(ZonedDateTime after, ZonedDateTime before) {
+    protected ObservableList<Appointment> getAppointments(ZonedDateTime after, ZonedDateTime before) {
         ObservableList<Appointment> returnList = FXCollections.observableArrayList();
 
         for (Appointment appointment : associatedAppointments){

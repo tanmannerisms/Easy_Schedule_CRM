@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox prefHeight="550.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.controllers.ContactSchedule">
+    <AnchorPane minHeight="-Infinity" prefHeight="75.0" prefWidth="800.0">
+        <Label layoutX="14.0" layoutY="24.0" text="Contact Schedule">
+            <font>
+                <Font name="System Bold" size="20.0" />
+            </font>
+        </Label>
+        <padding>
+            <Insets bottom="28.0" top="28.0" />
+        </padding>
+    </AnchorPane>
+    <AnchorPane minHeight="475.0" minWidth="1000.0">
+        <VBox AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <AnchorPane minHeight="375" minWidth="800" prefHeight="425.0" prefWidth="1000.0">
+                <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="0.0">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="100.0" prefWidth="225.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="100.0" prefWidth="225.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="-Infinity" prefHeight="45.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="-Infinity" prefHeight="50.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="-Infinity" prefHeight="285.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="-Infinity" prefHeight="45.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <HBox alignment="CENTER_RIGHT" prefHeight="45" spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                        <padding>
+                            <Insets left="20" top="10"/>
+                        </padding>
+                        <Label text="Select Contact" >
+                            <font>
+                                <Font name="System Bold" size="16.0" />
+                            </font>
+                        </Label>
+                        <ComboBox fx:id="contactSelector" onAction="#updateContact" prefWidth="150" />
+                    </HBox>
+                    <TabPane fx:id="tabPane" tabMinWidth="100" GridPane.columnSpan="2" GridPane.rowIndex="1" onMouseClicked="#updateTable" >
+                        <tabs>
+                            <Tab fx:id="allAppointments" closable="false" text="All">
+                            </Tab>
+                            <Tab fx:id="monthAppointments" text="Month" closable="false">
+                            </Tab>
+                            <Tab fx:id="weekAppointments" text="Week" closable="false" >
+                            </Tab>
+                        </tabs>
+                    </TabPane>
+                    <TableView fx:id="appointmentsTable" prefHeight="200" prefWidth="450" GridPane.columnSpan="2" GridPane.rowIndex="2">
+                        <columns>
+                            <TableColumn fx:id="idColumn" maxWidth="100" minWidth="20" prefWidth="50" text="ID" />
+                            <TableColumn fx:id="titleColumn" minWidth="50" prefWidth="150" text="Title" />
+                            <TableColumn fx:id="descriptionColumn" minWidth="50" prefWidth="150" text="Description" />
+                            <TableColumn fx:id="locationColumn" minWidth="50" prefWidth="100" text="Location" />
+                            <TableColumn fx:id="contactColumn" minWidth="50" prefWidth="100" text="Contact" />
+                            <TableColumn fx:id="typeColumn" maxWidth="100" minWidth="20" prefWidth="100" text="Type" />
+                            <TableColumn fx:id="startColumn" minWidth="50" prefWidth="100" text="Start Time" />
+                            <TableColumn fx:id="endColumn" minWidth="50" prefWidth="100" text="End Time" />
+                            <TableColumn fx:id="customerColumn" minWidth="20" prefWidth="62.0" text="Customer" />
+                            <TableColumn fx:id="userColumn" minWidth="1.0" prefWidth="48.0" text="User" />
+                        </columns>
+                    </TableView>
+                </GridPane>
+            </AnchorPane>
+            <AnchorPane prefHeight="50.0" prefWidth="450">
+                <ButtonBar AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="40" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="6.0">
+                    <buttons>
+                        <Button onAction="#closeWindow" prefHeight="25.0" prefWidth="75.0" text="BACK" ButtonBar.buttonData="right">
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font>
+                        </Button>
+                    </buttons>
+                </ButtonBar>
+            </AnchorPane>
+        </VBox>
+    </AnchorPane>
+</VBox>
