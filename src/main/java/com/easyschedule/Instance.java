@@ -216,7 +216,7 @@ public abstract class Instance {
      */
     public static void addCustomer(Customer customer) {
         long now = getCurrentDateTime();
-        Query.insert(
+        if (Query.insert(
                 "customers",
                 "Customer_Name, Phone, Address, Postal_Code, Division_Id, Create_Date, Created_By",
                 customer.getName(),
@@ -226,19 +226,20 @@ public abstract class Instance {
                 String.valueOf(customer.getDivisionId()),
                 String.valueOf(now),
                 getActiveUser().getName()
-                );
-        ResultSet resultSet = Query.selectConditional(
-                "Customer_Id",
-                "customers",
-                "Customer_Name = ? AND Address = ",
-                customer.getName(),
-                customer.getAddress());
-        try {
-            while (resultSet.next()) {
-                customer.setId(resultSet.getInt(1));
-            }
-        } catch (SQLException e){
-
+        ))
+        {
+            ResultSet resultSet = Query.selectConditional(
+                    "Customer_Id",
+                    "customers",
+                    "Customer_Name = ? AND Address = ",
+                    customer.getName(),
+                    customer.getAddress());
+            try {
+                while (resultSet.next()) {
+                    customer.setId(resultSet.getInt(1));
+                }
+            } catch (SQLException e){}
+            allCustomers.add(customer);
         }
     }
 
@@ -286,7 +287,7 @@ public abstract class Instance {
      */
     public static void addAppointment(Appointment appointment) {
         Long now = getCurrentDateTime();
-        Query.insert(
+        if (Query.insert(
                 "appointments",
                 "Title, Description, Location, Type, Start, End, Create_Date, Created_By, Customer_ID, User_Id, Contact_Id",
                 appointment.getTitle(),
@@ -300,19 +301,22 @@ public abstract class Instance {
                 String.valueOf(appointment.getCustomerId()),
                 String.valueOf(appointment.getUserId()),
                 String.valueOf(appointment.getContactId())
-        );
-        ResultSet resultSet = Query.selectConditional(
-                "Appointment_Id",
-                "appointments",
-                "Start = ? AND End = ",
-                String.valueOf(appointment.getStartDate().toInstant().toEpochMilli()),
-                String.valueOf(appointment.getEndDate().toInstant().toEpochMilli())
-        );
-        try {
-            while (resultSet.next()) {
-                appointment.setAppointmentId(resultSet.getInt(1));
-            }
-        } catch (SQLException ignored){}
+        ))
+        {
+            ResultSet resultSet = Query.selectConditional(
+                    "Appointment_Id",
+                    "appointments",
+                    "Start = ? AND End = ",
+                    String.valueOf(appointment.getStartDate().toInstant().toEpochMilli()),
+                    String.valueOf(appointment.getEndDate().toInstant().toEpochMilli())
+            );
+            try {
+                while (resultSet.next()) {
+                    appointment.setAppointmentId(resultSet.getInt(1));
+                }
+            } catch (SQLException ignored){}
+            allAppointments.add(appointment);
+        }
     }
 
     /**
