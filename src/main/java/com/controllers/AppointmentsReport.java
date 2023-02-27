@@ -10,6 +10,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
 import java.sql.ResultSet;
@@ -27,20 +30,39 @@ public class AppointmentsReport extends Controller implements Initializable {
     private Month month;
     private String type;
     @FXML
+    private TableView<Appointment> appointmentsTable;
+    @FXML
     private ComboBox<Month> monthSelector;
     @FXML
     private ComboBox<String> typeSelector, customerSelector;
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    @FXML
+    private TableColumn<Appointment, Integer> idColumn;
+    @FXML
+    private TableColumn<Appointment, String> titleColumn, typeColumn;
+    @FXML
+    private TableColumn<Appointment, String> startColumn, endColumn;
+
+    public AppointmentsReport() {
         // Set date to Jan 1 of current year
         LocalDate today = LocalDate.now();
         LocalDate january = LocalDate.ofYearDay(today.getYear(), 1);
         LocalTime time = LocalTime.of(0,0);
         now = ZonedDateTime.of(january,time,Instance.SYSTEMZONEID);
-
+    }
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
         populateCustomers();
         populateMonths();
         populateTypes();
+
+        setTableColumns();
+    }
+    private void setTableColumns() {
+        idColumn.setCellValueFactory(new PropertyValueFactory<>("AppointmentId"));
+        titleColumn.setCellValueFactory(new PropertyValueFactory<>("Title"));
+        typeColumn.setCellValueFactory(new PropertyValueFactory<>("Type"));
+        startColumn.setCellValueFactory(new PropertyValueFactory<>("FormattedStartDate"));
+        endColumn.setCellValueFactory(new PropertyValueFactory<>("FormattedEndDate"));
     }
     private void populateTypes() {
         try {
@@ -102,10 +124,15 @@ public class AppointmentsReport extends Controller implements Initializable {
     private void updateTable(ActionEvent actionEvent) {
         ObservableList<Appointment> customerAppointments = Instance.getCustomerAppointments(customer);
 
-/*
         for (Appointment appointment : customerAppointments) {
-            if (appointment.getType().equals(type) && appointment.getStartDate().i)
+            if (
+                    appointment.getType().equals(type) &&
+                    appointment.getStartDate().isAfter(now.withMonth(month.getValue())) &&
+                    appointment.getStartDate().isBefore(now.withMonth(month.getValue() + 1))
+            ) {
+                tableAppointments.add(appointment);
+            }
         }
-*/
+        appointmentsTable.setItems(tableAppointments);
     }
 }

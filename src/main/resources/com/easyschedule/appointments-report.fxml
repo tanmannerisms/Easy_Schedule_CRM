@@ -52,9 +52,7 @@
                                 <Font size="14" name="System Bold" />
                             </font>
                         </Label>
-                        <ComboBox prefWidth="150" prefHeight="10" fx:id="typeSelector">
-
-                        </ComboBox>
+                        <ComboBox prefWidth="150" prefHeight="10" fx:id="typeSelector" />
                     </HBox>
                     <HBox prefHeight="30" prefWidth="285" spacing="15">
                         <Label text="Month:" >
@@ -65,14 +63,18 @@
                                 <Font size="14" name="System Bold" />
                             </font>
                         </Label>
-                        <ComboBox prefWidth="150" prefHeight="10" fx:id="monthSelector">
-
-                        </ComboBox>
+                        <ComboBox prefWidth="150" prefHeight="10" fx:id="monthSelector" />
                     </HBox>
                 </HBox>
             </AnchorPane>
-            <TableView prefWidth="570" prefHeight="270" AnchorPane.bottomAnchor="0">
-
+            <TableView minWidth="570" prefHeight="270" AnchorPane.bottomAnchor="0" fx:id="appointmentsTable">
+                <columns>
+                    <TableColumn fx:id="idColumn" minWidth="20" prefWidth="50" text="ID" />
+                    <TableColumn fx:id="titleColumn" minWidth="100" prefWidth="150" text="Title" />
+                    <TableColumn fx:id="typeColumn" minWidth="20" prefWidth="100" text="Type" />
+                    <TableColumn fx:id="startColumn" minWidth="50" prefWidth="150" text="Start Time" />
+                    <TableColumn fx:id="endColumn" minWidth="50" prefWidth="150" text="End Time" />
+                </columns>
             </TableView>
         </AnchorPane>
     </VBox>
