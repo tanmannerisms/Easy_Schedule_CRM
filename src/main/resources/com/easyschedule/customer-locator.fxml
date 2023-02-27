@@ -10,32 +10,12 @@
         <padding>
             <Insets topRightBottomLeft="15" />
         </padding>
-        <AnchorPane prefWidth="570" prefHeight="50">
-            <AnchorPane AnchorPane.leftAnchor="0">
-                <Label text="Appointments By Type and Month">
-                    <font>
-                        <Font name="System Bold" size="20" />
-                    </font>
-                </Label>
-            </AnchorPane>
-            <AnchorPane AnchorPane.bottomAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
-                <padding>
-                    <Insets top="3.0" />
-                </padding>
-                <HBox spacing="10" AnchorPane.bottomAnchor="0" AnchorPane.topAnchor="0">
-                    <Label text="Customer:">
-                        <padding>
-                            <Insets top="2" />
-                        </padding>
-                        <font>
-                            <Font name="System Bold" size="14" />
-                        </font>
-                    </Label>
-                    <ComboBox prefWidth="150" AnchorPane.rightAnchor="0" fx:id="customerSelector" onAction="#selectCustomer">
-
-                    </ComboBox>
-                </HBox>
-            </AnchorPane>
+        <AnchorPane >
+            <Label text="Customers by Location">
+                <font>
+                    <Font name="System Bold" size="20" />
+                </font>
+            </Label>
         </AnchorPane>
         <AnchorPane prefWidth="570" prefHeight="320">
             <AnchorPane prefWidth="570" prefHeight="50">
@@ -44,7 +24,7 @@
                         <Insets topRightBottomLeft="10" />
                     </padding>
                     <HBox prefHeight="0" prefWidth="285" spacing="15">
-                        <Label text="Type:" >
+                        <Label text="Country" >
                             <padding>
                                 <Insets top="2" />
                             </padding>
@@ -55,7 +35,7 @@
                         <ComboBox prefWidth="150" prefHeight="10" fx:id="typeSelector" onAction="#selectType" />
                     </HBox>
                     <HBox prefHeight="30" prefWidth="285" spacing="15">
-                        <Label text="Month:" >
+                        <Label text="Division" >
                             <padding>
                                 <Insets top="2" />
                             </padding>
