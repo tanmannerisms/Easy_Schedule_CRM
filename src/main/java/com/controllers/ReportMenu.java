@@ -25,7 +25,8 @@ public class ReportMenu extends Controller implements Initializable {
     }
     @FXML
     private void onCustomerLocationsClick(ActionEvent actionEvent) {
-
+        Window locations = new Window("customer-locator.fxml", "Customer Locations");
+        locations.showWindow();
     }
     @FXML
     private void onBackClick(ActionEvent actionEvent) {
