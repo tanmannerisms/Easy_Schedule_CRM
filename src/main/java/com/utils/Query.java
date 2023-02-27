@@ -19,6 +19,17 @@ public abstract class Query {
             return null;
         }
     }
+    public static ResultSet selectUnique(String value, String table) {
+        sql = "SELECT DISTINCT " + value + " FROM " + table;
+        try {
+            statement = JDBC.connection.prepareStatement(sql);
+            return statement.executeQuery();
+        }
+        catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
 // Need to make this more like the insert statement.
     public static ResultSet selectConditional(String values, String table, String condition, String ... comparison) {
         sql = "SELECT " + values + " FROM " + table + " WHERE " + condition + " ?";
