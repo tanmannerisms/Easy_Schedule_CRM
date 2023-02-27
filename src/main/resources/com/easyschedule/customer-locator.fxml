@@ -32,7 +32,7 @@
                                 <Font size="14" name="System Bold" />
                             </font>
                         </Label>
-                        <ComboBox prefWidth="150" prefHeight="10" fx:id="typeSelector" onAction="#selectType" />
+                        <ComboBox prefWidth="150" prefHeight="10" fx:id="countrySelector" onAction="#selectCountry" />
                     </HBox>
                     <HBox prefHeight="30" prefWidth="285" spacing="15">
                         <Label text="Division" >
@@ -43,17 +43,16 @@
                                 <Font size="14" name="System Bold" />
                             </font>
                         </Label>
-                        <ComboBox prefWidth="150" prefHeight="10" fx:id="monthSelector" onAction="#selectMonth"/>
+                        <ComboBox prefWidth="150" prefHeight="10" fx:id="divisionSelector" onAction="#selectDivision"/>
                     </HBox>
                 </HBox>
             </AnchorPane>
-            <TableView minWidth="570" prefHeight="270" AnchorPane.bottomAnchor="0" fx:id="appointmentsTable">
+            <TableView prefWidth="570" prefHeight="270" AnchorPane.bottomAnchor="0" fx:id="customersTable">
                 <columns>
                     <TableColumn fx:id="idColumn" minWidth="20" prefWidth="50" text="ID" />
-                    <TableColumn fx:id="titleColumn" minWidth="100" prefWidth="150" text="Title" />
-                    <TableColumn fx:id="typeColumn" minWidth="20" prefWidth="100" text="Type" />
-                    <TableColumn fx:id="startColumn" minWidth="50" prefWidth="150" text="Start Time" />
-                    <TableColumn fx:id="endColumn" minWidth="50" prefWidth="150" text="End Time" />
+                    <TableColumn fx:id="nameColumn" minWidth="100" prefWidth="130" text="Name" />
+                    <TableColumn fx:id="phoneColumn" minWidth="20" prefWidth="150" text="Phone Number" />
+                    <TableColumn fx:id="addressColumn" minWidth="50" prefWidth="250" text="Address" />
                 </columns>
             </TableView>
         </AnchorPane>

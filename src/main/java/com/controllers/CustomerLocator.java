@@ -34,18 +34,15 @@ public class CustomerLocator extends Controller implements Initializable {
     private Month month;
     private String type;
     @FXML
-    private TableView<Appointment> appointmentsTable;
+    private TableView<Customer> customersTable;
     @FXML
-    private ComboBox<Month> monthSelector;
+    private ComboBox<Month> divisionSelector;
     @FXML
-    private ComboBox<String> typeSelector, customerSelector;
+    private ComboBox<String> countrySelector;
     @FXML
-    private TableColumn<Appointment, Integer> idColumn;
+    private TableColumn<Customer, Integer> idColumn;
     @FXML
-    private TableColumn<Appointment, String> titleColumn, typeColumn;
-    @FXML
-    private TableColumn<Appointment, String> startColumn, endColumn;
-
+    private TableColumn<Customer, String> nameColumn, phoneColumn, addressColumn;
     public CustomerLocator() {
         // Set date to Jan 1 of current year
         LocalDate today = LocalDate.now();
@@ -55,18 +52,16 @@ public class CustomerLocator extends Controller implements Initializable {
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        populateCustomers();
-        populateMonths();
+        populateDivisions();
         populateTypes();
 
         setTableColumns();
     }
     private void setTableColumns() {
-        idColumn.setCellValueFactory(new PropertyValueFactory<>("AppointmentId"));
-        titleColumn.setCellValueFactory(new PropertyValueFactory<>("Title"));
-        typeColumn.setCellValueFactory(new PropertyValueFactory<>("Type"));
-        startColumn.setCellValueFactory(new PropertyValueFactory<>("FormattedStartDate"));
-        endColumn.setCellValueFactory(new PropertyValueFactory<>("FormattedEndDate"));
+        idColumn.setCellValueFactory(new PropertyValueFactory<>("Id"));
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
+        phoneColumn.setCellValueFactory(new PropertyValueFactory<>("PhoneNumber"));
+        addressColumn.setCellValueFactory(new PropertyValueFactory<>("Address"));
     }
     private void populateTypes() {
         try {
@@ -78,9 +73,9 @@ public class CustomerLocator extends Controller implements Initializable {
         catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        typeSelector.setItems(types);
+        countrySelector.setItems(types);
     }
-    private void populateMonths() {
+    private void populateDivisions() {
         ObservableList<Month> months = FXCollections.observableArrayList();
         int year = now.getYear();
         for (int i = 0; i < 12; i++) {
@@ -88,41 +83,23 @@ public class CustomerLocator extends Controller implements Initializable {
             now = now.plusMonths(1);
         }
         now = now.withYear(year);
-        monthSelector.setItems(months);
-    }
-    private void populateCustomers() {
-        for (Customer customer : CUSTOMERS) {
-            customerNames.add(customer.getId() + " : " + customer.getName());
-        }
-        customerSelector.setItems(customerNames);
+        divisionSelector.setItems(months);
     }
     @FXML
-    private void selectType(ActionEvent actionEvent) {
+    private void selectCountry(ActionEvent actionEvent) {
         type = null;
-        type = typeSelector.getValue();
-        if (monthSelector.getValue() != null && customerSelector.getValue() != null) {
+        type = countrySelector.getValue();
+        if (divisionSelector.getValue() != null && customerSelector.getValue() != null) {
             updateTable(actionEvent);
             return;
         }
         actionEvent.consume();
     }
     @FXML
-    private void selectMonth(ActionEvent actionEvent) {
+    private void selectDivision(ActionEvent actionEvent) {
         month = null;
-        month = monthSelector.getValue();
-        if (typeSelector.getValue() != null && customerSelector.getValue() != null) {
-            updateTable(actionEvent);
-            return;
-        }
-        actionEvent.consume();
-    }
-    @FXML
-    private void selectCustomer(ActionEvent actionEvent) {
-        String customerName = customerSelector.getValue();
-        int index = customerNames.indexOf(customerName);
-        customer = CUSTOMERS.get(index);
-        customerAppointments = customer.getAssociatedAppointments();
-        if (monthSelector.getValue() != null || typeSelector.getValue() != null) {
+        month = divisionSelector.getValue();
+        if (countrySelector.getValue() != null && customerSelector.getValue() != null) {
             updateTable(actionEvent);
             return;
         }
@@ -139,7 +116,7 @@ public class CustomerLocator extends Controller implements Initializable {
                 tableAppointments.add(appointment);
             }
         }
-        appointmentsTable.setItems(tableAppointments);
+        customersTable.setItems(tableAppointments);
         actionEvent.consume();
     }
 }
