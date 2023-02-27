@@ -45,6 +45,7 @@ public class CustomerLocator extends Controller implements Initializable {
         setTableColumns();
         countrySelector.setItems(Instance.getAllCountries());
         countrySelector.setValue(Instance.getCountry(1));
+        selectCountry(new ActionEvent());
     }
     private void setTableColumns() {
         idColumn.setCellValueFactory(new PropertyValueFactory<>("Id"));
