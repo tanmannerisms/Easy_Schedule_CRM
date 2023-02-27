@@ -5,4 +5,8 @@ public class Country extends Place{
         setId(id);
         setName(countryName);
     }
+    @Override
+    public String toString() {
+        return this.name;
+    }
 }

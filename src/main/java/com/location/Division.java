@@ -7,6 +7,10 @@ public class Division extends Place {
         setCountryId(countryId);
         setName(divisionName);
     }
+    @Override
+    public String toString() {
+        return this.name;
+    }
 
     public void setCountryId(int countryId) {
         this.countryId = countryId;
