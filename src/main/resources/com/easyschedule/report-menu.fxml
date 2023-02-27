@@ -58,8 +58,8 @@
             </Button>
         </AnchorPane>
         <AnchorPane GridPane.rowIndex="3">
-            <Button text="Free Time"
-                    onAction="#onFreeTimeClick"
+            <Button text="Customer Locations"
+                    onAction="#onCustomerLocationsClick"
                     prefHeight="60"
                     prefWidth="120"
                     AnchorPane.leftAnchor="32.5">

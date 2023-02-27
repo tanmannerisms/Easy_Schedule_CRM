@@ -24,7 +24,7 @@ public class ReportMenu extends Controller implements Initializable {
         contactSchedule.showWindow();
     }
     @FXML
-    private void onFreeTimeClick(ActionEvent actionEvent) {
+    private void onCustomerLocationsClick(ActionEvent actionEvent) {
 
     }
     @FXML
