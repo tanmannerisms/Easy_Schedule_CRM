@@ -43,7 +43,7 @@
                                 <Font size="14" name="System Bold" />
                             </font>
                         </Label>
-                        <ComboBox prefWidth="150" prefHeight="10" fx:id="divisionSelector" onAction="#selectDivision"/>
+                        <ComboBox prefWidth="150" prefHeight="10" fx:id="divisionSelector" onAction="#selectDivision" />
                     </HBox>
                 </HBox>
             </AnchorPane>
