@@ -13,6 +13,7 @@ import javafx.scene.control.ComboBox;
 
 import java.net.URL;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.*;
 import java.util.ResourceBundle;
 
@@ -20,6 +21,7 @@ public class AppointmentsReport extends Controller implements Initializable {
     private final ObservableList<Customer> CUSTOMERS = Instance.getAllCustomers();
     private ObservableList<Appointment> tableAppointments = FXCollections.observableArrayList();
     private ObservableList<String> customerNames = FXCollections.observableArrayList();
+    private ObservableList<String> types = FXCollections.observableArrayList();
     private ZonedDateTime now;
     private Customer customer;
     private Month month;
@@ -41,7 +43,16 @@ public class AppointmentsReport extends Controller implements Initializable {
         populateTypes();
     }
     private void populateTypes() {
-//        ResultSet rs = Query.selectConditional();
+        try {
+            ResultSet rs = Query.selectUnique("type", "appointments");
+            while (rs.next()) {
+                types.add(rs.getString(1));
+            }
+        }
+        catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        typeSelector.setItems(types);
     }
     private void populateMonths() {
         ObservableList<Month> months = FXCollections.observableArrayList();
@@ -60,6 +71,12 @@ public class AppointmentsReport extends Controller implements Initializable {
     @FXML
     private void selectType(ActionEvent actionEvent) {
         type = null;
+        type = typeSelector.getValue();
+        if (monthSelector.getValue() != null && customerSelector.getValue() != null) {
+            updateTable(actionEvent);
+            return;
+        }
+        actionEvent.consume();
     }
     @FXML
     private void selectMonth(ActionEvent actionEvent) {
