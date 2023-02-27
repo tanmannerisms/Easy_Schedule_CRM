@@ -33,6 +33,15 @@ public abstract class Instance {
     private static ObservableList<Appointment> allAppointments = FXCollections.observableArrayList();
     private static ObservableList<Division> allDivisions = FXCollections.observableArrayList();
     private static ObservableList<Country> allCountries = FXCollections.observableArrayList();
+
+    /**
+     * Used for setting the values for all the lists that will be used throughout the program.
+     * @see #updateAppointmentList()
+     * @see #updateCustomerList()
+     * @see #updateContactList()
+     * @see #updateDivisionList()
+     * @see #updateCountryList()
+     */
     public static void updateAllLists() {
         updateAppointmentList();
         updateCustomerList();
@@ -41,6 +50,10 @@ public abstract class Instance {
         updateCountryList();
     }
 
+    /**
+     * Queries the customer table to obtain a list of all customers. Sets Instance.allCustomers.
+     * @see Query#selectAll(String, String)
+     */
     public static void updateCustomerList() {
         allCustomers.clear();
         ResultSet results = Query.selectAll(
@@ -64,6 +77,11 @@ public abstract class Instance {
             System.out.println(e.getMessage());
         }
     }
+
+    /**
+     * Queries the contact table to obtain a list of all the contacts. Sets Instance.allContacts.
+     * @see Query#selectAll(String, String)
+     */
     public static void updateContactList() {
         allContacts.clear();
         ResultSet results = Query.selectAll(
@@ -84,6 +102,11 @@ public abstract class Instance {
             System.out.println(e.getMessage());
         }
     }
+
+    /**
+     * Queries the appointments table to get a list of all the appointments. Sets Instance.allAppointments
+     * @see Query#selectAll(String, String)
+     */
     public static void updateAppointmentList() {
         allAppointments.clear();
         ResultSet results = Query.selectAll(
@@ -115,10 +138,23 @@ public abstract class Instance {
             System.out.println(e.getMessage());
         }
     }
+
+    /**
+     * Converts a MySQL Timestamp to a ZonedDateTime with the system Zone ID by converting the Timestamp to an Instant on
+     * the java epoch timeline, then to a ZonedDateTime.
+     * @param timestamp a timestamp retried by a MySQL query,
+     * @return the ZonedDateTime of the timestamp param with the system's zone ID.
+     */
     private static ZonedDateTime convertToLocal(Timestamp timestamp) {
         Instant instant = timestamp.toInstant();
         return ZonedDateTime.ofInstant(instant, SYSTEMZONEID);
     }
+
+    /**
+     * Queries the divisions table to get a list of all the Divisions. Sets allDivisions list. This list is concrete unless
+     * this method is run again.
+     * @see Query#selectAll(String, String)
+     */
     public static void updateDivisionList() {
         allDivisions.clear();
         ResultSet results = Query.selectAll(
@@ -139,6 +175,12 @@ public abstract class Instance {
             System.out.println(e.getMessage());
         }
     }
+
+    /**
+     * Queries the country table to get a list of all the Countries. Sets allCountries list. This list is concrete unless
+     * this method is run again.
+     * @see Query#selectAll(String, String)
+     */
     public static void updateCountryList() {
         allCountries.clear();
         ResultSet results = Query.selectAll(
@@ -159,9 +201,19 @@ public abstract class Instance {
         }
     }
 
+    /**
+     * Getter for allCustomers
+     * @return allCustomers.
+     */
     public static ObservableList<Customer> getAllCustomers() {
         return allCustomers;
     }
+
+    /**
+     * Tries to insert a new row into the customers table. If successful, the customer is added to allCustomers list.
+     * @param customer the new customer to try adding to the database.
+     * @see Query#insert(String, String, String...)
+     */
     public static void addCustomer(Customer customer) {
         long now = getCurrentDateTime();
         Query.insert(
@@ -188,8 +240,12 @@ public abstract class Instance {
         } catch (SQLException e){
 
         }
-        allCustomers.add(customer);
     }
+
+    /**
+     * Updates the customer row in customers where the ID is matching the customer ID. Object must be updated before calling!
+     * @param customer the customer to be updated.
+     */
     public static void updateCustomer(Customer customer) {
         // Get current UTC time in epoch milliseconds
         long now = getCurrentDateTime();
@@ -206,13 +262,28 @@ public abstract class Instance {
                 Instance.getActiveUser().getName()
         );
     }
+
+    /**
+     * Gets allContacts
+     * @return all contacts Observable List
+     */
     public static ObservableList<Contact> getAllContacts() {
         return allContacts;
     }
 
+    /**
+     * Gets all appointments
+     * @return all appointments Observable List
+     */
     public static ObservableList<Appointment> getAllAppointments() {
         return allAppointments;
     }
+
+    /**
+     * Tries to add an appointment using a newly created Appointment object. If successful, add the appointment to the allAppointments list.
+     * @param appointment the newly created appointment to add to the database.
+     * @see Query#insert(String, String, String...)
+     */
     public static void addAppointment(Appointment appointment) {
         Long now = getCurrentDateTime();
         Query.insert(
@@ -243,6 +314,11 @@ public abstract class Instance {
             }
         } catch (SQLException ignored){}
     }
+
+    /**
+     * Tries to update the appointment in the database. Appointment object must be updated before calling this method.
+     * @param appointment the appointment to be updated in the database.
+     */
     public static void updateAppointment(Appointment appointment) {
         Long now = getCurrentDateTime();
         Query.update(
@@ -261,6 +337,13 @@ public abstract class Instance {
                 String.valueOf(appointment.getContactId())
                 );
     }
+
+    /**
+     * Tries to remove an appointment from the database. Removes the appointment from allAppointments list if successful.
+     * @param appointment the appointment to be removed.
+     * @return true if the deletion was successful, false if not.
+     * @see Query#delete(String, String, String)
+     */
     public static boolean deleteAppointment(Appointment appointment) {
         if (Query.delete(
                 "appointments",
@@ -273,14 +356,27 @@ public abstract class Instance {
         else return false;
     }
 
+    /**
+     * Gets allDivisions list.
+     * @return the list of all known divisions.
+     */
     public static ObservableList<Division> getAllDivisions() {
         return allDivisions;
     }
 
+    /**
+     * Gets allCountries list.
+     * @return the list of all known countries.
+     */
     public static ObservableList<Country> getAllCountries() {
         return allCountries;
     }
 
+    /**
+     * Looks up a Customer object from the allCustomers list based on a customer ID.
+     * @param customerId the customer to search for
+     * @return customer if found, null if not.
+     */
     public static Customer lookupCustomer(int customerId) {
         for (Customer returnCustomer : allCustomers) {
             if (returnCustomer.getId() == customerId) {
@@ -289,6 +385,12 @@ public abstract class Instance {
         }
         return null;
     }
+
+    /**
+     * Looks up an Customer objects from the allCustomers list based on a customer name.
+     * @param name the String to search for
+     * @return an ObservableList of Customers with names that contain the parameter String.
+     */
     public static ObservableList<Customer> lookupCustomer(String name) {
         ObservableList<Customer> returnList = FXCollections.observableArrayList();
         for (Customer customer : allCustomers) {
@@ -298,6 +400,13 @@ public abstract class Instance {
         }
         return returnList;
     }
+
+    /**
+     * Tries to delete a Customer from the database matching the ID of the Customer object passed in. Removes the Customer
+     * object from allCustomers if successful.
+     * @param customer the Customer to delete.
+     * @return true if success, false if SQL statement fails.
+     */
     public static boolean deleteCustomer(Customer customer) {
         if (!Query.delete(CUSTOMER_TABLE, "Customer_ID = ", String.valueOf(customer.getId()))){
             return false;
@@ -305,13 +414,30 @@ public abstract class Instance {
         allCustomers.remove(customer);
         return true;
     }
+
+    /**
+     * Gets the User object of the currently logged-in User.
+     * @return the activeUser
+     */
     public static User getActiveUser() {
         return activeUser;
     }
 
+    /**
+     * Sets the active user for the current instance. Only one known usage at time of writing.
+     * @param user the user to set.
+     * @see com.controllers.Login
+     */
     public static void setActiveUser(User user) {
         activeUser = user;
     }
+
+    /**
+     * Gets a list of customer appointments from the Customer object passed in. Compares the customer ID with the appointment's
+     * customer ID to determine if the appointment is referencing the customer.
+     * @param customer the customer to get appointments for.
+     * @return the list of appointments where the Customer object's ID is listed as the customer ID.
+     */
     public static ObservableList<Appointment> getCustomerAppointments(Customer customer) {
         ObservableList<Appointment> returnList = FXCollections.observableArrayList();
         for (Appointment appointment : allAppointments) {
@@ -321,6 +447,12 @@ public abstract class Instance {
         }
         return returnList;
     }
+
+    /**
+     * Finds a Contact object with the matching contact ID
+     * @param contactId the ID of the contact to find.
+     * @return the Contact object with ID matching the parameter.
+     */
     public static Contact lookupContact(int contactId) {
         for (Contact contact : allContacts) {
             if (contact.getId() == contactId) {
@@ -329,6 +461,12 @@ public abstract class Instance {
         }
         return null;
     }
+
+    /**
+     * Finds a Division object with the specified division ID.
+     * @param divisionId the ID of the Division Object to search for.
+     * @return
+     */
     public static Division getDivision(int divisionId) {
         for (Division division : allDivisions) {
             if (division.getId() == divisionId) {
@@ -337,6 +475,12 @@ public abstract class Instance {
         }
         return null;
     }
+
+    /**
+     * Finds Division objects associated with the Country object parameter.
+     * @param country the Country to find the divisions for.
+     * @return a list of Divisions with a country ID matching the Country's ID.
+     */
     public static ObservableList<Division> getDivision(Country country) {
         ObservableList<Division> returnList = FXCollections.observableArrayList();
 
@@ -348,6 +492,12 @@ public abstract class Instance {
 
         return returnList;
     }
+
+    /**
+     * Gets a Division object with the specified name.
+     * @param divisionName the name of the division to search for.
+     * @return the first occurrence of the name in the allDivisions list.
+     */
     public static int getDivision(String divisionName) {
         for (Division division : allDivisions) {
             if (division.getName() == divisionName) {
@@ -356,6 +506,12 @@ public abstract class Instance {
         }
         return 0;
     }
+
+    /**
+     * Gets the country matching the ID specified
+     * @param countryId the ID of the country to find.
+     * @return the country matching the country ID passed in.
+     */
     public static Country getCountry(int countryId) {
         for (Country country : allCountries) {
             if (country.getId() == countryId) {
@@ -364,6 +520,12 @@ public abstract class Instance {
         }
         return null;
     }
+
+    /**
+     * Gets the first occurrence of a country object with the name specified.
+     * @param countryName the name of the country to search for.
+     * @return the country object if found.
+     */
     public static Country getCountry(String countryName) {
         for (Country country : allCountries) {
             if (country.getName() == countryName) {
@@ -372,6 +534,12 @@ public abstract class Instance {
         }
         return null;
     }
+
+    /**
+     * Gets a contact from allContacts matching the ID specified. 
+     * @param contactId the ID of the contact to search for.
+     * @return the contact object if found.
+     */
     public static Contact getContact(int contactId) {
         for (Contact contact : allContacts) {
             if (contact.getId() == contactId) {
@@ -380,6 +548,12 @@ public abstract class Instance {
         }
         return null;
     }
+
+    /**
+     * Gets the first occurrence of the contact object matching the name specified
+     * @param contactName the name to look for.
+     * @return the contact matching the name if found.
+     */
     public static Contact getContact(String contactName) {
         for (Contact contact : allContacts) {
             if (contact.getName() == contactName) {
@@ -388,6 +562,13 @@ public abstract class Instance {
         }
         return null;
     }
+
+    /**
+     * Gets the current time in milliseconds from Java epoch. Used for create/update date timestamps. 
+     * @return current time in milliseconds.
+     * @see Query#update(String, String, String, String...) 
+     * @see Query#insert(String, String, String...)
+     */
     private static long getCurrentDateTime() {
         return Instant.now().toEpochMilli();
     }
