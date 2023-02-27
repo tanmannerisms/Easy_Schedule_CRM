@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.controllers.AppointmentsReport">
+    <VBox>
+        <padding>
+            <Insets topRightBottomLeft="15" />
+        </padding>
+        <AnchorPane prefWidth="570" prefHeight="50">
+            <AnchorPane AnchorPane.leftAnchor="0">
+                <Label text="Appointments By Type and Month">
+                    <font>
+                        <Font name="System Bold" size="20" />
+                    </font>
+                </Label>
+            </AnchorPane>
+            <AnchorPane AnchorPane.bottomAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
+                <padding>
+                    <Insets top="3.0" />
+                </padding>
+                <HBox spacing="10" AnchorPane.bottomAnchor="0" AnchorPane.topAnchor="0">
+                    <Label text="Customer:">
+                        <padding>
+                            <Insets top="2" />
+                        </padding>
+                        <font>
+                            <Font name="System Bold" size="14" />
+                        </font>
+                    </Label>
+                    <ComboBox prefWidth="150" AnchorPane.rightAnchor="0" fx:id="customerSelector" onAction="#selectCustomer">
+
+                    </ComboBox>
+                </HBox>
+            </AnchorPane>
+        </AnchorPane>
+        <AnchorPane prefWidth="570" prefHeight="320">
+            <AnchorPane prefWidth="570" prefHeight="50">
+                <HBox>
+                    <padding>
+                        <Insets topRightBottomLeft="10" />
+                    </padding>
+                    <HBox prefHeight="0" prefWidth="285" spacing="15">
+                        <Label text="Type:" >
+                            <padding>
+                                <Insets top="2" />
+                            </padding>
+                            <font>
+                                <Font size="14" name="System Bold" />
+                            </font>
+                        </Label>
+                        <ComboBox prefWidth="150" prefHeight="10" fx:id="typeSelector" onAction="#selectType" />
+                    </HBox>
+                    <HBox prefHeight="30" prefWidth="285" spacing="15">
+                        <Label text="Month:" >
+                            <padding>
+                                <Insets top="2" />
+                            </padding>
+                            <font>
+                                <Font size="14" name="System Bold" />
+                            </font>
+                        </Label>
+                        <ComboBox prefWidth="150" prefHeight="10" fx:id="monthSelector" onAction="#selectMonth"/>
+                    </HBox>
+                </HBox>
+            </AnchorPane>
+            <TableView minWidth="570" prefHeight="270" AnchorPane.bottomAnchor="0" fx:id="appointmentsTable">
+                <columns>
+                    <TableColumn fx:id="idColumn" minWidth="20" prefWidth="50" text="ID" />
+                    <TableColumn fx:id="titleColumn" minWidth="100" prefWidth="150" text="Title" />
+                    <TableColumn fx:id="typeColumn" minWidth="20" prefWidth="100" text="Type" />
+                    <TableColumn fx:id="startColumn" minWidth="50" prefWidth="150" text="Start Time" />
+                    <TableColumn fx:id="endColumn" minWidth="50" prefWidth="150" text="End Time" />
+                </columns>
+            </TableView>
+        </AnchorPane>
+    </VBox>
+
+</AnchorPane>
