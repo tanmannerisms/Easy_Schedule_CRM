@@ -23,6 +23,7 @@ import java.util.ResourceBundle;
 public class AppointmentsReport extends Controller implements Initializable {
     private final ObservableList<Customer> CUSTOMERS = Instance.getAllCustomers();
     private ObservableList<Appointment> tableAppointments = FXCollections.observableArrayList();
+    private ObservableList<Appointment> customerAppointments = FXCollections.observableArrayList();
     private ObservableList<String> customerNames = FXCollections.observableArrayList();
     private ObservableList<String> types = FXCollections.observableArrayList();
     private ZonedDateTime now;
@@ -78,10 +79,12 @@ public class AppointmentsReport extends Controller implements Initializable {
     }
     private void populateMonths() {
         ObservableList<Month> months = FXCollections.observableArrayList();
+        int year = now.getYear();
         for (int i = 0; i < 12; i++) {
             months.add(now.getMonth());
             now = now.plusMonths(1);
         }
+        now = now.withYear(year);
         monthSelector.setItems(months);
     }
     private void populateCustomers() {
@@ -115,6 +118,7 @@ public class AppointmentsReport extends Controller implements Initializable {
         String customerName = customerSelector.getValue();
         int index = customerNames.indexOf(customerName);
         customer = CUSTOMERS.get(index);
+        customerAppointments = customer.getAssociatedAppointments();
         if (monthSelector.getValue() != null || typeSelector.getValue() != null) {
             updateTable(actionEvent);
             return;
@@ -122,8 +126,7 @@ public class AppointmentsReport extends Controller implements Initializable {
         actionEvent.consume();
     }
     private void updateTable(ActionEvent actionEvent) {
-        ObservableList<Appointment> customerAppointments = Instance.getCustomerAppointments(customer);
-
+    tableAppointments.clear();
         for (Appointment appointment : customerAppointments) {
             if (
                     appointment.getType().equals(type) &&
@@ -134,5 +137,6 @@ public class AppointmentsReport extends Controller implements Initializable {
             }
         }
         appointmentsTable.setItems(tableAppointments);
+        actionEvent.consume();
     }
 }

@@ -23,11 +23,11 @@ public abstract class Instance {
     private static ObservableList<Division> allDivisions = FXCollections.observableArrayList();
     private static ObservableList<Country> allCountries = FXCollections.observableArrayList();
     public static void updateAllLists() {
-       updateCustomerList();
-       updateContactList();
-       updateAppointmentList();
-       updateDivisionList();
-       updateCountryList();
+        updateAppointmentList();
+        updateCustomerList();
+        updateContactList();
+        updateDivisionList();
+        updateCountryList();
     }
 
     public static void updateCustomerList() {
