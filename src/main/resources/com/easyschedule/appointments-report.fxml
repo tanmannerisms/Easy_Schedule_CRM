@@ -31,7 +31,7 @@
                             <Font name="System Bold" size="14" />
                         </font>
                     </Label>
-                    <ComboBox prefWidth="150" AnchorPane.rightAnchor="0" fx:id="customerSelector">
+                    <ComboBox prefWidth="150" AnchorPane.rightAnchor="0" fx:id="customerSelector" onAction="#selectCustomer">
 
                     </ComboBox>
                 </HBox>
@@ -52,7 +52,7 @@
                                 <Font size="14" name="System Bold" />
                             </font>
                         </Label>
-                        <ComboBox prefWidth="150" prefHeight="10" fx:id="typeSelector" />
+                        <ComboBox prefWidth="150" prefHeight="10" fx:id="typeSelector" onAction="#selectType" />
                     </HBox>
                     <HBox prefHeight="30" prefWidth="285" spacing="15">
                         <Label text="Month:" >
@@ -63,7 +63,7 @@
                                 <Font size="14" name="System Bold" />
                             </font>
                         </Label>
-                        <ComboBox prefWidth="150" prefHeight="10" fx:id="monthSelector" />
+                        <ComboBox prefWidth="150" prefHeight="10" fx:id="monthSelector" onAction="#selectMonth"/>
                     </HBox>
                 </HBox>
             </AnchorPane>
