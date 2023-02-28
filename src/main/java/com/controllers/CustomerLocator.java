@@ -47,12 +47,22 @@ public class CustomerLocator extends Controller implements Initializable {
         countrySelector.setValue(Instance.getCountry(1));
         selectCountry(new ActionEvent());
     }
+
+    /**
+     * Sets the getters for the table columns
+     */
     private void setTableColumns() {
         idColumn.setCellValueFactory(new PropertyValueFactory<>("Id"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
         phoneColumn.setCellValueFactory(new PropertyValueFactory<>("PhoneNumber"));
         addressColumn.setCellValueFactory(new PropertyValueFactory<>("Address"));
     }
+
+    /**
+     * Called when a selection is changed for the country combo box. Sets the division combo box
+     * values based on the selected country.
+     * @param actionEvent fired by the combo box. Unused
+     */
     @FXML
     private void selectCountry(ActionEvent actionEvent) {
         divisonList.clear();
@@ -66,6 +76,11 @@ public class CustomerLocator extends Controller implements Initializable {
         actionEvent.consume();
     }
 
+    /**
+     * Calls to update the table when both the division and country are selected.
+     * @param actionEvent fired by the combo box.
+     * @see #updateTable(ActionEvent)
+     */
     @FXML
     private void selectDivision(ActionEvent actionEvent) {
         if (countrySelector.getValue() != null && divisionSelector.getValue() != null) {
@@ -74,6 +89,11 @@ public class CustomerLocator extends Controller implements Initializable {
         }
         actionEvent.consume();
     }
+
+    /**
+     * Called to update the table with the proper customers based on the selected division ID.
+     * @param actionEvent consumed here.
+     */
     private void updateTable(ActionEvent actionEvent) {
         tableCustomers.clear();
         int divId = divisionSelector.getValue().getId();
