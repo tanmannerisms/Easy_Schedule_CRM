@@ -22,7 +22,13 @@ public class ContactSchedule extends CalendarView implements Initializable {
     @FXML
     private ComboBox<String> contactSelector;
 
-
+    /**
+     * Sets the table column getters and populates the contact ComboBox with the names
+     * of each customer.
+     * @param url passed in from the FXMLLoader in Window.java.
+     * @param resourceBundle passed in from the FXMLLoader in Window.java.
+     * @see CalendarView#setTableColumns()
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setTableColumns();
@@ -35,6 +41,11 @@ public class ContactSchedule extends CalendarView implements Initializable {
         }
         contactSelector.setItems(nameList);
     }
+
+    /**
+     * Updates the table with the appointments for the contact depending on the timeline they
+     * want to view.
+     */
     @FXML
     private void updateTable() {
         if (selectedContact == null) {
@@ -59,6 +70,11 @@ public class ContactSchedule extends CalendarView implements Initializable {
             appointmentsTable.setItems(getAppointments(now, before));
         }
     }
+
+    /**
+     * Updates the current contact with the selected value from the contact ComboBox.
+     * @param actionEvent unused.
+     */
     @FXML
     private void updateContact(ActionEvent actionEvent) {
         String name = contactSelector.getValue();
