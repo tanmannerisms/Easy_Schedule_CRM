@@ -201,6 +201,11 @@ public class AppointmentManagement extends Controller implements Initializable {
         }
         return true;
     }
+
+    /**
+     * Checks to see if any of the fields are empty.
+     * @return true if any field empty and false if all fields have data.
+     */
     private boolean fieldsEmpty() {
         if (
                 contactSelector.getValue() == null ||
@@ -215,6 +220,14 @@ public class AppointmentManagement extends Controller implements Initializable {
         }
         return false;
     }
+
+    /**
+     * Checks to see if the dates and times selected are within the business hours of the company.
+     * @param start the start date and time set in the form.
+     * @param end the end date and time set in the form.
+     * @param actionEvent the action event passed in, used to open the error window.
+     * @return true if values specified are within business hours and false if not.
+     */
     private boolean inBusinessHours(ZonedDateTime start, ZonedDateTime end, ActionEvent actionEvent) {
         LocalDate selectedDay = startDatePicker.getValue();
         ZonedDateTime businessHourStart = ZonedDateTime.of(selectedDay, LocalTime.of(8,00),Instance.BUSINESSZONEID);
@@ -230,6 +243,14 @@ public class AppointmentManagement extends Controller implements Initializable {
         }
         return true;
     }
+
+    /**
+     * Checks to see if the selected start and end times are overlapping other appointment times.
+     * @param start the start date and time set in the form.
+     * @param end the end date and time set in the form.
+     * @param actionEvent the action event passed in, used to open the error window.
+     * @return true if overlapping another appointment and false if not.
+     */
     private boolean overlappingAppointments(ZonedDateTime start, ZonedDateTime end, ActionEvent actionEvent) {
         for (Appointment testAppointment : customer.getAssociatedAppointments()) {
             if (testAppointment.equals(appointment)) {
@@ -253,6 +274,14 @@ public class AppointmentManagement extends Controller implements Initializable {
         }
         return false;
     }
+
+    /**
+     * Creates a ZonedDateTime based on the values passed in.
+     * @param date the date to set.
+     * @param hours the hours to set the time to.
+     * @param minutes the minutes to set the time to
+     * @return a ZonedDateTime at the specified date and time.
+     */
     private ZonedDateTime createDateTime(LocalDate date, Integer hours, Integer minutes) {
         LocalDateTime localDateTime = date.atStartOfDay();
         localDateTime = localDateTime.plusHours(hours).plusMinutes(minutes);
@@ -261,12 +290,30 @@ public class AppointmentManagement extends Controller implements Initializable {
 
         return time;
     }
+
+    /**
+     * Gets a LocalDate from a ZonedDateTime.
+     * @param dateTime ZonedDateTime to parse.
+     * @return the LocalDate from the ZonedDateTime.
+     */
     private LocalDate getDate(ZonedDateTime dateTime) {
         return dateTime.toLocalDate();
     }
+
+    /**
+     * Gets the hours from a ZonedDateTime.
+     * @param dateTime the ZonedDateTime to parse.
+     * @return the number of hours from the start of the day from the ZonedDateTime.
+     */
     private Integer getHours(ZonedDateTime dateTime) {
         return dateTime.getHour();
     }
+
+    /**
+     * Gets the minutes from a ZonedDateTime
+     * @param dateTime the ZonedDateTime to parse.
+     * @return the number of minutes from the top of the hour stored in the ZonedDateTime
+     */
     private Integer getMinutes(ZonedDateTime dateTime) {
         return dateTime.getMinute();
     }
