@@ -66,6 +66,7 @@ public class CalendarView extends Controller implements Initializable {
 
     /**
      * Used to set the customer for the Customer this page before opening the window. This must be called before opening the window.
+     * Added lambda expression to avoid repeating an updateTable method call.
      * @param customer the customer to set.
      */
     protected void setCustomer(Customer customer) {
