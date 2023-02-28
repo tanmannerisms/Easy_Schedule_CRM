@@ -30,7 +30,11 @@ public class CustomerForm extends Controller implements Initializable {
     @FXML
     private ComboBox<String> countrySelector;
 
-
+    /**
+     * Sets initial country ComboBox options and division ComboBox options mostly.
+     * @param url passed in from the FXMLLoader in Window.java.
+     * @param resourceBundle passed in from the FXMLLoader in Window.java.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         countrySelector.setItems(getCountryNames(Instance.getAllCountries()));
@@ -39,6 +43,11 @@ public class CustomerForm extends Controller implements Initializable {
         setDivisionSelectorOptions();
         title.setText("Add Customer");
     }
+
+    /**
+     * Checks to see if the fields are empty then either saves updates or adds a new customer.
+     * @param actionEvent fired from the save button.
+     */
     @FXML
     private void onSaveClick(ActionEvent actionEvent) {
         if (fieldsValid(actionEvent)) {
@@ -63,11 +72,20 @@ public class CustomerForm extends Controller implements Initializable {
             }
         }
     }
+
+    /**
+     * Sets the divisions based on the selected country.
+     */
     @FXML
     private void setDivisionSelectorOptions() {
         Country country = Instance.getCountry(countrySelector.getValue());
         divisionSelector.setItems(getDivisionNames(Instance.getDivision(country)));
     }
+
+    /**
+     * Sets the current customer information into the form fields. Needed if modifying a customer.
+     * @param customer the customer to set.
+     */
     protected void setCustomer(Customer customer) {
         title.setText("Modify Customer");
         this.customer = customer;
@@ -81,6 +99,12 @@ public class CustomerForm extends Controller implements Initializable {
         setDivisionSelectorOptions();
         divisionSelector.setValue(Instance.getDivision(customer.getDivisionId()).getName());
     }
+
+    /**
+     * Gets the String list of country names. Used for populating the country combo box.
+     * @param countries the list of countries to get the names of.
+     * @return the list of country names.
+     */
     private ObservableList<String> getCountryNames(ObservableList<Country> countries) {
         ObservableList<String> names = FXCollections.observableArrayList();
         Iterator<Country> listIterator = countries.listIterator();
@@ -89,6 +113,12 @@ public class CustomerForm extends Controller implements Initializable {
         }
         return names;
     }
+
+    /**
+     * Gets the String list of Division names. Used for populating the division combo box.
+     * @param divisions the list of divisions to get the names of.
+     * @return the list of division names.
+     */
     private ObservableList<String> getDivisionNames(ObservableList<Division> divisions) {
         ObservableList<String> names = FXCollections.observableArrayList();
         Iterator<Division> listIterator = divisions.listIterator();
@@ -97,6 +127,12 @@ public class CustomerForm extends Controller implements Initializable {
         }
         return names;
     }
+
+    /**
+     * Checks to see if any of the fields are empty/null
+     * @param actionEvent used for opening an error window.
+     * @return true if fields are valid. False if not.
+     */
     private boolean fieldsValid(ActionEvent actionEvent) {
         if (
                 nameField.getText().isEmpty() ||
