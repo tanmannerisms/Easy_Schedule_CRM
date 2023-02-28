@@ -38,6 +38,9 @@ public class AppointmentManagement extends Controller implements Initializable {
     private boolean appointmentImported;
     private Customer customer;
 
+    /**
+     * Initializes the contactNameList and sets the values to be used in the comboBoxes.
+     */
     public AppointmentManagement() {
         contactNameList = FXCollections.observableArrayList();
         hours = FXCollections.observableArrayList();
@@ -54,6 +57,11 @@ public class AppointmentManagement extends Controller implements Initializable {
         }
     }
 
+    /**
+     * Sets the local time and values of the comboBoxes.
+     * @param url set by the FXMLLoader in Window.java
+     * @param resourceBundle set by the FXMLLoader in Window.java
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         LocalDate today = LocalDate.now(Instance.SYSTEMZONEID);
@@ -72,10 +80,20 @@ public class AppointmentManagement extends Controller implements Initializable {
         appointmentImported = false;
 
     }
+
+    /**
+     * Used for setting the imported customer. The imported customer should never be null.
+     * @param customer the imported customer.
+     */
     public void setCustomer(Customer customer) {
         this.customer = customer;
         customerField.setText(Integer.toString(customer.getId()));
     }
+
+    /**
+     * Sets the imported appointment and auto-populates the fields.
+     * @param appointment the appointment to import.
+     */
     public void setAppointment(Appointment appointment) {
         this.appointment = appointment;
         appointmentImported = true;
@@ -92,6 +110,16 @@ public class AppointmentManagement extends Controller implements Initializable {
         endHourSelector.setValue(getHours(appointment.getEndDate()));
         endMinuteSelector.setValue(getMinutes(appointment.getEndDate()));
     }
+
+    /**
+     * Triggered by clicking the save button. Validates and records the information from the fields and uses that to 
+     * either update the appointment or create a new one, depending on whether an appointment was set before opening this page.
+     * @param actionEvent action event passed in by the button click.
+     * @see #setAppointment(Appointment) 
+     * @see #validateFields(ActionEvent, ZonedDateTime, ZonedDateTime) 
+     * @see Instance#addAppointment(Appointment) 
+     * @see Instance#updateAppointment(Appointment)
+     */
     @FXML
     private void onSaveClick(ActionEvent actionEvent) {
         ZonedDateTime startDateTime = createDateTime(
@@ -133,6 +161,17 @@ public class AppointmentManagement extends Controller implements Initializable {
             closeWindow(actionEvent);
         }
     }
+
+    /**
+     * Used to validate all the input information on the form. Specifically if any fields are empty and whether the start/end dates are valid.
+     * @param actionEvent the action event sent by the save button.
+     * @param startDateTime the appointment start Date and Time as set in onSaveClick()
+     * @param endDateTime the appointment end Date and Time as set in onSaveClick()
+     * @return true if all values are valid
+     * @see #fieldsEmpty() 
+     * @see #inBusinessHours(ZonedDateTime, ZonedDateTime, ActionEvent) 
+     * @see #overlappingAppointments(ZonedDateTime, ZonedDateTime, ActionEvent) 
+     */
     private boolean validateFields(ActionEvent actionEvent, ZonedDateTime startDateTime, ZonedDateTime endDateTime) {
         ZonedDateTime now = ZonedDateTime.now(Instance.SYSTEMZONEID);
         if (fieldsEmpty()){
