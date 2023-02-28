@@ -38,10 +38,19 @@ public class CalendarView extends Controller implements Initializable {
     @FXML
     protected TextField appointmentSearchField;
 
+    /**
+     * Calls setTableColumns().
+     * @param url passed in from the FXMLLoader in Window.java.
+     * @param resourceBundle passed in from the FXMLLoader in Window.java.
+     * @see #setTableColumns()
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setTableColumns();
     }
+    /**
+     * Sets the getters for the table columns in the appointments table.
+     */
     protected void setTableColumns() {
         idColumn.setCellValueFactory(new PropertyValueFactory<>("AppointmentId"));
         customerColumn.setCellValueFactory(new PropertyValueFactory<>("CustomerId"));
@@ -54,6 +63,11 @@ public class CalendarView extends Controller implements Initializable {
         startColumn.setCellValueFactory(new PropertyValueFactory<>("FormattedStartDate"));
         endColumn.setCellValueFactory(new PropertyValueFactory<>("FormattedEndDate"));
     }
+
+    /**
+     * Used to set the customer for the Customer this page before opening the window. This must be called before opening the window.
+     * @param customer the customer to set.
+     */
     protected void setCustomer(Customer customer) {
         this.customer = customer;
         associatedAppointments = customer.getAssociatedAppointments();
@@ -61,6 +75,12 @@ public class CalendarView extends Controller implements Initializable {
         customerLabel.setText("Customer: " + customer.getName());
         updateTable();
     }
+
+    /**
+     * Called when the search button is clicked. Sets the table values to the results found from searching the
+     * associatedAppointments list.
+     * @param actionEvent the event fired by the search button.
+     */
     @FXML
     private void onSearchClick(ActionEvent actionEvent) {
         ObservableList<Appointment> returnList = FXCollections.observableArrayList();
@@ -84,6 +104,11 @@ public class CalendarView extends Controller implements Initializable {
             }
         }
     }
+
+    /**
+     * Opens up a new window to add an associated appointment for the current customer.
+     * @param actionEvent fired by the add button. Used to prevent further action on form before closing open window.
+     */
     @FXML
     private void onAddClick(ActionEvent actionEvent) {
         Window addAppointment = new Window("appointment.fxml", "Add Appointment");
@@ -91,6 +116,11 @@ public class CalendarView extends Controller implements Initializable {
         controller.setCustomer(customer);
         addAppointment.showWindowAndWait(actionEvent);
     }
+
+    /**
+     * Opens up a new window to alter a selected customer's appointment. Opens an error window if no customer is selected.
+     * @param actionEvent fired by the modify button. Used to prevent further action on form before closing open window.
+     */
     @FXML
     private void onModifyClick(ActionEvent actionEvent) {
         Appointment appointment = appointmentsTable.getSelectionModel().getSelectedItem();
@@ -106,6 +136,11 @@ public class CalendarView extends Controller implements Initializable {
             openNotifyWindow(actionEvent, "notify.pleaseSelect", "word.an", "word.appointment");
         }
     }
+
+    /**
+     * Deletes the appointment selected in the appointments table. Opens an error window if no appointment selected.
+     * @param actionEvent fired by the delete button. Used to open notification window.
+     */
     @FXML
     private void onDeleteClick(ActionEvent actionEvent) {
         Appointment appointment = appointmentsTable.getSelectionModel().getSelectedItem();
@@ -130,6 +165,10 @@ public class CalendarView extends Controller implements Initializable {
             openNotifyWindow(actionEvent, "notify.selectAppointment");
         }
     }
+
+    /**
+     * Updates the appointment table based on the selected tab.
+     */
     @FXML
     private void updateTable() {
         ZonedDateTime now = ZonedDateTime.now(Instance.SYSTEMZONEID);
@@ -151,6 +190,14 @@ public class CalendarView extends Controller implements Initializable {
             appointmentsTable.setItems(getAppointments(now, before));
         }
     }
+
+    /**
+     * Gets the appointments from the customers list of associated appointment and compare to the params to see if it's
+     * between those dates.
+     * @param after the start date to compare to. Usually today's date.
+     * @param before the end date to compare to.
+     * @return
+     */
     protected ObservableList<Appointment> getAppointments(ZonedDateTime after, ZonedDateTime before) {
         ObservableList<Appointment> returnList = FXCollections.observableArrayList();
 
@@ -162,18 +209,4 @@ public class CalendarView extends Controller implements Initializable {
         }
         return returnList;
     }
-/*
-    private ObservableList<Appointment> getAppointments(){
-        ObservableList<Appointment> returnList = FXCollections.observableArrayList();
-        LocalDateTime now = LocalDateTime.now();
-
-        for (Appointment appointment : associatedAppointments){
-            LocalDateTime appointmentDate = appointment.getStartDate();
-            if (appointmentDate.isAfter(now)) {
-                returnList.add(appointment);
-            }
-        }
-        return returnList;
-    }
-*/
 }
