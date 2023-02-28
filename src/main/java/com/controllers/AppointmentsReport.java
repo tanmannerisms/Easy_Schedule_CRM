@@ -43,6 +43,9 @@ public class AppointmentsReport extends Controller implements Initializable {
     @FXML
     private TableColumn<Appointment, String> startColumn, endColumn;
 
+    /**
+     * Constructor used to set a ZonedDateTime at the start of today.
+     */
     public AppointmentsReport() {
         // Set date to Jan 1 of current year
         LocalDate today = LocalDate.now();
@@ -50,6 +53,16 @@ public class AppointmentsReport extends Controller implements Initializable {
         LocalTime time = LocalTime.of(0,0);
         now = ZonedDateTime.of(january,time,Instance.SYSTEMZONEID);
     }
+
+    /**
+     * Calls the methods to populate ComboBoxes and establish the table column getters.
+     * @param url passed in from the FXMLLoader in Window.java
+     * @param resourceBundle passed in from the FXMLLoader in Window.java
+     * @see #populateTypes()
+     * @see #populateCustomers()
+     * @see #populateMonths()
+     * @see #setTableColumns()
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         populateCustomers();
@@ -58,6 +71,10 @@ public class AppointmentsReport extends Controller implements Initializable {
 
         setTableColumns();
     }
+
+    /**
+     * Sets the getters for the table columns in the appointments table.
+     */
     private void setTableColumns() {
         idColumn.setCellValueFactory(new PropertyValueFactory<>("AppointmentId"));
         titleColumn.setCellValueFactory(new PropertyValueFactory<>("Title"));
@@ -65,6 +82,10 @@ public class AppointmentsReport extends Controller implements Initializable {
         startColumn.setCellValueFactory(new PropertyValueFactory<>("FormattedStartDate"));
         endColumn.setCellValueFactory(new PropertyValueFactory<>("FormattedEndDate"));
     }
+
+    /**
+     * Queries the appointments table to get all the unique types. Adds the returned values to the types list.
+     */
     private void populateTypes() {
         try {
             ResultSet rs = Query.selectUnique("type", "appointments");
@@ -77,6 +98,10 @@ public class AppointmentsReport extends Controller implements Initializable {
         }
         typeSelector.setItems(types);
     }
+
+    /**
+     * Sets the values of the month ComboBox to each month of the year.
+     */
     private void populateMonths() {
         ObservableList<Month> months = FXCollections.observableArrayList();
         int year = now.getYear();
@@ -87,12 +112,22 @@ public class AppointmentsReport extends Controller implements Initializable {
         now = now.withYear(year);
         monthSelector.setItems(months);
     }
+
+    /**
+     * Sets the values of the customer ComboBox to their IDs and names.
+     */
     private void populateCustomers() {
         for (Customer customer : CUSTOMERS) {
             customerNames.add(customer.getId() + " : " + customer.getName());
         }
         customerSelector.setItems(customerNames);
     }
+
+    /**
+     * Gets the selected value from the Type ComboBox and updates the table if the other ComboBoxes are not null.
+     * @param actionEvent the action event fired by the button.
+     * @see #updateTable(ActionEvent)
+     */
     @FXML
     private void selectType(ActionEvent actionEvent) {
         type = null;
@@ -103,6 +138,12 @@ public class AppointmentsReport extends Controller implements Initializable {
         }
         actionEvent.consume();
     }
+
+    /**
+     * Gets the selected value from the Month ComboBox and updates the table if the other ComboBoxes are not null.
+     * @param actionEvent the action event fired by the button.
+     * @see #updateTable(ActionEvent)
+     */
     @FXML
     private void selectMonth(ActionEvent actionEvent) {
         month = null;
@@ -113,6 +154,12 @@ public class AppointmentsReport extends Controller implements Initializable {
         }
         actionEvent.consume();
     }
+
+    /**
+     * Gets the selected value of the Customer ComboBox and updates the table if the other ComboBoxes are not null.
+     * @param actionEvent the action event fired by the button.
+     * @see #updateTable(ActionEvent)
+     */
     @FXML
     private void selectCustomer(ActionEvent actionEvent) {
         String customerName = customerSelector.getValue();
@@ -125,6 +172,11 @@ public class AppointmentsReport extends Controller implements Initializable {
         }
         actionEvent.consume();
     }
+
+    /**
+     * Updates the table with a list of appointments matching the values selected in the ComboBoxes
+     * @param actionEvent the action event fired by the button.
+     */
     private void updateTable(ActionEvent actionEvent) {
     tableAppointments.clear();
         for (Appointment appointment : customerAppointments) {
