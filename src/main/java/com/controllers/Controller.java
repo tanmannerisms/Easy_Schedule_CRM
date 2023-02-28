@@ -21,7 +21,7 @@ public abstract class Controller {
 
 
     /**
-     * ADD A openNotifyWindow HERE.
+     * Method used to open a notify window that has multiple messages.
      */
     protected void openNotifyWindow(ActionEvent actionEvent, String ... message) {
         ErrorWindow notifyWindow = new ErrorWindow(message);
