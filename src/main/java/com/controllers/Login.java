@@ -32,6 +32,11 @@ public class Login extends Controller implements Initializable {
     private FileHandler loginHandler;
     private final Logger loginLogger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);;
 
+    /**
+     * Sets the label value of the timezone and creates a login logger.
+     * @param url passed from FXMLLoader.
+     * @param resourceBundle passed from FXMLLoader.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         tzLabel.setText(resourceBundle.getString("label.timezone") + Instance.SYSTEMZONEID);
@@ -43,6 +48,12 @@ public class Login extends Controller implements Initializable {
         }
 
     }
+
+    /**
+     * Method called when the login button is clicked. Validates credentials and opens main menu if creds are correct.
+     * Logs successful login.
+     * @param actionEvent fired by the button. Used to open the next window.
+     */
     @FXML
     private void login(ActionEvent actionEvent) {
         if (validateCredentials(actionEvent)) {
@@ -53,6 +64,12 @@ public class Login extends Controller implements Initializable {
         }
         else openNotifyWindow(actionEvent, "error.incorrectCreds");
     }
+
+    /**
+     * Runs a query to get the login credentials for the specified user.
+     * @param actionEvent passed in from login method.
+     * @return true if credentials entered equal credentials queried.
+     */
     @FXML
     private boolean validateCredentials(ActionEvent actionEvent) {
         inputUsername = userNameField.getText();
@@ -65,12 +82,23 @@ public class Login extends Controller implements Initializable {
         actionEvent.consume();
         return false;
     }
+
+    /**
+     * Checks the input username against the username provided by the query. Probably don't need this as the query will
+     * fail if no matching username is found.
+     * @return true if matches, false otherwise.
+     */
     private boolean validateUsername() {
         if (user.getUsername() != null) {
             if (user.getUsername().equals(inputUsername)) return true;
         }
         return false;
     }
+
+    /**
+     * Compares the input password against the password returned by query. Logs whether the password was incorrect.
+     * @return true if passwords match.
+     */
     private boolean validatePassword() {
         if (user.getPassword().equals(inputPassword)) return true;
         else {
@@ -78,6 +106,10 @@ public class Login extends Controller implements Initializable {
             return false;
         }
     }
+
+    /**
+     * Queries the database for a user matching the input username and creates a User object.
+     */
     private void queryUser() {
         ResultSet results = Query.selectConditional(
                 "User_Id, User_Name, Password",
@@ -98,6 +130,11 @@ public class Login extends Controller implements Initializable {
             System.out.println(e.getMessage());
         }
     }
+
+    /**
+     * Checks to see if there are any appointments within 15 minutes of a user logging in.
+     * @param actionEvent used to open the notify window.
+     */
     private void checkUpcomingAppointments(ActionEvent actionEvent) {
         boolean upcomingAppointments = false;
         ZonedDateTime now = ZonedDateTime.now(Instance.SYSTEMZONEID);
