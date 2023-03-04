@@ -232,12 +232,7 @@ public class AppointmentManagement extends Controller implements Initializable {
         LocalDate selectedDay = startDatePicker.getValue();
         ZonedDateTime businessHourStart = ZonedDateTime.of(selectedDay, LocalTime.of(8,00),Instance.BUSINESSZONEID);
         ZonedDateTime businessHourEnd = ZonedDateTime.of(selectedDay, LocalTime.of(22,0), Instance.BUSINESSZONEID);
-        if (start.getDayOfWeek().equals(DayOfWeek.SATURDAY) ||
-            start.getDayOfWeek().equals(DayOfWeek.SUNDAY) ||
-            end.getDayOfWeek().equals(DayOfWeek.SATURDAY) ||
-            end.getDayOfWeek().equals(DayOfWeek.SUNDAY) ||
-            (start.isBefore(businessHourStart) || end.isAfter(businessHourEnd))
-        ) {
+        if (start.isBefore(businessHourStart) || end.isAfter(businessHourEnd)) {
             openNotifyWindow(actionEvent, "notify.businessHours");
             return false;
         }
