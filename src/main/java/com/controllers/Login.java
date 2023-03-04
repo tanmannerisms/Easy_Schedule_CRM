@@ -89,7 +89,7 @@ public class Login extends Controller implements Initializable {
      * @return true if matches, false otherwise.
      */
     private boolean validateUsername() {
-        if (user.getUsername() != null) {
+        if (user != null) {
             if (user.getUsername().equals(inputUsername)) return true;
         }
         return false;
