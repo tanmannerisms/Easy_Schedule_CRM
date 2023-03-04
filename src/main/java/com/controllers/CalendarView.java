@@ -150,7 +150,9 @@ public class CalendarView extends Controller implements Initializable {
                 openNotifyWindow(actionEvent, "notify.appointmentWithId",
                         String.valueOf(appointment.getAppointmentId()),
                         "word.deletion",
-                        "notify.success"
+                        "notify.success",
+                        "notify.appointmentType",
+                        appointment.getType()
                 );
                 associatedAppointments.remove(appointment);
             }
