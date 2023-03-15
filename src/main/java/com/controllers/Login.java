@@ -92,6 +92,9 @@ public class Login extends Controller implements Initializable {
         if (user != null) {
             if (user.getUsername().equals(inputUsername)) return true;
         }
+        else {
+            loginLogger.log(Level.INFO, "Incorrect username entered. Input username: \"" + inputUsername + "\"");
+        }
         return false;
     }
 
