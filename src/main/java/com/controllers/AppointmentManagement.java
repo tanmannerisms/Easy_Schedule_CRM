@@ -27,7 +27,7 @@ public class AppointmentManagement extends Controller implements Initializable {
     @FXML
     private TextField idField, customerField, titleField, descriptionField, locationField, typeField;
     @FXML
-    private DatePicker startDatePicker, endDatePicker;
+    public DatePicker startDatePicker, endDatePicker;
     @FXML
     private ComboBox<String> contactSelector;
     @FXML
@@ -194,6 +194,7 @@ public class AppointmentManagement extends Controller implements Initializable {
             openNotifyWindow(actionEvent, "notify.startEndSame");
         }
         if (!inBusinessHours(startDateTime, endDateTime, actionEvent)) {
+            openNotifyWindow(actionEvent, "notify.businessHours");
             return false;
         }
         if (overlappingAppointments(startDateTime, endDateTime, actionEvent)) {
@@ -228,12 +229,11 @@ public class AppointmentManagement extends Controller implements Initializable {
      * @param actionEvent the action event passed in, used to open the error window.
      * @return true if values specified are within business hours and false if not.
      */
-    private boolean inBusinessHours(ZonedDateTime start, ZonedDateTime end, ActionEvent actionEvent) {
+    public boolean inBusinessHours(ZonedDateTime start, ZonedDateTime end, ActionEvent actionEvent) {
         LocalDate selectedDay = startDatePicker.getValue();
-        ZonedDateTime businessHourStart = ZonedDateTime.of(selectedDay, LocalTime.of(8,00),Instance.BUSINESSZONEID);
+        ZonedDateTime businessHourStart = ZonedDateTime.of(selectedDay, LocalTime.of(8,0),Instance.BUSINESSZONEID);
         ZonedDateTime businessHourEnd = ZonedDateTime.of(selectedDay, LocalTime.of(22,0), Instance.BUSINESSZONEID);
         if (start.isBefore(businessHourStart) || end.isAfter(businessHourEnd)) {
-            openNotifyWindow(actionEvent, "notify.businessHours");
             return false;
         }
         return true;
