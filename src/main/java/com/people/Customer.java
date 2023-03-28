@@ -31,9 +31,6 @@ public class Customer extends Person{
     public void setDivisionId(int divisionId) {
         this.divisionId = divisionId;
     }
-    public Division getDivision() {
-        return Instance.getDivision(divisionId);
-    }
     public String  getDivisionName() {
         return Instance.getDivision(divisionId).getName();
     }

@@ -16,9 +16,6 @@ import javafx.scene.control.TextField;
 
 import java.net.URL;
 import java.time.*;
-import java.time.chrono.ChronoLocalDateTime;
-import java.time.chrono.Chronology;
-import java.time.temporal.TemporalAccessor;
 import java.util.ResourceBundle;
 
 public class AppointmentManagement extends Controller implements Initializable {

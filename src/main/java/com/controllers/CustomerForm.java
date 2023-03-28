@@ -95,7 +95,10 @@ public class CustomerForm extends Controller implements Initializable {
         addressField.setText(customer.getAddress());
         postalCodeField.setText(customer.getPostalCode());
         phoneNumberField.setText(customer.getPhoneNumber());
-        countrySelector.setValue(Instance.getCountry(customer.getDivision().getCountryId()).getName());
+        countrySelector.setValue(
+                Instance.getCountry(
+                        Instance.getDivision(customer.getDivisionId()).getCountryId()
+                ).getName());
         setDivisionSelectorOptions();
         divisionSelector.setValue(Instance.getDivision(customer.getDivisionId()).getName());
     }
