@@ -214,7 +214,7 @@ public abstract class Instance {
      * @param customer the new customer to try adding to the database.
      * @see Query#insert(String, String, String...)
      */
-    public static void addCustomer(Customer customer) {
+    public static boolean addCustomer(Customer customer) {
         long now = getCurrentDateTime();
         if (Query.insert(
                 "customers",
@@ -238,9 +238,13 @@ public abstract class Instance {
                 while (resultSet.next()) {
                     customer.setId(resultSet.getInt(1));
                 }
-            } catch (SQLException e){}
+            } catch (SQLException e){
+                e.printStackTrace();
+            }
             allCustomers.add(customer);
+            return true;
         }
+        else return false;
     }
 
     /**
