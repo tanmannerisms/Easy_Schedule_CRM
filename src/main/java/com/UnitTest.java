@@ -33,9 +33,6 @@ public class UnitTest {
         LocalTime endTime = LocalTime.of(10,0);
         ZonedDateTime endDateTime = ZonedDateTime.of(today, endTime, Instance.BUSINESSZONEID);
 
-        testController.startDatePicker = new DatePicker();
-        testController.startDatePicker.setValue(today);
-
         boolean result = testController.inBusinessHours(startDateTime, endDateTime, new ActionEvent());
 
         assertTrue(result);
@@ -50,9 +47,6 @@ public class UnitTest {
 
         LocalTime endTime = LocalTime.of(8,0);
         ZonedDateTime endDateTime = ZonedDateTime.of(today, endTime, Instance.BUSINESSZONEID);
-
-        testController.startDatePicker = new DatePicker();
-        testController.startDatePicker.setValue(today);
 
         boolean result = testController.inBusinessHours(startDateTime, endDateTime, new ActionEvent());
 

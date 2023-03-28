@@ -227,7 +227,7 @@ public class AppointmentManagement extends Controller implements Initializable {
      * @return true if values specified are within business hours and false if not.
      */
     public boolean inBusinessHours(ZonedDateTime start, ZonedDateTime end, ActionEvent actionEvent) {
-        LocalDate selectedDay = startDatePicker.getValue();
+        LocalDate selectedDay = LocalDate.from(start);
         ZonedDateTime businessHourStart = ZonedDateTime.of(selectedDay, LocalTime.of(8,0),Instance.BUSINESSZONEID);
         ZonedDateTime businessHourEnd = ZonedDateTime.of(selectedDay, LocalTime.of(22,0), Instance.BUSINESSZONEID);
         if (start.isBefore(businessHourStart) || end.isAfter(businessHourEnd)) {
