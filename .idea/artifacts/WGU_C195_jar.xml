@@ -17,6 +17,8 @@
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-graphics/18.0.2/javafx-graphics-18.0.2-win.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/google/protobuf/protobuf-java/3.21.9/protobuf-java-3.21.9.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/junit/junit/4.13/junit-4.13.jar" path-in-jar="/" />
+      <element id="module-source" name="WGU_C195" />
+      <element id="library" level="project" name="lib" />
     </root>
   </artifact>
 </component>

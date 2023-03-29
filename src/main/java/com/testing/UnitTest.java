@@ -1,4 +1,4 @@
-package com;
+package com.testing;
 import com.controllers.AppointmentManagement;
 import com.easyschedule.Instance;
 import com.people.Customer;
@@ -7,8 +7,8 @@ import com.utils.JDBC;
 import com.utils.Query;
 import de.saxsys.javafx.test.JfxRunner;
 import javafx.event.ActionEvent;
-import javafx.scene.control.DatePicker;
 import org.junit.Test;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.runner.RunWith;
 
 import java.sql.ResultSet;
@@ -38,6 +38,7 @@ public class UnitTest {
         assertTrue(result);
     }
     @Test
+    @DisplayName("Disallow appointment outside business hours.")
     public void notInBusinessHours() {
         AppointmentManagement testController = new AppointmentManagement();
 

@@ -4,6 +4,7 @@ module com.easyschedule.wgu_c195 {
     requires java.sql;
     requires junit;
     requires jfx.testrunner;
+    requires org.junit.jupiter.api;
 
 
     opens com.easyschedule to javafx.fxml;
@@ -16,5 +17,5 @@ module com.easyschedule.wgu_c195 {
     opens com.people to javafx.fxml;
     exports com.location;
     opens com.location to javafx.fxml;
-    exports com to junit;
+    exports com.testing to junit;
 }
